@@ -153,12 +153,15 @@
     #gnome3.gconf
     
     yadm
+    gnupg1orig
 
     # i3
     #i3status
     #dmenu
 
     mkpasswd
+
+    nix-prefetch-git
 
   ];
 }
