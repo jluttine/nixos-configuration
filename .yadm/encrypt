@@ -1,2 +1,2 @@
-users.nix*
-configuration.nix*
+users.nix##*
+system.nix##*
