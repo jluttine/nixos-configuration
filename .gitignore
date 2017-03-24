@@ -4,5 +4,7 @@ hardware-configuration.nix
 .yadm/config
 
 # Ignore symbolic links
-users.nix
-version.nix
+hostname/default.nix
+system/default.nix
+users/default.nix
+version/default.nix
