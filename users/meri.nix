@@ -3,7 +3,7 @@
     ./meri-password.nix
   ];
 
-  users.users.jluttine = {
+  users.users.meri = {
     description = "Meri Luttinen";
     home = "/home/meri";
     isNormalUser = true;
