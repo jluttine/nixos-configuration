@@ -4,18 +4,12 @@ My personal NixOS configurations. Clone the repository:
 
 ```
 git clone https://username@github.com/jluttine/nixos-configuration /etc/nixos
-```
-
-Symlink the desired configuration:
-
-```
 cd /etc/nixos
-ln -s some.nix configuration.nix
 ```
 
-If needed, first create a new configuration and modify it to your needs:
+Decrypt some encrypted configuration:
+```
+yadm -Y /etc/nixos/.yadm decrypt
+``` 
 
-```
-cp template.nix givename.nix
-vim givename.nix
-```
+If your hostname isn't included in the configuration file alternatives, symlinks aren't created properly. See Yadm manuals for more information.
