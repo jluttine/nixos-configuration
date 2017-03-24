@@ -1,0 +1,6 @@
+{
+  imports = [
+    ./users/root.nix,
+    ./users/jluttine.nix
+  ];
+}

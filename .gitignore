@@ -1,1 +1,7 @@
 hardware-configuration.nix
+*-password.nix*
+.yadm/repo.git
+.yadm/config
+
+# Ignore symbolic links
+users.nix
