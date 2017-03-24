@@ -1,6 +1,6 @@
 {
   imports = [
-    ./users/root.nix,
+    ./users/root.nix
     ./users/jluttine.nix
   ];
 }

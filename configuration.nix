@@ -94,19 +94,6 @@
     ];
   };
 
-  users.users = {
-    root = {
-      isNormalUser = false;
-    };
-    jluttine = {
-      description = "Jaakko Luttinen";
-      home = "/home/jluttine";
-      isNormalUser = true;
-      uid = 1000;
-      extraGroups = [ "wheel" "networkmanager" ];
-    };
-  };
-
   # Add support for GConf (GNOME applications). See:
   # https://nixos.org/wiki/Solve_GConf_errors_when_running_GNOME_applications
   # services.dbus.packages = [ pkgs.gnome3.gconf ];
