@@ -5,3 +5,4 @@ hardware-configuration.nix
 
 # Ignore symbolic links
 users.nix
+version.nix
