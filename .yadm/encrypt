@@ -1,3 +1,2 @@
-system.nix##*
-
+system/default.nix##*
 users/*-password.nix##*
