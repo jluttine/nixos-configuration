@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./version.nix
       ./system.nix
       ./users.nix
     ];
@@ -17,9 +18,6 @@
   boot.loader.grub.version = 2;
 
   networking.networkmanager.enable = true;
-  #networking.wireless.enable = true;
-  #networking.wireless.networks = {
-  #};
 
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
@@ -69,11 +67,6 @@
 
   # Immutable users and groups
   users.mutableUsers = false;
-
-  # The NixOS release to be compatible with for stateful data such as databases.
-  #system.stateVersion = "16.03";
-  system.stateVersion = "unstable";
-  #system.stateVersion = "17.03";
 
   fonts = {
     enableFontDir = true;
