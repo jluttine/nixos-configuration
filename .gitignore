@@ -8,3 +8,5 @@ hostname/default.nix
 system/default.nix
 users/default.nix
 version/default.nix
+services/default.nix
+services/nginx/default.nix

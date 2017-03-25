@@ -12,6 +12,7 @@
       ./hostname
       ./system
       ./users
+      ./services
     ];
 
   # Use the GRUB 2 boot loader.
@@ -151,6 +152,9 @@
     
     # Connect desktop and phone
     kdeconnect
+
+    # Required by KDE Plasma widget Redshift Control (not the default, but the extra one installed. Doesn't work anyway..)
+    #qt57.qtgraphicaleffects
 
     # Drop-down terminal
     #guake

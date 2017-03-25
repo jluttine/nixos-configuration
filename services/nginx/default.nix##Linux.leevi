@@ -1,0 +1,28 @@
+{ pkgs, ...}:
+
+{
+
+  services.nginx = {
+    enable = true;
+
+    #clientMaxBodySize = ???;
+
+    virtualHosts = {
+
+      "nipsu.fi" = {
+        serverName = "nipsu.fi";
+        default = true;
+        enableSSL = false;
+        forceSSL = false;
+        locations = {
+          "/" = {
+            root = "/var/www/nipsu.fi";
+            index = "index.html";
+            extraConfig = "autoindex on;";
+          };
+        };
+      };
+
+    };
+  };
+}
