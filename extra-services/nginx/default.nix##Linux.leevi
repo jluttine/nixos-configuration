@@ -2,9 +2,9 @@
 
 {
 
-  #imports = [
-  #  ./nextcloud.nix
-  #];
+  imports = [
+    ./nextcloud.nix
+  ];
 
   services.nginx = {
     enable = true;
@@ -15,7 +15,7 @@
 
       "nipsu.fi" = {
         serverName = "nipsu.fi";
-        default = true;
+        default = false;
         enableSSL = false;
         forceSSL = false;
         locations = {
