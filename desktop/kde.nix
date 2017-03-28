@@ -76,17 +76,6 @@
     # Photo manager
     digikam5
 
-    # Instant messaging
-    cutegram
-    linphone
-    pybitmessage
-
-    # OpenStreetMap editor
-    josm
-
-    # 3D modelling
-    blender
-
     # Photo/image editor
     gwenview
     gimp
