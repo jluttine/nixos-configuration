@@ -9,22 +9,55 @@
     uid = 300;
   };
 
-  # NOTE: Nextcloud installation by Nix should be kept immutable:
+  # NOTE: Nextcloud installation by Nix should be kept immutable. Thus, the
+  # following files/directories need to be writable by Nextcloud, thus they need
+  # to be outside Nix store:
   #
-  # - Use config directory outside Nix store (NEXTCLOUD_CONFIG_DIR)
-  # - Use data directory outside Nix store
-  # - Use apps directory outside Nix store
-  # - Disable app store
+  # - config/ (set with NEXTCLOUD_CONFIG_DIR)
+  # - data/ (set at first login and datadirectory in config.php)
+  # - apps/ (apps_paths in config.php, or disable app store)
+  # - assets/ (assetdirectory in config.php)
+  # - themes/ (??? how to set?)
+  # - mount.json (mount_file in config.php, defaults to /var/www/nextcloud/data/mount.json)
   #
   # One needs to create the NEXTCLOUD_CONFIG_DIR manually.
   #
   # mkdir -p /var/nextcloud/config
   # mkdir -p /var/nextcloud/data
-  # mkdir -p /var/nextcloud/apps
+  # mkdir -p /var/nextcloud/apps-local
+  # mkdir -p /var/nextcloud/assets
   # chown -R nextcloud:nextcloud /var/nextcloud
-  # chmod -R o-rwx /var/nextcloud
+  # chmod -R o-rwx /var/nextcloud/config
+  # chmod -R o-rwx /var/nextcloud/data
+  # TODO/FIXME: The web server (nginx) needs read access to the custom apps dir (apps-local). Either have o+rx or set chgrp to nginx with o-rwx?
   #
   # Edit config.php:
+  #
+  # alias occ="sudo -u NEXTCLOUD_CONFIG_DIR="/var/www/nextcloud/config" nextcloud ${pkgs.php}/bin/php ${pkgs.nextcloud}/occ"
+  #
+  # Path configurations:
+  # occ config:system:set assetdirectory --value="/var/www/nextcloud/assets"
+  # occ config:system:set datadirectory --value="/var/www/nextcloud/data"
+  # occ config:system:set mount_file --value="/var/www/nextcloud/data/mount.json"
+  # ## OR? occ config:system:set apps_paths 0 path --value='OC::$SERVERROOT."/apps"'
+  # occ config:system:set apps_paths 0 path --value="${pkgs.nextcloud}/apps"
+  # occ config:system:set apps_paths 0 url --value="/apps"
+  # occ config:system:set apps_paths 0 writable --value=false --type=boolean
+  # occ config:system:set apps_paths 1 path --value="/var/www/nextcloud/apps-local"'   # use the same dir name as below so no need to rewrite in nginx
+  # occ config:system:set apps_paths 1 url --value="/apps-local"   # this is used by nginx to detect assets that are to be served from different web root
+  # occ config:system:set apps_paths 1 writable --value=true --type=boolean
+  #
+  # Database settings:
+  # occ config:system:set dbtype --value="mysql"
+  # occ config:system:set dbhost --value="localhost"
+  # occ config:system:set dbport --value=""
+  # occ config:system:set dbname --value="nextcloud"
+  # occ config:system:set dbuser --value="nextcloud"
+  # occ config:system:set dbpassword --value="password"
+  #
+  # Trusted domains:
+  # occ config:system:set trusted_domains 0 --value="localhost"
+  # occ config:system:set trusted_domains 1 --value="mydomain.com"
   #
   # <?php
   # $CONFIG = array (
@@ -142,12 +175,26 @@
         '';
       };
       # CSS and JavaScript files
-      "~* \\.(?:css|js)$" = {
+      "~* ^/(?!apps-local).*\\.(?:css|js)$" = {
         tryFiles = "$uri /index.php$uri$is_args$args";
       };
       # Other static assets
-      "~* \\.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg)$" = {
+      "~* ^/(?!apps-local).*\\.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg)$" = {
         tryFiles = "$uri /index.php$uri$is_args$args";
+      };
+      # Locally installed apps:
+      #
+      # No need to specify location for PHP files of installed apps???
+      #
+      # CSS and JavaScript files for installed apps
+      "~* ^/apps-local/.*\\.(?:css|js)$" = {
+        root = "/var/nextcloud";
+        tryFiles = "$uri =404";
+      };
+      # Other static assets for installed apps
+      "~* ^/apps-local/.*\\.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg)$" = {
+        root = "/var/nextcloud";
+        tryFiles = "$uri =404";
       };
       "~ ^/(?:build|tests|config|lib|3rdparty|templates|data|\\.|autotest|occ|issue|indie|db_|console)" = {
         extraConfig = "deny all;"; 
