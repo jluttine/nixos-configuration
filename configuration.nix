@@ -21,6 +21,9 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
 
+  # Splash screen at boot time
+  boot.plymouth.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Helsinki";
 
@@ -72,6 +75,8 @@
     git
     hdf5
     zip
+    htop
+    nix-repl
 
     # Text editors
     vim
