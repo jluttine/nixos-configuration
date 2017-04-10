@@ -14,7 +14,9 @@
     blender
 
     # Instant messaging
-    cutegram
+    #cutegram
+    tdesktop
+    qtox
     linphone
     pybitmessage
 
