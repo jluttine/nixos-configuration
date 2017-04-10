@@ -3,7 +3,9 @@
 {
 
   imports = [
-    ./nextcloud.nix
+    #./nextcloud-new.nix
+    #./nextcloud.nix
+    ./nextcloud-service.nix
   ];
 
   services.nginx = {
@@ -27,6 +29,16 @@
         };
       };
 
+    };
+  };
+
+  services.webapps.nextcloud = {
+    enable = true;
+    serverConfig = {
+      vhost = "nipsu.fi";
+      server = "nginx";
+      user = "nginx";
+      group = "nginx";
     };
   };
 }
