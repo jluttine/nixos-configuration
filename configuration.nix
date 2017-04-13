@@ -34,8 +34,19 @@
   users.mutableUsers = false;
 
   # Networking
-  networking.networkmanager.enable = true;
-  networking.firewall.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      # Enable PPTP VPN
+      connectionTrackingModules = [ "pptp" ];
+      #autoLoadConntrackHelpers = true;
+      extraCommands = ''
+        iptables -A INPUT -p 47 -j ACCEPT
+        iptables -A OUTPUT -p 47 -j ACCEPT
+      '';
+    };
+  };
 
   # Hardware
   hardware.bluetooth.enable = true;
