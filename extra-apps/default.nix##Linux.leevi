@@ -20,5 +20,8 @@
     linphone
     pybitmessage
 
+    # Programming
+    emacs
+
   ];
 }

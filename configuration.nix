@@ -80,7 +80,7 @@
 
   # Fundamental core packages
   environment.systemPackages = with pkgs; [
- 
+
     # Basic command line tools
     bash
     git
