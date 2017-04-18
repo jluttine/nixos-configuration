@@ -12,7 +12,7 @@ with lib;
   };
 
   # Create system configurations based on Nextcloud configuration
-  config = (import ./nextcloud-config.nix) { inherit pkgs; inherit lib; cfg = config.services.webapps.nextcloud; };
+  config = (import ./nextcloud-config.nix) { inherit pkgs; inherit lib; globalConfig = config; cfg = config.services.webapps.nextcloud; };
  
 }
 

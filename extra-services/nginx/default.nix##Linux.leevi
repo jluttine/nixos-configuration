@@ -40,5 +40,7 @@
       user = "nginx";
       group = "nginx";
     };
+    adminPassword = "salasanapassword";
+    dbName = "nextcloud";
   };
 }
