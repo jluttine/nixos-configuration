@@ -88,9 +88,12 @@
     zip
     htop
     nix-repl
+    yle-dl
 
     # Text editors
     vim
+    neovim
+    xclip  # system clipboard support for vim
 
     # VPN
     pptp
