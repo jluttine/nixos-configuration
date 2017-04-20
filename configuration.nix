@@ -51,6 +51,7 @@
   # Hardware
   hardware.bluetooth.enable = true;
   hardware.pulseaudio.enable = true;
+  #hardware.opengl.enable = true;
 
   # Printing
   services.printing = {
@@ -67,6 +68,7 @@
       inconsolata # monospaced
       unifont # some international languages
       font-awesome-ttf
+      source-code-pro
       freefont_ttf
       opensans-ttf
       liberation_ttf
@@ -83,6 +85,9 @@
 
     # Basic command line tools
     bash
+    wget
+    file
+    gksu
     git
     hdf5
     zip
@@ -90,10 +95,15 @@
     nix-repl
     yle-dl
 
+    # Gamin: a file and directory monitoring system
+    fam
+
     # Text editors
     vim
     neovim
     xclip  # system clipboard support for vim
+
+    owncloud-client
 
     # VPN
     pptp
