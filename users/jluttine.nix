@@ -3,11 +3,13 @@
     ./jluttine-password.nix
   ];
 
-  users.users.jluttine = {
+  users.extraGroups.jluttine.gid = 1000;
+
+  users.extraUsers.jluttine = {
     description = "Jaakko Luttinen";
     home = "/home/jluttine";
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "jluttine" "wheel" "networkmanager" ];
   };
 }

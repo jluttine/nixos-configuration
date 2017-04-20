@@ -3,7 +3,7 @@
     ./root-password.nix
   ];
 
-  users.users.root = {
+  users.extraUsers.root = {
     isNormalUser = false;
   };
 }
