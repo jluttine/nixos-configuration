@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
       ./version
       ./hostname
-      ./system
+      ./filesystems
       ./users
       ./desktop
       ./extra-apps

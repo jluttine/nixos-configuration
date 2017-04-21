@@ -4,7 +4,6 @@ hardware-configuration.nix
 
 # Ignore encrypted files
 *-password.nix*
-system/*
 
 # Ignore symbolic links
 hostname/default.nix
@@ -15,6 +14,7 @@ extra-apps/default.nix
 extra-services/default.nix
 extra-services/nginx/default.nix
 desktop/de.nix
+filesystems/default.nix
 
 
 # Ignore swap files
