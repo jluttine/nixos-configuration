@@ -50,6 +50,7 @@
 
     # Printing and scanning
     kdeApplications.print-manager
+    simple-scan
 
     # Document readers
     okular
