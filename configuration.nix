@@ -49,14 +49,20 @@
   };
 
   # Hardware
-  hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = true;
-  #hardware.opengl.enable = true;
+  hardware = {
+    bluetooth.enable = true;
+    pulseaudio.enable = true;
+    #opengl.enable = true;
+  };
 
-  # Printing
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.gutenprint ];
+  services = {
+    # Automatic device mounting daemon
+    devmon.enable = true;
+    # Printing
+    printing = {
+      enable = true;
+      drivers = [ pkgs.gutenprint ];
+    };
   };
 
   # Fonts
