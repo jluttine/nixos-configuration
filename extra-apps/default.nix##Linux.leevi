@@ -23,5 +23,10 @@
     # Programming
     emacs
 
+    # Separate tiling window manager
+    #i3
+
+    patchelf
+
   ];
 }
