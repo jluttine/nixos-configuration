@@ -52,6 +52,10 @@
   hardware = {
     bluetooth.enable = true;
     pulseaudio.enable = true;
+    sane = {
+      enable = true;
+      #extraBackends = [ pkgs.hplipWithPlugin ];
+    };
     #opengl.enable = true;
   };
 

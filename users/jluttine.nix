@@ -8,8 +8,9 @@
   users.extraUsers.jluttine = {
     description = "Jaakko Luttinen";
     home = "/home/jluttine";
+    group = "jluttine";
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "jluttine" "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 }

@@ -52,6 +52,7 @@
 
     # Printing and scanning
     kdeApplications.print-manager
+    simple-scan
 
     # Document readers
     okular
@@ -71,21 +72,11 @@
     # Vector graphics
     inkscape
 
-    # Bitcoin
-    electrum
-    zbar
-
-    # Photo manager
-    digikam5
-
     # Photo/image editor
     gwenview
     gimp
     gimpPlugins.resynthesizer
     gimpPlugins.ufraw
-
-    # Panorama stitcher
-    hugin
 
     # Media player
     vlc

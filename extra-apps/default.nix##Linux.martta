@@ -5,6 +5,9 @@
 { pkgs, ... }:
 
 {
+
+  nixpkgs.config.allowUnfree = true;
+
   environment.systemPackages = with pkgs; [
  
     # Instant messaging
@@ -12,7 +15,8 @@
     qtox
     linphone
 
-    dropbox-cli
+    #dropbox-cli
+    dropbox
 
   ];
 }

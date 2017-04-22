@@ -13,12 +13,22 @@
     # 3D modelling
     blender
 
+    # Photo manager
+    digikam5
+
+    # Panorama stitcher
+    hugin
+
     # Instant messaging
     #cutegram
     tdesktop
     qtox
     linphone
     pybitmessage
+
+    # Bitcoin
+    electrum
+    zbar
 
     # Programming
     emacs
