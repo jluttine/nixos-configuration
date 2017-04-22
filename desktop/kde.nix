@@ -33,6 +33,8 @@
     ksshaskpass
     kgpg
 
+    kdeplasma-addons
+
     # Bluetooth
     bluedevil
 
