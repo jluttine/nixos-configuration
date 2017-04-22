@@ -8,8 +8,9 @@
   users.extraUsers.meri = {
     description = "Meri Luttinen";
     home = "/home/meri";
+    group = "meri";
     isNormalUser = true;
     uid = 1001;
-    extraGroups = [ "meri" "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 }
