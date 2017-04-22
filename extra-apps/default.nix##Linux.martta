@@ -12,7 +12,7 @@
     qtox
     linphone
 
-    dropbox-cli
+    #dropbox-cli
 
   ];
 }
