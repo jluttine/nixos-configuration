@@ -5,6 +5,6 @@
 
   services.xserver.displayManager.sddm.autoLogin = {
     enable = true;
-    user = "jluttine";
+    user = "meri";
   };
 }
