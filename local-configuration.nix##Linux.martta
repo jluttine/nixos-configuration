@@ -1,0 +1,24 @@
+{ users, pkgs, svcs }:
+{
+  hostName = "martta";
+  grubDevice = "/dev/sda";
+  version = "17.03";
+  users = with users; [
+    (jluttine { sudo = true; })
+    (meri { sudo = true; })
+  ];
+  desktop = "kde";
+  extraServices = with svcs; [
+  ];
+  allowUnfree = true;
+  extraPackages = with pkgs; [
+
+    # Instant messaging
+    tdesktop
+    qtox
+    linphone
+
+    dropbox
+
+  ];
+}

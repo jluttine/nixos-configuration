@@ -3,18 +3,10 @@ hardware-configuration.nix
 .yadm/config
 
 # Ignore encrypted files
-*-password.nix*
+passwords
 
-# Ignore symbolic links
-hostname/default.nix
-system/default.nix
-users/default.nix
-version/default.nix
-extra-apps/default.nix
-extra-services/default.nix
-extra-services/nginx/default.nix
-desktop/de.nix
-filesystems/default.nix
+# Ignore (symbolic link to) local configuration
+local-configuration.nix
 
 
 # Ignore swap files
