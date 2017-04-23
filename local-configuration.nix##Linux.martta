@@ -7,7 +7,7 @@
     (jluttine { sudo = true; })
     (meri { sudo = true; })
   ];
-  desktop = "kde";
+  desktopEnvironment = "kde";
   extraServices = with svcs; [
   ];
   allowUnfree = true;
