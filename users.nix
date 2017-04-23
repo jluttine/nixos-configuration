@@ -9,7 +9,7 @@ let
       description = realname;
       uid = id;
       group = username;
-      extraGroups = [ "networkmanager" ] ++ (
+      extraGroups = [ "networkmanager" "users" ] ++ (
         if sudo then [ "wheel" ] else []
       );
       home = "/home/${username}";
