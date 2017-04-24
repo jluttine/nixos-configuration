@@ -38,6 +38,9 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
 
     kdeplasma-addons
 
+    # Screenshots
+    kdeApplications.spectacle
+
     # Bluetooth
     bluedevil
 
