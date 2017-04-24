@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./desktop-environments
+    ./extra-services
   ];
 
   # Local configuration options
@@ -39,19 +40,13 @@
       type = types.listOf types.package;
       default = [];
     };
-    extraServices = mkOption {
-      type = types.listOf types.attrs;
-      default = [];
-    };
   };
 
   config = let
 
     localConfiguration = (import ./local-configuration.nix) {
       inherit pkgs;
-      svcs = null;
       users = import ./users.nix;
-      #des = (import ./desktop-environments) { inherit pkgs; };
     };
 
     cfg = config.localConfiguration;

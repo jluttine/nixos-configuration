@@ -1,4 +1,4 @@
-{ users, pkgs, svcs }:
+{ users, pkgs }:
 {
   hostName = "martta";
   grubDevice = "/dev/sda";
@@ -8,8 +8,6 @@
     (meri { sudo = true; })
   ];
   desktopEnvironment = "kde";
-  extraServices = with svcs; [
-  ];
   allowUnfree = true;
   extraPackages = with pkgs; [
 

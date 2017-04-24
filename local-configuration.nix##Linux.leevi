@@ -1,4 +1,4 @@
-{ users, pkgs, svcs }:
+{ users, pkgs }:
 {
   hostName = "leevi";
   grubDevice = "/dev/sdb";
@@ -7,9 +7,9 @@
     (jluttine { sudo = true; })
   ];
   desktopEnvironment = "kde";
-#  extraServices = with svcs; [
-#    nextcloud
-#  ];
+  extraServices = {
+    sshd = true;
+  };
   extraPackages = with pkgs; [
 
     # OpenStreetMap editor
