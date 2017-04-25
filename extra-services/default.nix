@@ -9,5 +9,6 @@
     [
       #./nginx
       ./sshd.nix
+      ./emacs.nix
     ];
 }
