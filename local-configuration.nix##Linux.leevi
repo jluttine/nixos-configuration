@@ -9,6 +9,7 @@
   desktopEnvironment = "kde";
   extraServices = {
     sshd = true;
+    emacs = false;
   };
   extraPackages = with pkgs; [
 
@@ -40,6 +41,7 @@
 
     # Programming
     emacs
+    gitAndTools.gitflow
 
     # Separate tiling window manager
     #i3
