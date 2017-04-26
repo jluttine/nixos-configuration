@@ -10,6 +10,10 @@
   extraServices = {
     sshd = true;
     emacs = false;
+    salmon = true;
+    tuhlaajapojat = true;
+    mythbackend = true;
+    mythfrontend = true;
   };
   extraPackages = with pkgs; [
 

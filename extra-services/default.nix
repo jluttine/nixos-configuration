@@ -10,5 +10,9 @@
       #./nginx
       ./sshd.nix
       ./emacs.nix
+      ./tuhlaajapojat.nix
+      ./mythbackend.nix
+      ./mythfrontend.nix
+      ./salmon.nix
     ];
 }
