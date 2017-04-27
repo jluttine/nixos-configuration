@@ -14,6 +14,7 @@
     tuhlaajapojat = true;
     mythbackend = true;
     mythfrontend = true;
+    storj = true;
   };
   extraPackages = with pkgs; [
 
@@ -28,6 +29,8 @@
 
     # Panorama stitcher
     hugin
+    # HDR photography
+    luminanceHDR
 
     # Instant messaging
     #cutegram

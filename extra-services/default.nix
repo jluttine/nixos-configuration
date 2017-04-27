@@ -14,5 +14,6 @@
       ./mythbackend.nix
       ./mythfrontend.nix
       ./salmon.nix
+      ./storj.nix
     ];
 }
