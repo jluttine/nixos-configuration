@@ -49,6 +49,7 @@
     # Programming
     emacs
     gitAndTools.gitflow
+    pgadmin
 
     # Separate tiling window manager
     #i3
