@@ -16,6 +16,8 @@
     mythfrontend = true;
     storj = true;
   };
+  # Use local nixpkgs
+  nixpkgs = "/etc/nixpkgs";
   extraPackages = with pkgs; [
 
     # OpenStreetMap editor
