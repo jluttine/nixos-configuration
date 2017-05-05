@@ -41,6 +41,9 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
     # by anything? ssh-add just asks passphrase on the console.
     #ksshaskpass
 
+    # Archives (e.g., tar.gz and zip)
+    ark
+
     # GPG manager for KDE
     kgpg
     # This is needed for graphical dialogs used to enter GPG passphrases
