@@ -40,6 +40,10 @@
       type = types.listOf types.package;
       default = [];
     };
+    nixpkgs = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+    };
   };
 
   config = let
@@ -52,6 +56,18 @@
     cfg = config.localConfiguration;
 
   in {
+
+      nix = (
+        if cfg.nixpkgs == null
+        then {}
+        else {
+          nixPath = [
+            "nixpkgs=${cfg.nixpkgs}"
+            "nixos-config=/etc/nixos/configuration.nix"
+          ];
+          useSandbox = true;
+        }
+      );
 
       # This enables type checking
       localConfiguration = localConfiguration;
