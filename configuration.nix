@@ -164,6 +164,7 @@
           freefont_ttf
           opensans-ttf
           liberation_ttf
+          liberationsansnarrow
           ttf_bitstream_vera
           libertine
           ubuntu_font_family
