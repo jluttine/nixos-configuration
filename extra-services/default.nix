@@ -15,5 +15,6 @@
       ./mythfrontend.nix
       ./salmon.nix
       ./storj.nix
+      ./tv.nix
     ];
 }
