@@ -1,0 +1,29 @@
+{ users, pkgs }:
+{
+  hostName = "nipsu";
+  grubDevice = "/dev/sda";
+  version = "17.03";
+  users = with users; [
+    (jluttine { sudo = true; })
+    (meri { sudo = false; })
+  ];
+  desktopEnvironment = "kde";
+  extraServices = {
+    sshd = true;
+    emacs = false;
+    salmon = true;
+    tuhlaajapojat = true;
+    mythbackend = true;
+    mythfrontend = true;
+    storj = true;
+    tv = true;
+  };
+  # Use local nixpkgs
+  nixpkgs = "/etc/nixpkgs";
+  extraPackages = with pkgs; [
+
+    # Photo manager
+    digikam5
+
+  ];
+}
