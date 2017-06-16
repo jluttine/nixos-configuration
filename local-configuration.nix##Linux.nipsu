@@ -8,16 +8,16 @@
     (meri { sudo = false; })
   ];
   desktopEnvironment = "kde";
-  extraServices = {
-    sshd = true;
-    emacs = false;
-    salmon = true;
-    tuhlaajapojat = true;
-    mythbackend = true;
-    mythfrontend = true;
-    storj = true;
-    tv = true;
-  };
+  #extraServices = {
+  #  sshd = true;
+  #  emacs = false;
+  #  salmon = true;
+  #  tuhlaajapojat = true;
+  #  mythbackend = true;
+  #  mythfrontend = true;
+  #  storj = true;
+  #  tv = true;
+  #};
   extraPackages = with pkgs; [
 
     # Photo manager
