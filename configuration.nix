@@ -80,7 +80,7 @@
       };
 
       # Splash screen at boot time
-      boot.plymouth.enable = true;
+      boot.plymouth.enable = false;
 
       # fileSystems = cfg.fileSystems;
       # boot.initrd.luks.devices = cfg.luksDevices;
