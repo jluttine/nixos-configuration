@@ -9,7 +9,7 @@
   displayManager = "sddm";
   desktopEnvironment = "kde";
   extraServices = {
-    sshd = true;
+    sshd = false;
     emacs = false;
     salmon = true;
     tuhlaajapojat = true;
