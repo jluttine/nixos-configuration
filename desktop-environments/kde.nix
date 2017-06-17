@@ -23,19 +23,7 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
     1760 1761 1762 1763 1764
   ];
 
-  # Use SSDM and Plasma 5
-  services.xserver.displayManager.sddm = {
-    enable = true;
-    # SDDM fails at least on nipsu with video projector. See:
-    #
-    # https://github.com/sddm/sddm/issues/699
-    #
-    # https://wiki.archlinux.org/index.php/SDDM#Screen_resolution_is_too_low
-    extraConfig = ''
-      [General]
-      EnableHiDPI=false
-    '';
-  };
+  # Use Plasma 5
   services.xserver.desktopManager.plasma5.enable = true;
 
   environment.systemPackages = with pkgs; [

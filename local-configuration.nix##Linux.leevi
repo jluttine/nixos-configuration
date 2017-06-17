@@ -6,6 +6,7 @@
   users = with users; [
     (jluttine { sudo = true; })
   ];
+  displayManager = "sddm";
   desktopEnvironment = "kde";
   extraServices = {
     sshd = true;

@@ -7,6 +7,19 @@
     (jluttine { sudo = true; })
     (meri { sudo = false; })
   ];
+  displayManager = "lightdm";
+  # # SDDM fails at least on nipsu with video projector. See:
+  # #
+  # # https://github.com/sddm/sddm/issues/699
+  # #
+  # # https://wiki.archlinux.org/index.php/SDDM#Screen_resolution_is_too_low
+  #
+  # # This would solve it:
+  #
+  # extraConfig = ''
+  #   [General]
+  #   EnableHiDPI=false
+  # '';
   desktopEnvironment = "kde";
   #extraServices = {
   #  sshd = true;

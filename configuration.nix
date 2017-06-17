@@ -28,6 +28,10 @@
     users = mkOption {
       type = types.listOf types.attrs;
     };
+    displayManager = mkOption {
+      type = types.enum [ "lightdm" "sddm" ];
+      default = "lightdm";
+    };
     desktopEnvironment = mkOption {
       type = types.enum [ "kde" ];
       default = "kde";
@@ -142,6 +146,7 @@
         # Graphical environment (X server)
         xserver = {
           enable = true;
+          displayManager."${cfg.displayManager}".enable = true;
           synaptics = {
             enable = true;
             twoFingerScroll = true;
