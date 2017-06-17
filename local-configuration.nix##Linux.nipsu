@@ -21,8 +21,8 @@
   #   EnableHiDPI=false
   # '';
   desktopEnvironment = "kde";
-  #extraServices = {
-  #  sshd = true;
+  extraServices = {
+    sshd = true;
   #  emacs = false;
   #  salmon = true;
   #  tuhlaajapojat = true;
@@ -30,7 +30,7 @@
   #  mythfrontend = true;
   #  storj = true;
   #  tv = true;
-  #};
+  };
   extraPackages = with pkgs; [
 
     # Photo manager
