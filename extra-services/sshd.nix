@@ -15,7 +15,7 @@ with lib;
       enable = true;
       permitRootLogin = "no";
       ports = [6662];
-      passwordAuthentication = true;
+      passwordAuthentication = false;
     };
   };
 
