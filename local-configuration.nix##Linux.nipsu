@@ -23,6 +23,10 @@
   desktopEnvironment = "kde";
   extraServices = {
     sshd = true;
+    ddclient = {
+      "nipsu.fi" = [ "nipsu.fi" ];
+      "tuhlaajapojat.fi" = [ "tuhlaajapojat.fi" ];
+    };
   #  emacs = false;
   #  salmon = true;
   #  tuhlaajapojat = true;
