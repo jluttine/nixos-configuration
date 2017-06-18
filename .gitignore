@@ -8,6 +8,9 @@ passwords
 # Ignore (symbolic link to) local configuration
 local-configuration.nix
 
+# ddclient passwords
+extra-services/ddclient-account.nix
+
 
 # Ignore swap files
 *.swp

@@ -16,5 +16,6 @@
       ./salmon.nix
       ./storj.nix
       ./tv.nix
+      ./ddclient.nix
     ];
 }
