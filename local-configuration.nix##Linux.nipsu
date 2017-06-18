@@ -43,5 +43,10 @@
     # Screen alternative
     tmux
 
+    emacs
+
+    # IRC
+    weechat
+
   ];
 }
