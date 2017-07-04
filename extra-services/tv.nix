@@ -10,7 +10,7 @@ with lib;
 
   config = let
     cfg = config.localConfiguration.extraServices;
-  in mkIf cfg.sshd {
+  in mkIf cfg.tv {
 
     services.tvheadend.enable = true;
     networking.firewall.allowedTCPPorts = [
