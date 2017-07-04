@@ -143,7 +143,10 @@
           enable = true;
           drivers = [ pkgs.gutenprint ];
         };
-        avahi.enable = true;
+        avahi = {
+          enable = true;
+          nssmdns = true;
+        };
         # Graphical environment (X server)
         xserver = {
           enable = true;
