@@ -27,6 +27,7 @@
       "nipsu.fi" = [ "nipsu.fi" ];
       "tuhlaajapojat.fi" = [ "tuhlaajapojat.fi" ];
     };
+    printServer = true;
   #  emacs = false;
   #  salmon = true;
   #  tuhlaajapojat = true;
