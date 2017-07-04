@@ -17,5 +17,6 @@
       ./storj.nix
       ./tv.nix
       ./ddclient.nix
+      ./printserver.nix
     ];
 }
