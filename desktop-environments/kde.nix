@@ -93,8 +93,9 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
     # Photo/image editor
     gwenview
     gimp
-    gimpPlugins.resynthesizer
-    gimpPlugins.ufraw
+    #gimpPlugins.resynthesizer
+    #gimpPlugins.ufraw
+    digikam5
 
     # Media player
     vlc

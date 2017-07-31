@@ -16,10 +16,14 @@
     mythbackend = true;
     mythfrontend = true;
     storj = true;
+    tv = true;
   };
   # Use local nixpkgs
   nixpkgs = "/etc/nixpkgs";
   extraPackages = with pkgs; [
+
+    # LaTeX
+    texlive.combined.scheme-full
 
     # OpenStreetMap editor
     josm
@@ -27,8 +31,24 @@
     # 3D modelling
     blender
 
+    # Zotero client
+    #qnotero
+
+    encfs
+
+    # E-books
+    fbreader
+    calibre
+
+    # RSS reader
+    # rssguard
+    #feedreader
+    rssguard
+
+    w_scan
+
     # Photo manager
-    digikam5
+    shotwell
 
     # Panorama stitcher
     hugin
@@ -48,11 +68,17 @@
     # Bitcoin
     electrum
     zbar
+    monero
+    cpp_ethereum
+
+    # Encryption
+    openssl
 
     # Programming
     emacs
     gitAndTools.gitflow
     pgadmin
+    nbstripout
 
     # Separate tiling window manager
     #i3
