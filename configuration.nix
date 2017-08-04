@@ -202,6 +202,9 @@
         # Gamin: a file and directory monitoring system
         fam
 
+        # Basic image manipulation and handling stuff
+        imagemagick
+
         # Text editors
         vim
         neovim
