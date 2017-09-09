@@ -18,5 +18,8 @@
       ./tv.nix
       ./ddclient.nix
       ./printserver.nix
+      ./pilvi.nix
+      # Generic Nextcloud webapp definition
+      ./nextcloud
     ];
 }
