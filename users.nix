@@ -2,16 +2,14 @@ let
 
   passwords = import ./passwords;
 
-  createUser = { username, id, realname, keys }: { sudo }: {
+  createUser = { username, id, realname, keys }: { groups }: {
     username = username;
     group.gid = id;
     user = {
       description = realname;
       uid = id;
       group = username;
-      extraGroups = [ "networkmanager" "users" ] ++ (
-        if sudo then [ "wheel" ] else []
-      );
+      extraGroups = [ "networkmanager" "users" ] ++ groups;
       home = "/home/${username}";
       isNormalUser = true;
       hashedPassword = builtins.getAttr username passwords;

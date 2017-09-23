@@ -4,7 +4,7 @@
   grubDevice = "/dev/sdb";
   version = "unstable";
   users = with users; [
-    (jluttine { sudo = true; })
+    (jluttine { groups = [ "wheel" "adbusers" ]; })
   ];
   displayManager = "sddm";
   desktopEnvironment = "kde";

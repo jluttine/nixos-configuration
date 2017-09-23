@@ -4,8 +4,8 @@
   grubDevice = "/dev/sda";
   version = "17.03";
   users = with users; [
-    (jluttine { sudo = true; })
-    (meri { sudo = false; })
+    (jluttine { groups = [ "wheel" ]; })
+    (meri { groups = []; })
   ];
   displayManager = "lightdm";
   # # SDDM fails at least on nipsu with video projector. See:
