@@ -204,6 +204,7 @@
 
         # Basic image manipulation and handling stuff
         imagemagick
+        ghostscript
 
         # Text editors
         vim
