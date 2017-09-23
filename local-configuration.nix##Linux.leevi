@@ -17,6 +17,7 @@
     mythfrontend = true;
     storj = true;
     tv = true;
+    adb = true;
   };
   # Use local nixpkgs
   nixpkgs = "/etc/nixpkgs";
