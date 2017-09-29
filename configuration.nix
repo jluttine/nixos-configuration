@@ -203,6 +203,10 @@
         # Gamin: a file and directory monitoring system
         fam
 
+        # Basic image manipulation and handling stuff
+        imagemagick
+        ghostscript
+
         # Text editors
         vim
         neovim
@@ -247,6 +251,8 @@
 
         # GUI for sound control
         pavucontrol
+
+        python3Packages.magic-wormhole
 
       ] ++ cfg.extraPackages;
 
