@@ -22,6 +22,7 @@ with lib;
         enable = true;
         browsing = true;
         defaultShared = true;
+        listenAddresses = [ "*:631" ];
       };
       avahi = {
         enable = true;
