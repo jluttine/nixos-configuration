@@ -141,7 +141,8 @@
         # Printing
         printing = {
           enable = true;
-          drivers = [ pkgs.gutenprint ];
+          webInterface = true;
+          gutenprint = true;
         };
         avahi = {
           enable = true;
@@ -240,6 +241,9 @@
         mtpfs
 
         nix-prefetch-git
+
+        # Encrypted USB sticks etc
+        cryptsetup
 
         # GUI for sound control
         pavucontrol
