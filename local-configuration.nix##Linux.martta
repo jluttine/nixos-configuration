@@ -13,9 +13,9 @@
   extraPackages = with pkgs; [
 
     # Instant messaging
-    tdesktop
-    qtox
-    linphone
+    #tdesktop
+    #qtox
+    #linphone
 
     dropbox
 
