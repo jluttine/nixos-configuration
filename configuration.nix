@@ -195,6 +195,7 @@
         git
         hdf5
         zip
+        unzip
         htop
         nix-repl
         yle-dl
