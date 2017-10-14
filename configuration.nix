@@ -246,6 +246,9 @@
 
         nix-prefetch-git
 
+        # Make NTFS filesystems (e.g., USB drives)
+        ntfs3g
+
         # GUI for sound control
         pavucontrol
 
