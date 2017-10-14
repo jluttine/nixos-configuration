@@ -11,10 +11,16 @@ with lib;
     cfg = config.localConfiguration.extraServices;
   in mkIf cfg.pilvi {
     services.webapps.nextcloud.pilvi = {
-      package = pkgs.nextcloud;
-      server = (import ./nextcloud/vhosts/nginx.nix);
-      socket = (import ./nextcloud/sockets/fmp.nix);
-      database = (import ./nextcloud/databases/mariadb.nix);
+      name = "foobar";
+      #server.nginx = {};
+      socket.fpm = {};
+      #package = pkgs.nextcloud;
+      # server = (import ./nextcloud/vhosts/nginx.nix);
+      # socket = (import ./nextcloud/sockets/fpm.nix);
+      # serverConfig = {
+      #   vhost = "pilvi.fi";
+      # };
+      #database = (import ./nextcloud/databases/mariadb.nix);
     };
   };
 

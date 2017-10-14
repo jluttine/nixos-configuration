@@ -18,6 +18,7 @@
     storj = true;
     tv = true;
     adb = true;
+    pilvi = true;
   };
   # Use local nixpkgs
   nixpkgs = "/etc/nixpkgs";

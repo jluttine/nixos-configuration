@@ -1,4 +1,4 @@
-{ lib, pkgs }:
+{ lib, pkgs, ... }:
 
 with lib;
 
@@ -8,80 +8,100 @@ with lib;
 
 {
 
-  serverConfig = {
+  options = {
 
-    vhost = mkOption {
-      type = types.str;
-      description = "Virtual host for Nextcloud.";
+    # serverConfig = {
+
+    #   vhost = mkOption {
+    #     type = types.str;
+    #     description = "Virtual host for Nextcloud.";
+    #   };
+
+    # };
+
+    foobar = mkOption {
+      type = types.attrs;
+      default = {};
     };
 
-  };
+    socket = {
+      uwsgi = mkOption {
+        type = type.attrs;
+        default = {};
+      };
+      phpfpm = mkOption {
+        type = type.attrs;
+        default = {};
+      };
+    };
 
-  package = mkOption {
-    type = types.package;
-    default = pkgs.nextcloud;
-    defaultText = "pkgs.nextcloud";
-    description = "Nextcloud package to use.";
-  };
+    package = mkOption {
+      type = types.package;
+      default = pkgs.nextcloud;
+      defaultText = "pkgs.nextcloud";
+      description = "Nextcloud package to use.";
+    };
 
-  path = mkOption {
-    type = types.path;
-    default = "/var/lib/nextcloud";
-    description = "Path to Nextcloud config, data, apps and asset directories.";
-  };
+    # path = mkOption {
+    #   type = types.path;
+    #   default = "/var/lib/nextcloud";
+    #   description = "Path to Nextcloud config, data, apps and asset directories.";
+    # };
 
-  adminUser = mkOption {
-    type = types.str;
-    default = "admin";
-    description = "User name of the Nextcloud admin account.";
-  };
+    # adminUser = mkOption {
+    #   type = types.str;
+    #   default = "admin";
+    #   description = "User name of the Nextcloud admin account.";
+    # };
 
-  adminPassword = mkOption {
-    type = types.str;
-    description = "Password of the Nextcloud admin account.";
-  };
+    # adminPassword = mkOption {
+    #   type = types.str;
+    #   description = "Password of the Nextcloud admin account.";
+    # };
 
-  phpPackage = mkOption {
-    type = types.package;
-    default = pkgs.php;
-    defaultText = "pkgs.php";
-    description = "PHP package to use.";
-  };
+    # phpPackage = mkOption {
+    #   type = types.package;
+    #   default = pkgs.php;
+    #   defaultText = "pkgs.php";
+    #   description = "PHP package to use.";
+    # };
 
-  phpUser = mkOption {
-    type = types.str;
-    default = "nextcloud";
-    description = "User account under which Nextcloud runs.";
-  };
+    # phpUser = mkOption {
+    #   type = types.str;
+    #   default = "nextcloud";
+    #   description = "User account under which Nextcloud runs.";
+    # };
 
-  phpGroup = mkOption {
-    type = types.str;
-    default = "nextcloud";
-    description = "Group account under which Nextcloud runs.";
-  };
+    # phpGroup = mkOption {
+    #   type = types.str;
+    #   default = "nextcloud";
+    #   description = "Group account under which Nextcloud runs.";
+    # };
 
-  dbType = mkOption {
-    type = types.str;
-    default = "mysql";
-    description = "";
-  };
+    # dbType = mkOption {
+    #   type = types.str;
+    #   default = "mysql";
+    #   description = "";
+    # };
 
-  dbName = mkOption {
-    type = types.str;
-    default = "nextcloud";
-    description = "";
-  };
+    # dbName = mkOption {
+    #   type = types.str;
+    #   default = "nextcloud";
+    #   description = "";
+    # };
 
-  dbUser = mkOption {
-    type = types.str;
-    default = "nextcloud";
-    description = "";
-  };
+    # dbUser = mkOption {
+    #   type = types.str;
+    #   default = "nextcloud";
+    #   description = "";
+    # };
 
-  dbPassword = mkOption {
-    type = types.str;
-    default = "password";
-    description = "";
+    # dbPassword = mkOption {
+    #   type = types.str;
+    #   default = "password";
+    #   description = "";
+    # };
+
   };
 
 }

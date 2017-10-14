@@ -1,37 +1,62 @@
 # PHP-FPM pool for Nextcloud
-{nextcloudConfig}:
-let
-  cfg = nextcloudConfig;
-  socketPath = "/run/phpfpm/${cfg.name}.sock";
-  user = "nextcloud";
-  group = "nextcloud";
-in
+#{name, socketConfig}:
+{lib, config, name, instanceConfig, ...}:
+# let
+#   socketPath = "/run/phpfpm/${name}.sock";
+#   user = "nextcloud";
+#   group = "nextcloud";
+# in
+# let
+#   name = instanceConfig.name;
+# in
 {
 
-  nextcloudConfig = {
-    socket = {
-      type = "fpm";
-      path = socketPath;
-      # user = user;
-      # group = group;
+  options = with lib; {
+    user = mkOption {
+      type = types.str;
+      default = "nextcloud";
+    };
+    group = mkOption {
+      type = types.str;
+      default = "nextcloud";
+    };
+    path = mkOption {
+      type = types.path;
+      default = "/run/phpfpm/${name}.sock";
+    };
+    type = mkOption {
+      type = types.str;
+      default = "fastcgi";
     };
   };
 
-  globalConfig = {
-    services.phpfpm.poolConfigs = let
-    in
-    {
+  # # Internal arguments
+  # type = "fastcgi";
+  # path = socketConfig.path;
+
+  #phpfpm = {serverUser, serverGroup, ...}: {
+  phpfpm = let
+    socketPath = instanceConfig.socketConfig.path;
+    socketUser = instanceConfig.socketConfig.user;
+    socketGroup = instanceConfig.socketConfig.group;
+    serverUser = instanceConfig.serverConfig.user;
+    serverGroup = instanceConfig.serverConfig.group;
+    # TODO:
+    #configDir = instanceConfig.configDir;
+    configDir = "";
+  in {
+    poolConfigs = {
       "${name}" = ''
         listen = ${socketPath}
-        listen.owner = ${cfg.server.user}
-        listen.group = ${cfg.server.group}
-        user = ${user}
-        group = ${group}
+        listen.owner = ${serverUser}
+        listen.group = ${serverGroup}
+        user = ${socketUser}
+        group = ${socketGroup}
         pm = ondemand
         pm.max_children = 4
         pm.process_idle_timeout = 10s
         pm.max_requests = 200
-        env[NEXTCLOUD_CONFIG_DIR] = "${cfg.configDir}"
+        env[NEXTCLOUD_CONFIG_DIR] = "${configDir}"
       '';
     };
   };

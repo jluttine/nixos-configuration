@@ -2,6 +2,10 @@
 
 with lib;
 
+# TODO: Use this approach to add settings to virtual hosts!
+#
+# https://github.com/NixOS/nixos/blob/master/modules/services/networking/ssh/sshd.nix#L224
+
 {
 
   enable = mkEnableOption "Enable Nextcloud instance.";
