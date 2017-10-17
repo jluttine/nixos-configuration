@@ -10,18 +10,20 @@ with lib;
   config = let
     cfg = config.localConfiguration.extraServices;
   in mkIf cfg.pilvi {
-    services.webapps.nextcloud.pilvi = {
-      name = "foobar";
-      #server.nginx = {};
-      socket.fpm = {};
-      #package = pkgs.nextcloud;
-      # server = (import ./nextcloud/vhosts/nginx.nix);
-      # socket = (import ./nextcloud/sockets/fpm.nix);
-      # serverConfig = {
-      #   vhost = "pilvi.fi";
-      # };
-      #database = (import ./nextcloud/databases/mariadb.nix);
+    services.webapps.nextcloud = {
+      enable = true;
+      server.nginx = {
+        enable = true;
+        vhost = "cloud.com";
+      };
+      database.mysql = {
+        enable = true;
+      };
+      socket.fpm = {
+        enable = true;
+      };
     };
+    services.mysql.package = pkgs.mariadb;
   };
 
 }
