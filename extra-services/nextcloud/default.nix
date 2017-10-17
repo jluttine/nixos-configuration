@@ -26,10 +26,24 @@ let
   dbType = internalConfig.database.type;
   dbName = internalConfig.database.name;
   dbHost = internalConfig.database.host;
-  #dbUser = internalConfig.database.user;
 
-  appsInternalURL = "apps";
-  appsInstalledURL = "apps-installed";
+  boolToString = x: if x then "true" else "false";
+
+  # Map list of app path configurations to strings that are written into
+  # config.php.
+  #concat = lib.foldl (a: b: a + b) "";
+  appsPathsString = lib.concatStrings (
+    lib.imap0 (
+      index: {path, url, writable, ...}: ''
+        ${toString index} =>
+        array (
+          'path' => '${path}',
+          'url' => '${url}',
+          'writable' => ${boolToString writable},
+        ),
+      ''
+    ) internalConfig.appsPaths
+  );
 
   occ = pkgs.writeScriptBin "occ" ''
     #!${pkgs.stdenv.shell}
@@ -67,18 +81,7 @@ let
     \$CONFIG = array (
       'apps_paths' =>
       array (
-        0 =>
-        array (
-          'path' => '${package}/apps',
-          'url' => '/${appsInternalURL}',
-          'writable' => false,
-        ),
-        1 =>
-        array (
-          'path' => '${appsDir}',
-          'url' => '/${appsInstalledURL}',
-          'writable' => true,
-        ),
+      ${appsPathsString}
       ),
       'trusted_domains' =>
       array (
@@ -87,6 +90,7 @@ let
       'datadirectory' => '${dataDir}',
       'assetdirectory' => '${assetsDir}',
       'overwrite.cli.url' => 'http://localhost',
+      'appstoreenabled' => ${boolToString cfg.appStoreEnabled},
       'dbtype' => '${dbType}',
       'dbname' => '${dbName}',
       'dbhost' => '${dbHost}',
@@ -101,8 +105,6 @@ let
     installed=`${occ}/bin/occ status  | grep -E -o 'installed: (false|true)' | grep -E -o '(false|true)'`
 
     if [ $installed == "false" ] ; then
-      # Install Nextcloud instance
-      # See: https://docs.nextcloud.com/server/9/admin_manual/configuration_server/occ_command.html#command-line-installation-label
       ${occ}/bin/occ maintenance:install           \
         --database "${dbType}"                     \
         --database-host "${dbHost}"                \
@@ -116,10 +118,6 @@ let
 
     #
     # Upgrade Nextcloud instance.
-    # See: https://docs.nextcloud.com/server/9/admin_manual/configuration_server/occ_command.html#command-line-upgrade-label
-    #
-    # This has to be run after writing config.php just in case settings (e.g.,
-    # database) has been changed and the system accordingly.
     #
     ${occ}/bin/occ upgrade
   '';
@@ -162,11 +160,34 @@ in {
       apps = mkOption {
         type = types.listOf types.package;
         default = [];
-      }
+      };
+      appStoreEnabled = mkOption {
+        type = types.bool;
+        default = true;
+      };
     };
 
     # Internal configuration for communication between different modules
     _nextcloud = {
+      appsPaths = mkOption {
+        type = types.listOf (
+          types.submodule (
+            {name, ...}: {
+              options = {
+                path = mkOption {
+                  type = types.path;
+                };
+                url = mkOption {
+                  type = types.str;
+                };
+                writable = mkOption {
+                  type = types.bool;
+                };
+              };
+            }
+          )
+        );
+      };
       socket = {
         path = mkOption {
           type = types.path;
@@ -216,6 +237,24 @@ in {
   # Generic configuration of Nextcloud. Sockets, web servers and databases are
   # configured in separate modules.
   config = mkIf config.services.webapps.nextcloud.enable {
+
+    services.webapps._nextcloud.appsPaths = let
+      builtinApps = [
+        {
+          path = "${package}/apps";
+          url = "/apps";
+          writable = false;
+        }
+      ];
+      storeApps = lib.optionals cfg.appStoreEnabled [
+        {
+          path = "${appsDir}";
+          url = "/apps-store";
+          writable = true;
+        }
+      ];
+      extraApps = [];
+    in builtinApps ++ storeApps ++ extraApps;
 
     systemd.services = let
       databaseService = config.services.webapps._nextcloud.database.service;

@@ -12,6 +12,7 @@ with lib;
   in mkIf cfg.pilvi {
     services.webapps.nextcloud = {
       enable = true;
+      appStoreEnabled = false;
       server.nginx = {
         enable = true;
         vhost = "cloud.com";
