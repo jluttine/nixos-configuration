@@ -57,6 +57,7 @@ let
     chown -R ${socketUser}:${socketGroup} ${dataDir}
     chown -R ${socketUser}:${serverGroup} ${appsDir}
     chown -R ${socketUser}:${serverGroup} ${assetsDir}
+    chown root:${socketGroup} ${configFile}
 
     #
     # Write the immutable nixos.config.php. Nextcloud will keep mutable
