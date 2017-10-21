@@ -141,7 +141,8 @@
         # Printing
         printing = {
           enable = true;
-          drivers = [ pkgs.gutenprint ];
+          webInterface = true;
+          gutenprint = true;
         };
         avahi = {
           enable = true;
@@ -248,6 +249,9 @@
 
         # Make NTFS filesystems (e.g., USB drives)
         ntfs3g
+
+        # Encrypted USB sticks etc
+        cryptsetup
 
         # GUI for sound control
         pavucontrol
