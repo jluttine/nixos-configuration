@@ -76,6 +76,9 @@
     # Encryption
     openssl
 
+    # Tool for searching files/binaries from Nix packages
+    nix-index
+
     # Programming
     emacs
     gitAndTools.gitflow
