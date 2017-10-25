@@ -62,6 +62,7 @@
     qtox
     linphone
     pybitmessage
+    riot-web
 
     # Twitter
     corebird
