@@ -2,30 +2,54 @@
 
 with (import /home/jluttine/Workspace/yarn2nix { inherit pkgs; });
 let
-  yarnComponents = mkYarnPackage rec {
-    name = "yarn-components";
-    src = /home/jluttine/Workspace/calendar/js;
-    packageJson = /home/jluttine/Workspace/calendar/js/package.json;
-    yarnLock = /home/jluttine/Workspace/calendar/js/yarn.lock;
-    # NOTE: this is optional and generated dynamically if omitted
-    # yarnNix = ./js/yarn.nix;
+
+  version = "1.5.6";
+  pname = "calendar";
+
+  source = pkgs.srcOnly {
+    stdenv = pkgs.stdenv;
+    name = pname;
+    src = pkgs.fetchzip {
+      url = "https://github.com/nextcloud/${pname}/archive/v${version}.tar.gz";
+      sha256 = "0ap7nqrl5yi300j27k5l76zf3z6b8n0wvn6bcn6j3p0cmn8xs6s2";
+    };
+    patches = [ ./package.patch ./bower.patch ];
   };
+
+  yarnComponents = mkYarnPackage rec {
+    src = source + "/js";
+  };
+
+  # bowerNix = pkgs.stdenv.mkDerivation rec {
+  #   name = "nextcloud-calendar-bower-expression";
+  #   src = source + "/js";
+  #   buildInputs = with pkgs; [ nodePackages.bower2nix ];
+  #   buildPhase = ''
+  #     bower2nix bower.json nextcloud-calendar-bower.nix
+  #   '';
+  #   installPhase = ''
+  #     mkdir -p $out
+  #     cp nextcloud-calendar-bower.nix $out/
+  #   '';
+  # };
+
 in pkgs.stdenv.mkDerivation rec {
+
   name = "${pname}-${version}";
   pname = "nextcloud-calendar";
   version = "1.5.6";
-  src = /home/jluttine/Workspace/calendar;
+  src = source;
 
   buildInputs = with pkgs; [ which yarn nodejs nodePackages.gulp ];
 
   bowerComponents = pkgs.buildBowerComponents {
     name = "bower-components";
-    # This file is generated with bower2nix in calendar repo js directory.
-    generated = ./bower.nix;
-    src = /home/jluttine/Workspace/calendar/js;
+    # This file is generated with nodePackages.bower2nix in calendar repo js
+    # directory. Modify js/bower.json file so that URLs pointing to GitHub are
+    # in format username/repo#hash
+    generated = ./bower.nix; #bowerNix;
+    src = source + "/js";
   };
-
-  patches = [];
 
   buildPhase = ''
     cp --reflink=auto --no-preserve=mode -R ${yarnComponents}/node_modules ./js/
