@@ -13,6 +13,9 @@ with lib;
     services.webapps.nextcloud = {
       enable = true;
       appStoreEnabled = false;
+      apps = with pkgs; [
+        nextcloudCalendar
+      ];
       server.nginx = {
         enable = true;
         vhost = "cloud.com";

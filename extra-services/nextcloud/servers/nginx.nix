@@ -47,12 +47,25 @@
 
         vhost = serverConfig.vhost;
 
-        socketConfig = config.services.webapps._nextcloud.socket;
+        internalConfig = config.services.webapps._nextcloud;
+        socketConfig = internalConfig.socket;
         socketPath = socketConfig.path;
         socketType = socketConfig.type;
 
         appsInstalledURL = "apps-installed/";
         appsDir = instanceConfig.directory + "/apps";
+
+        assets = lib.listToAttrs (
+          map (
+            {path, url, ...}: {
+              name = "~* ^${url}/(.*\\.(?:css|js|svg|gif|png|html|ttf|woff|ico|jpg|jpeg))$";
+              value = {
+                root = "${path}";
+                tryFiles = "/$1 =404";
+              };
+            }
+          ) internalConfig.appsPaths
+        );
 
         phpConfig = {
 
@@ -100,32 +113,18 @@
             extraConfig = phpConfig;
           };
           # CSS and JavaScript files
-          "~* ^/(?!${appsInstalledURL}).*\\.(?:css|js)$" = {
+          "~* ^/(?!apps).*\\.(?:css|js)$" = {
             tryFiles = "$uri /index.php$uri$is_args$args";
           };
           # Other static assets
-          "~* ^/(?!${appsInstalledURL}).*\\.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg)$" = {
+          "~* ^/(?!apps).*\\.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg)$" = {
             tryFiles = "$uri /index.php$uri$is_args$args";
-          };
-          # Locally installed apps:
-          #
-          # No need to specify location for PHP files of installed apps???
-          #
-          # CSS and JavaScript files for installed apps
-          "~* ^/${appsInstalledURL}/(.*\\.(?:css|js))$" = {
-            root = "${appsDir}";
-            tryFiles = "/$1 =404";
-          };
-          # Other static assets for installed apps
-          "~* ^/${appsInstalledURL}/(.*\\.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg))$" = {
-            root = "${appsDir}";
-            tryFiles = "/$1 =404";
           };
           # Some hidden files
           "~ ^/(?:build|tests|config|lib|3rdparty|templates|data|\\.|autotest|occ|issue|indie|db_|console)" = {
             extraConfig = "deny all;";
           };
-        };
+        } // assets;
       };
     };
   };

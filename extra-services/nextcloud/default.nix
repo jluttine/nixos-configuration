@@ -236,7 +236,15 @@ in {
 
   # Generic configuration of Nextcloud. Sockets, web servers and databases are
   # configured in separate modules.
-  config = mkIf config.services.webapps.nextcloud.enable {
+  config = let
+    cfg = config.services.webapps.nextcloud;
+  in mkIf config.services.webapps.nextcloud.enable {
+
+    nixpkgs.config.packageOverrides = pkgs: rec {
+      nextcloudCalendar = (import ./apps/calendar) {
+        inherit lib pkgs;
+      };
+    };
 
     services.webapps._nextcloud.appsPaths = let
       builtinApps = [
@@ -253,7 +261,13 @@ in {
           writable = true;
         }
       ];
-      extraApps = [];
+      extraApps = map (
+        app: {
+          path = "${app}";
+          url = "/apps-${app.pname}";
+          writable = false;
+        }
+      ) cfg.apps;
     in builtinApps ++ storeApps ++ extraApps;
 
     systemd.services = let
