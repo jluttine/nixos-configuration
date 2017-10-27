@@ -2,7 +2,7 @@
 {
   hostName = "nipsu";
   grubDevice = "/dev/sda";
-  version = "17.09";
+  nixpkgs = "https://nixos.org/channels/nixos-17.09/nixexprs.tar.xz";
   users = with users; [
     (jluttine { groups = [ "wheel" ]; })
     (meri { groups = []; })

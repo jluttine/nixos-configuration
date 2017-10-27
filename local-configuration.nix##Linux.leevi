@@ -1,8 +1,8 @@
 { users, pkgs }:
 {
   hostName = "leevi";
+  nixpkgs = "/etc/nixpkgs";
   grubDevice = "/dev/sdb";
-  version = "unstable";
   users = with users; [
     (jluttine { groups = [ "wheel" "adbusers" ]; })
   ];
@@ -19,8 +19,6 @@
     tv = true;
     adb = true;
   };
-  # Use local nixpkgs
-  nixpkgs = "/etc/nixpkgs";
   extraPackages = with pkgs; [
 
     # LaTeX
