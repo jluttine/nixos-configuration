@@ -2,7 +2,7 @@
 {
   hostName = "nipsu";
   grubDevice = "/dev/sda";
-  version = "17.03";
+  version = "17.09";
   users = with users; [
     (jluttine { groups = [ "wheel" ]; })
     (meri { groups = []; })
