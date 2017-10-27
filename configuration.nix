@@ -61,17 +61,13 @@
 
   in {
 
-      nix = (
-        if cfg.nixpkgs == null
-        then {}
-        else {
-          nixPath = [
-            "nixpkgs=${cfg.nixpkgs}"
-            "nixos-config=/etc/nixos/configuration.nix"
-          ];
-          useSandbox = true;
-        }
-      );
+      nix = {
+        nixPath = [
+          "nixpkgs=${cfg.nixpkgs}"
+          "nixos-config=/etc/nixos/configuration.nix"
+        ];
+        useSandbox = true;
+      };
 
       # This enables type checking
       localConfiguration = localConfiguration;
