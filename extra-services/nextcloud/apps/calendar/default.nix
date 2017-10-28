@@ -13,7 +13,7 @@ let
       url = "https://github.com/nextcloud/${pname}/archive/v${version}.tar.gz";
       sha256 = "0ap7nqrl5yi300j27k5l76zf3z6b8n0wvn6bcn6j3p0cmn8xs6s2";
     };
-    patches = [ ./package.patch ./bower.patch ];
+    patches = [ ./package.patch ];
   };
 
   yarnComponents = mkYarnPackage rec {

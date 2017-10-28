@@ -1,0 +1,17 @@
+diff --git a/js/package.json b/js/package.json
+index a7bceee7..4e8848dc 100644
+--- a/js/package.json
++++ b/js/package.json
+@@ -1,11 +1,11 @@
+ {
+   "name": "calendar",
++  "version": "1.5.6",
+   "description": "Integrated Calendar Application",
+   "private": true,
+   "homepage": "https://github.com/nextcloud/calendar",
+   "scripts": {
+     "test": "node node_modules/gulp-cli/bin/gulp.js karma",
+-    "prebuild": "yarn && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+     "build": "node node_modules/gulp-cli/bin/gulp.js"
+   },
+   "repository": {
