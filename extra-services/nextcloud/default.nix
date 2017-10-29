@@ -138,6 +138,9 @@ in {
 
     # User configuration
     nextcloud = {
+      name = mkOption {
+        type = types.str;
+      };
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -148,7 +151,7 @@ in {
       };
       directory = mkOption {
         type = types.path;
-        default = "/var/lib/nextcloud";
+        defaultText = "/var/lib/nextcloud/{name}";
       };
       initialAdminUser = mkOption {
         type = types.str;
@@ -246,6 +249,9 @@ in {
         inherit lib pkgs;
       };
     };
+
+    services.webapps.nextcloud.directory = mkDefault
+      "/var/lib/nextcloud/${cfg.name}";
 
     services.webapps._nextcloud.appsPaths = let
       builtinApps = [

@@ -12,6 +12,7 @@ with lib;
   in mkIf cfg.pilvi {
     services.webapps.nextcloud = {
       enable = true;
+      name = "pilvi";
       appStoreEnabled = false;
       apps = with pkgs; [
         nextcloudCalendar

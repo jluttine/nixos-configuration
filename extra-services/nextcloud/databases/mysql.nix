@@ -9,7 +9,6 @@
     };
     name = mkOption {
       type = types.str;
-      default = "nextcloud";
     };
   };
 
@@ -27,6 +26,9 @@
     socketUser = config.services.webapps._nextcloud.socket.user;
 
   in lib.mkIf enabled {
+
+    services.webapps.nextcloud.database.mysql.name = lib.mkDefault
+      "nextcloud_${instanceConfig.name}";
 
     # Internal Nextcloud configuration
     services.webapps._nextcloud.database = {

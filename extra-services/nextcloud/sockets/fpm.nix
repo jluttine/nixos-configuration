@@ -17,7 +17,6 @@
     };
     path = mkOption {
       type = types.path;
-      default = "/run/phpfpm/nextcloud.sock";
     };
   };
 
@@ -43,7 +42,12 @@
 
     configDir = instanceConfig.directory + "/config";
 
+    poolName = "nextcloud-${instanceConfig.name}";
+
   in lib.mkIf enabled {
+
+    services.webapps.nextcloud.socket.fpm.path = lib.mkDefault
+      "/run/phpfpm/${poolName}.sock";
 
     # Some Nextcloud internal config
     services.webapps._nextcloud.socket = {
@@ -51,12 +55,13 @@
       path = socketPath;
       user = socketUser;
       group = socketGroup;
-      service = "phpfpm-nextcloud";
+      # The service name is determined by php-fpm given the pool name.
+      service = "phpfpm-${poolName}";
       php = config.services.phpfpm.phpPackage;
     };
 
     # Actual socket configuration
-    services.phpfpm.poolConfigs.nextcloud = ''
+    services.phpfpm.poolConfigs."${poolName}" = ''
       listen = ${socketPath}
       listen.owner = ${serverUser}
       listen.group = ${serverGroup}
