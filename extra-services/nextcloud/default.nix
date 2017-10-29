@@ -54,6 +54,28 @@ let
 
   occ = "${occPackage}/bin/occ-${cfg.name}";
 
+  # The immutable configuration file
+  configPHP = pkgs.writeText "nixos.config.php" ''
+    <?php
+    $CONFIG = array (
+      'apps_paths' =>
+      array (
+      ${appsPathsString}
+      ),
+      'trusted_domains' =>
+      array (
+        0 => 'localhost',
+      ),
+      'datadirectory' => '${dataDir}',
+      'assetdirectory' => '${assetsDir}',
+      'overwrite.cli.url' => 'http://localhost',
+      'appstoreenabled' => ${boolToString cfg.appStoreEnabled},
+      'dbtype' => '${dbType}',
+      'dbname' => '${dbName}',
+      'dbhost' => '${dbHost}',
+    );
+  '';
+
   startup = ''
 
     set -e
@@ -75,30 +97,11 @@ let
     chown -R ${socketUser}:${serverGroup} ${assetsDir}
 
     #
-    # Write the immutable nixos.config.php. Nextcloud will keep mutable
+    # Link to the immutable nixos.config.php. Nextcloud will keep mutable
     # configuration in config.php.
     #
-    echo "<?php
-    \$CONFIG = array (
-      'apps_paths' =>
-      array (
-      ${appsPathsString}
-      ),
-      'trusted_domains' =>
-      array (
-        0 => 'localhost',
-      ),
-      'datadirectory' => '${dataDir}',
-      'assetdirectory' => '${assetsDir}',
-      'overwrite.cli.url' => 'http://localhost',
-      'appstoreenabled' => ${boolToString cfg.appStoreEnabled},
-      'dbtype' => '${dbType}',
-      'dbname' => '${dbName}',
-      'dbhost' => '${dbHost}',
-    );
-    " > ${configFile}
-
-    chown root:${socketGroup} ${configFile}
+    rm -f ${configFile}
+    ln -s ${configPHP} ${configFile}
 
     #
     # Does the following work when config.php claims that Nextcloud has been
