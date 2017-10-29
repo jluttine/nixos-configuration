@@ -71,7 +71,6 @@ let
     chown -R ${socketUser}:${socketGroup} ${dataDir}
     chown -R ${socketUser}:${serverGroup} ${appsDir}
     chown -R ${socketUser}:${serverGroup} ${assetsDir}
-    chown root:${socketGroup} ${configFile}
 
     #
     # Write the immutable nixos.config.php. Nextcloud will keep mutable
@@ -96,6 +95,8 @@ let
       'dbhost' => '${dbHost}',
     );
     " > ${configFile}
+
+    chown root:${socketGroup} ${configFile}
 
     #
     # Does the following work when config.php claims that Nextcloud has been
