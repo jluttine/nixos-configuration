@@ -45,12 +45,14 @@ let
     ) internalConfig.appsPaths
   );
 
-  occ = pkgs.writeScriptBin "occ" ''
+  occPackage = pkgs.writeScriptBin "occ-${cfg.name}" ''
     #!${pkgs.stdenv.shell}
     ${pkgs.sudo}/bin/sudo -u ${socketUser}      \
       NEXTCLOUD_CONFIG_DIR=${configDir}         \
       ${phpPackage}/bin/php ${package}/occ "$@"
   '';
+
+  occ = "${occPackage}/bin/occ-${cfg.name}";
 
   startup = ''
 
@@ -103,10 +105,10 @@ let
     # installed but it's not in the database? For instance, user has changed
     # database settings in nix configuration.
     #
-    installed=`${occ}/bin/occ status  | grep -E -o 'installed: (false|true)' | grep -E -o '(false|true)'`
+    installed=`${occ} status  | grep -E -o 'installed: (false|true)' | grep -E -o '(false|true)'`
 
     if [ $installed == "false" ] ; then
-      ${occ}/bin/occ maintenance:install           \
+      ${occ} maintenance:install           \
         --database "${dbType}"                     \
         --database-host "${dbHost}"                \
         --database-name "${dbName}"                \
@@ -120,7 +122,7 @@ let
     #
     # Upgrade Nextcloud instance.
     #
-    ${occ}/bin/occ upgrade
+    ${occ} upgrade
   '';
 
 in {
@@ -288,7 +290,7 @@ in {
 
     };
 
-    environment.systemPackages = [ occ ];
+    environment.systemPackages = [ occPackage ];
 
   };
 
