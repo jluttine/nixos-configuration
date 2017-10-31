@@ -16,7 +16,7 @@
     mythbackend = true;
     mythfrontend = true;
     storj = true;
-    tv = true;
+    tv = false;
     adb = true;
   };
   extraPackages = with pkgs; [
