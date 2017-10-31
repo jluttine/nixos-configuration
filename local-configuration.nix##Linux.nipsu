@@ -34,7 +34,7 @@
   #  mythbackend = true;
   #  mythfrontend = true;
   #  storj = true;
-  #  tv = true;
+    tv = true;
   };
   extraPackages = with pkgs; [
 
