@@ -2,7 +2,7 @@
 {
   hostName = "leevi";
   nixpkgs = "/etc/nixpkgs";
-  grubDevice = "/dev/sdb";
+  grubDevice = "/dev/sda";
   users = with users; [
     (jluttine { groups = [ "wheel" "adbusers" ]; })
   ];
