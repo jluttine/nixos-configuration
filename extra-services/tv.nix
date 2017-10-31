@@ -1,5 +1,5 @@
 
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 {
 
@@ -12,9 +12,16 @@ with lib;
     cfg = config.localConfiguration.extraServices;
   in mkIf cfg.tv {
 
+    # Tvheadend backend
     services.tvheadend.enable = true;
     networking.firewall.allowedTCPPorts = [
       9981 9982
+    ];
+
+    # Kodi frontend
+    nixpkgs.config.kodi.enablePVRHTS = true;
+    environment.systemPackages = with pkgs; [
+      kodi
     ];
 
   };
