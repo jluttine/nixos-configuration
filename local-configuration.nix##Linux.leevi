@@ -2,7 +2,7 @@
 {
   hostName = "leevi";
   nixpkgs = "/etc/nixpkgs";
-  grubDevice = "/dev/sdb";
+  grubDevice = "/dev/sda";
   users = with users; [
     (jluttine { groups = [ "wheel" "adbusers" ]; })
   ];
@@ -16,7 +16,7 @@
     mythbackend = true;
     mythfrontend = true;
     storj = true;
-    tv = true;
+    tv = false;
     adb = true;
     pilvi = true;
   };
@@ -44,6 +44,10 @@
     # rssguard
     #feedreader
     rssguard
+
+    # Disk usage analysis
+    filelight
+    qdirstat
 
     w_scan
 
