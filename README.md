@@ -107,15 +107,7 @@ This funny thing is done because `nixos-install` changes root and yadm has
 created symlinks with /mnt at the beginning:
 
 ```
-ln -s .. /mnt/mnt
-```
-
-Note: After you have booted to the newly installed NixOS system, run to fix the
-symlinks and to remove the hack symlink:
-
-```
-yadm -Y /mnt/etc/nixos/.yadm alt
-rm /mnt
+ln -s . /mnt/mnt
 ```
 
 Generate hardware configuration automatically:
@@ -123,6 +115,9 @@ Generate hardware configuration automatically:
 ```
 nixos-generate-config --root /mnt
 ```
+
+NOTE: If you are installing from an existing NixOS installation, umask for root
+account may cause incorrect permissions for `/mnt/etc`. Check those.
 
 ### Installing
 
@@ -136,4 +131,18 @@ Reboot to the new system:
 
 ```
 reboot
+```
+
+After you have booted to the newly installed NixOS system, remove the hack
+symlink:
+
+```
+rm /mnt
+```
+
+Modify the worktree path in `/etc/nixos/.yadm/repo.git/config`. Regenerate alt
+symlinks.
+
+```
+yadm -Y /etc/nixos/.yadm alt
 ```
