@@ -44,6 +44,10 @@
     #feedreader
     rssguard
 
+    # Disk usage analysis
+    filelight
+    qdirstat
+
     w_scan
 
     # Photo manager
