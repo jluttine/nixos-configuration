@@ -1,7 +1,6 @@
 { users, pkgs }:
 {
   hostName = "martta";
-  nixpkgs = "https://nixos.org/channels/nixos-17.09/nixexprs.tar.xz";
   grubDevice = "/dev/sda";
   users = with users; [
     (jluttine { groups = [ "wheel" ]; })

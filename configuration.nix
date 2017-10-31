@@ -45,7 +45,7 @@
       default = [];
     };
     nixpkgs = mkOption {
-      type = types.nullOr types.path;
+      type = types.nullOr types.str;
       default = null;
     };
   };
@@ -60,12 +60,16 @@
     cfg = config.localConfiguration;
 
   in {
-
-      nix = {
-        nixPath = [
-          "nixpkgs=${cfg.nixpkgs}"
-          "nixos-config=/etc/nixos/configuration.nix"
-        ];
+      nix = (
+        if cfg.nixpkgs == null
+        then {}
+        else {
+          nixPath = [
+            "nixpkgs=${cfg.nixpkgs}"
+            "nixos-config=/etc/nixos/configuration.nix"
+          ];
+        }
+      ) // {
         useSandbox = true;
       };
 
