@@ -44,9 +44,9 @@ in pkgs.stdenv.mkDerivation rec {
 
   bowerComponents = pkgs.buildBowerComponents {
     name = "bower-components";
-    # This file is generated with nodePackages.bower2nix in calendar repo js
-    # directory. Modify js/bower.json file so that URLs pointing to GitHub are
-    # in format username/repo#hash
+    # The file bower.nix is generated with nodePackages.bower2nix in calendar
+    # repo js directory. Modify js/bower.json file so that URLs pointing to
+    # GitHub are in format username/repo#hash or hash
     generated = ./bower.nix; #bowerNix;
     src = source + "/js";
   };

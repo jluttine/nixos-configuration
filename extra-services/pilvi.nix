@@ -15,7 +15,7 @@ with lib;
       name = "pilvi";
       appStoreEnabled = false;
       apps = with pkgs; [
-        nextcloudCalendar
+        #nextcloudCalendar
       ];
       server.nginx = {
         enable = true;
