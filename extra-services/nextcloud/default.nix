@@ -253,6 +253,9 @@ in {
       nextcloudCalendar = (import ./apps/calendar) {
         inherit lib pkgs;
       };
+      nextcloudContacts = (import ./apps/contacts) {
+        inherit lib pkgs;
+      };
     };
 
     services.webapps.nextcloud.directory = mkDefault
@@ -293,7 +296,10 @@ in {
 
     };
 
-    environment.systemPackages = [ occPackage ];
+    environment.systemPackages = with pkgs; [
+      occPackage
+      nextcloudContacts
+    ];
 
   };
 
