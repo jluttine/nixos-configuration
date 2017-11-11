@@ -27,6 +27,7 @@
       "tuhlaajapojat.fi" = [ "tuhlaajapojat.fi" ];
     };
     printServer = true;
+    weechat = true;
   #  emacs = false;
   #  salmon = true;
   #  tuhlaajapojat = true;
@@ -34,19 +35,14 @@
   #  mythfrontend = true;
   #  storj = true;
     tv = true;
+    bluray = true;
   };
   extraPackages = with pkgs; [
 
     # Photo manager
     digikam5
 
-    # Screen alternative
-    tmux
-
     emacs
-
-    # IRC
-    weechat
 
   ];
 }

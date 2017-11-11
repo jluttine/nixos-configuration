@@ -17,6 +17,7 @@
     mythfrontend = true;
     storj = true;
     tv = false;
+    bluray = true;
     adb = true;
     pilvi = true;
   };
@@ -92,6 +93,9 @@
     #i3
 
     patchelf
+
+    # Mobile SSH replacement
+    mosh
 
   ];
 }

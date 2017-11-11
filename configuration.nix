@@ -77,14 +77,19 @@
       localConfiguration = localConfiguration;
 
       # Use the GRUB 2 boot loader.
-      boot.loader.grub = {
-        enable = true;
-        version = 2;
-        device = cfg.grubDevice;
-      };
+      boot = {
 
-      # Splash screen at boot time
-      boot.plymouth.enable = false;
+        kernelModules = [ "nf_conntrack_pptp" ];
+
+        loader.grub = {
+          enable = true;
+          version = 2;
+          device = cfg.grubDevice;
+        };
+
+        # Splash screen at boot time
+        plymouth.enable = false;
+      };
 
       # fileSystems = cfg.fileSystems;
       # boot.initrd.luks.devices = cfg.luksDevices;
@@ -117,6 +122,7 @@
         firewall = {
           enable = true;
           # Enable PPTP VPN
+          autoLoadConntrackHelpers = true;
           connectionTrackingModules = [ "pptp" ];
           #autoLoadConntrackHelpers = true;
           extraCommands = ''

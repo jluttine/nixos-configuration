@@ -20,6 +20,8 @@
       ./printserver.nix
       ./adb.nix
       ./pilvi.nix
+      ./bluray.nix
+      ./weechat.nix
       # Generic Nextcloud webapp definition
       ./nextcloud
     ];
