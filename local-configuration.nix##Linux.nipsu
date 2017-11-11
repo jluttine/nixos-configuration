@@ -34,6 +34,7 @@
   #  mythfrontend = true;
   #  storj = true;
     tv = true;
+    bluray = true;
   };
   extraPackages = with pkgs; [
 

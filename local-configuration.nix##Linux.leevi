@@ -17,6 +17,7 @@
     mythfrontend = true;
     storj = true;
     tv = false;
+    bluray = true;
     adb = true;
   };
   extraPackages = with pkgs; [
