@@ -17,6 +17,11 @@ with lib;
       ports = [6662];
       passwordAuthentication = false;
     };
+
+    programs.mosh = {
+      enable = true;
+    };
+
   };
 
 }
