@@ -93,5 +93,8 @@
 
     patchelf
 
+    # Mobile SSH replacement
+    mosh
+
   ];
 }
