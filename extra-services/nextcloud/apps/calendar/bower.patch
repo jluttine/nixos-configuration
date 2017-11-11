@@ -1,0 +1,17 @@
+diff --git a/js/bower.json b/js/bower.json
+index 20fb8bef..d6945d8d 100644
+--- a/js/bower.json
++++ b/js/bower.json
+@@ -4,10 +4,10 @@
+     "angular": "1.6.4",
+     "angular-bootstrap": "2.5.0",
+     "jquery-timepicker": "883bb2cd94",
+-    "jstzdetect": "https://github.com/georgehrke/jstimezonedetect.git",
++    "jstzdetect": "georgehrke/jstimezonedetect#bb4631925a2bb2a4905af5462c8ef232c5ab9923",
+     "ical.js": "1.2.2",
+     "fullcalendar": "3.4.0",
+-    "hsl_rgb_converter": "https://github.com/kayellpeee/hsl_rgb_converter.git"
++    "hsl_rgb_converter": "kayellpeee/hsl_rgb_converter#3936a3896dd2f45a5c66317aab6f9175c9fde9fb"
+   },
+   "devDependencies": {
+     "angular-mocks": "1.6.4"
