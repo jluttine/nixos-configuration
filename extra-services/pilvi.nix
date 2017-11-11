@@ -16,7 +16,7 @@ with lib;
       appStoreEnabled = false;
       apps = with pkgs; [
         #nextcloudCalendar
-        #nextcloudContacts
+        nextcloudContacts
       ];
       server.nginx = {
         enable = true;
