@@ -162,11 +162,7 @@ let
     name = "contacts";
     packageName = "contacts";
     version = "2.0.1";
-    #src = ./.;
-    src = fetchurl {
-      url = "https://github.com/nextcloud/contacts/archive/v2.0.1.tar.gz";
-      sha256 = "03x37x3ncg3z53d22ggmfhyimsxz9jykhszh6w0wf7651hp7vdk1";
-    };
+    src = ./.;
     dependencies = [
       sources."@iamadamjowett/angular-click-outside-2.10.1"
       sources."angular-1.5.11"

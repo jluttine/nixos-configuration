@@ -279,7 +279,7 @@ in {
       extraApps = map (
         app: {
           path = "${app}";
-          url = "/apps-${app.name}";
+          url = "/apps-${app.pname}";
           writable = false;
         }
       ) cfg.apps;

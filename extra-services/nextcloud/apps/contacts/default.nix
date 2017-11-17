@@ -1,6 +1,6 @@
 {lib, pkgs, ...}:
 
-let
+#let
 
   # version = "2.0.0";
   # pname = "contacts";
@@ -35,34 +35,43 @@ let
 
   # CHECK THIS OUT:
   # https://github.com/svanderburg/node2nix/issues/8#issuecomment-233465074
-in (import ./contacts.nix { inherit pkgs; }).package
+#in (import ./contacts.nix { inherit pkgs; }).package
 
+let
+  shell = (import ./contacts.nix {}).shell;
+in pkgs.stdenv.mkDerivation rec {
+  name = "${pname}-${version}";
+  pname = "contacts";
+  version = "2.0.0";
+  # NOTE: Don't use 2.0.0 release because they dropped Bower after that. Let's
+  # use a real release whenever that comes without Bower.
+  src = pkgs.fetchFromGitHub {
+    owner = "nextcloud";
+    repo = "contacts";
+    rev = "df90c7c";
+    sha256 = "0hmaq6mx3d3q8kxnijcqp798yzgslfdm06px1qw4dg11q63c284g";
+  };
+  # src = pkgs.fetchzip {
+  #   url = "https://github.com/nextcloud/${pname}/archive/${version}.tar.gz";
+  #   sha256 = "02a27iwf3jp8cw0x81k782m4jq6d79knpwflc0phyawnvs8zp3n6";
+  # };
 
+  patches = [ ./package.patch ];
 
-# in pkgs.stdenv.mkDerivation rec {
+  buildInputs = with pkgs; [ which nodejs nodePackages.gulp ];
+  #buildInputs = with pkgs; [ which yarn nodejs nodePackages.gulp ];
 
-#   inherit pname version;
+  buildPhase = ''
+    export NODE_PATH=${shell.nodeDependencies}/lib/node_modules
+    echo $NODE_PATH
+    export HOME=$(pwd)
+    make build
+    make appstore
+  '';
 
-#   name = "nextcloud-${pname}-${version}";
-#   src = source;
+  installPhase = ''
+    mkdir -p $out/contacts
+    cp -R build/appstore/contacts/* $out/contacts/
+  '';
 
-#   buildInputs = with pkgs; [ which yarn nodejs nodePackages.gulp ];
-
-#   # bowerComponents = pkgs.buildBowerComponents {
-#   #   name = "bower-components";
-#   #   # The file bower.nix is generated with nodePackages.bower2nix in calendar
-#   #   # repo js directory. Modify js/bower.json file so that URLs pointing to
-#   #   # GitHub are in format username/repo#hash or hash
-#   #   generated = ./bower.nix; #bowerNix;
-#   #   src = source + "/js";
-#   # };
-
-#   buildPhase = ''
-#     make
-#   '';
-
-#   installPhase = ''
-#     mkdir -p $out/calendar
-#     cp -R build/appstore/calendar/* $out/calendar/
-#   '';
-# }
+}
