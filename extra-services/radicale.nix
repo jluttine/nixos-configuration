@@ -35,6 +35,8 @@ with lib;
       '';
     };
 
+    networking.firewall.allowedTCPPorts = [80 443];
+
     # Reverse proxy so we can have domain name and SSL
     services.nginx = {
       enable = true;
