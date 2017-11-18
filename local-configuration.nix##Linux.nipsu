@@ -39,7 +39,7 @@
     radicale = {
       enable = true;
       ssl = true;
-      domain = "kalenteri.nipsu.fi";
+      domain = "paivyri.nipsu.fi";
     };
   };
   extraPackages = with pkgs; [
