@@ -20,7 +20,7 @@ with lib;
     cfg = config.localConfiguration.extraServices.radicale;
     # Create/modify htpasswd file in this directory with:
     # htpasswd -B radicale-passwords username
-    htpasswd = import ./radicale-passwords;
+    htpasswd = readFile ./radicale-passwords;
     htpasswdFile = pkgs.writeText "radicale-passwords" htpasswd;
   in mkIf cfg.enable {
 
