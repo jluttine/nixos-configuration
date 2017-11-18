@@ -1,41 +1,11 @@
 {lib, pkgs, ...}:
 
-#let
-
-  # version = "2.0.0";
-  # pname = "contacts";
-
-  # source = pkgs.srcOnly {
-  #   stdenv = pkgs.stdenv;
-  #   name = pname;
-  #   src = pkgs.fetchzip {
-  #     url = "https://github.com/nextcloud/${pname}/archive/${version}.tar.gz";
-  #     sha256 = "02a27iwf3jp8cw0x81k782m4jq6d79knpwflc0phyawnvs8zp3n6";
-  #   };
-  #   #patches = [ ./package.patch ];
-  # };
-
-  # yarnComponents = mkYarnPackage rec {
-  #   src = source + "/js";
-  # };
-
-  # bowerNix = pkgs.stdenv.mkDerivation rec {
-  #   name = "nextcloud-calendar-bower-expression";
-  #   src = source + "/js";
-  #   buildInputs = with pkgs; [ nodePackages.bower2nix ];
-  #   buildPhase = ''
-  #     bower2nix bower.json nextcloud-calendar-bower.nix
-  #   '';
-  #   installPhase = ''
-  #     mkdir -p $out
-  #     cp nextcloud-calendar-bower.nix $out/
-  #   '';
-  # };
-
-
-  # CHECK THIS OUT:
-  # https://github.com/svanderburg/node2nix/issues/8#issuecomment-233465074
-#in (import ./contacts.nix { inherit pkgs; }).package
+# Some notes on how this was set up:
+#
+# Checkout the contacts repo locally. Modify package.json so that all
+# devDependencies are moved under dependencies. Run node2nix in the repo. Copy
+# node-env.nix, node-packages.nix and packages.nix here. Also, copy default.nix
+# as contacts.nix here.
 
 let
   shell = (import ./contacts.nix {}).shell;
@@ -58,20 +28,28 @@ in pkgs.stdenv.mkDerivation rec {
 
   patches = [ ./package.patch ];
 
-  buildInputs = with pkgs; [ which nodejs nodePackages.gulp ];
-  #buildInputs = with pkgs; [ which yarn nodejs nodePackages.gulp ];
+  # Currently, contacts requires that variables.scss is copied from Nextcloud>11
+  # in order to support Nextcloud 11. Makefile uses curl for that if the file
+  # hasn't been already copied. So, let's copy it ourselves. If Contacts removes
+  # this step from the Makefile, we can remove nextcloud as a build input and
+  # remove the corresponding cp command from build phase..
+  buildInputs = with pkgs; [
+    which nodejs nodePackages.gulp
+    nextcloud
+  ];
 
   buildPhase = ''
-    export NODE_PATH=${shell.nodeDependencies}/lib/node_modules
-    echo $NODE_PATH
-    export HOME=$(pwd)
+    ln -s ${shell.nodeDependencies}/lib/node_modules
+    mkdir -p build/css
+    cp ${pkgs.nextcloud}/core/css/variables.scss build/css/
     make build
     make appstore
   '';
 
   installPhase = ''
-    mkdir -p $out/contacts
-    cp -R build/appstore/contacts/* $out/contacts/
+    mkdir $out
+    tar xvzf build/artifacts/appstore/contacts-*.tar.gz -C $out/
+    mv $out/contacts* $out/contacts
   '';
 
 }

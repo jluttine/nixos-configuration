@@ -272,14 +272,14 @@ in {
       storeApps = lib.optionals cfg.appStoreEnabled [
         {
           path = "${appsDir}";
-          url = "/apps-store";
+          url = "/appstore";
           writable = true;
         }
       ];
       extraApps = map (
         app: {
           path = "${app}";
-          url = "/apps-${app.pname}";
+          url = "/app-${app.pname}";
           writable = false;
         }
       ) cfg.apps;

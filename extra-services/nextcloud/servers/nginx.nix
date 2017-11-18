@@ -66,6 +66,17 @@
             }
           ) internalConfig.appsPaths
         );
+        # phps = lib.listToAttrs (
+        #   map (
+        #     {path, url, ...}: {
+        #       name = "~* ^${url}/(.*\\.(?:css|js|svg|gif|png|html|ttf|woff|ico|jpg|jpeg))$";
+        #       value = {
+        #         root = "${path}";
+        #         tryFiles = "/$1 =404";
+        #       };
+        #     }
+        #   ) internalConfig.appsPaths
+        # );
 
         phpConfig = {
 
