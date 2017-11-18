@@ -11,6 +11,8 @@ local-configuration.nix
 # ddclient passwords
 extra-services/ddclient-account.nix
 
+extra-services/radicale-passwords*
+
 
 # Ignore swap files
 *.swp

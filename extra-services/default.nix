@@ -22,6 +22,7 @@
       ./pilvi.nix
       ./bluray.nix
       ./weechat.nix
+      ./radicale.nix
       # Generic Nextcloud webapp definition
       ./nextcloud
     ];

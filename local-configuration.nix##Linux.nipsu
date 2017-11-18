@@ -36,6 +36,11 @@
   #  storj = true;
     tv = true;
     bluray = true;
+    radicale = {
+      enable = true;
+      ssl = true;
+      domain = "kalenteri.nipsu.fi";
+    };
   };
   extraPackages = with pkgs; [
 

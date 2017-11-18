@@ -1,2 +1,3 @@
 passwords/default.nix##*
 extra-services/ddclient-account.nix
+extra-services/radicale-passwords*
