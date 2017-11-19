@@ -31,6 +31,7 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
     # Password manager for KDE
     kdeFrameworks.kwallet
     kdeApplications.kwalletmanager
+    kwalletcli
 
     # Allow automatic unlocking of kwallet if the same password. This seems to
     # work without installing kwallet-pam.
