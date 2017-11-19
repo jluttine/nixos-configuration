@@ -259,6 +259,9 @@
         # Encrypted USB sticks etc
         cryptsetup
 
+        # GPG password entry from the terminal
+        pinentry
+
         # GUI for sound control
         pavucontrol
 
