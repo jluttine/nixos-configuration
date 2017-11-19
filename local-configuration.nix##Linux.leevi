@@ -16,7 +16,6 @@
     mythbackend = true;
     mythfrontend = true;
     storj = true;
-    tv = false;
     bluray = true;
     adb = true;
   };

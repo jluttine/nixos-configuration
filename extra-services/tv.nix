@@ -3,26 +3,47 @@
 with lib;
 {
 
-  options.localConfiguration.extraServices.tv = mkOption {
-    type = types.bool;
-    default = false;
+  options.localConfiguration.extraServices.tv = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+    domain = mkOption {
+      type = types.str;
+    };
+    ssl = mkOption {
+      type = types.bool;
+      default = true;
+    };
   };
 
   config = let
-    cfg = config.localConfiguration.extraServices;
-  in mkIf cfg.tv {
+    cfg = config.localConfiguration.extraServices.tv;
+  in mkIf cfg.enable {
 
     # Tvheadend backend
     services.tvheadend.enable = true;
-    networking.firewall.allowedTCPPorts = [
-      9981 9982
-    ];
+    # NOTE: Don't open firewall, use Nginx as reverse proxy.
 
     # Kodi frontend
     nixpkgs.config.kodi.enablePVRHTS = true;
     environment.systemPackages = with pkgs; [
       kodi
     ];
+
+    # Reverse proxy so we can have domain name and SSL
+    services.nginx = {
+      enable = true;
+      virtualHosts."${cfg.domain}" = {
+        forceSSL = cfg.ssl;
+        enableACME = cfg.ssl;
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:9981/"; # The / is important!
+          };
+        };
+      };
+    };
 
   };
 
