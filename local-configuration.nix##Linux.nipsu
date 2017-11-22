@@ -45,6 +45,11 @@
       ssl = true;
       domain = "paivyri.nipsu.fi";
     };
+    syncthing = {
+      # Use default user, group and dataDir
+      enable = true;
+      openDefaultPorts = true;
+    };
   };
   extraPackages = with pkgs; [
 

@@ -18,6 +18,13 @@
     storj = true;
     bluray = true;
     adb = true;
+    syncthing = {
+      enable = true;
+      user = "jluttine";
+      group = "jluttine";
+      dataDir = "/home/jluttine/.syncthing/config";
+      openDefaultPorts = false;
+    };
   };
   extraPackages = with pkgs; [
 

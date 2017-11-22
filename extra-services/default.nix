@@ -19,11 +19,9 @@
       ./ddclient.nix
       ./printserver.nix
       ./adb.nix
-      ./pilvi.nix
       ./bluray.nix
       ./weechat.nix
       ./radicale.nix
-      # Generic Nextcloud webapp definition
-      ./nextcloud
+      ./syncthing.nix
     ];
 }
