@@ -46,9 +46,8 @@
       domain = "paivyri.nipsu.fi";
     };
     syncthing = {
-      # Use default user, group and dataDir
       enable = true;
-      openDefaultPorts = true;
+      domain = "boksi.nipsu.fi";
     };
   };
   extraPackages = with pkgs; [

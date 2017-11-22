@@ -12,9 +12,6 @@
     syncthing = {
       enable = true;
       user = "meri";
-      group = "meri";
-      dataDir = "/home/meri/.syncthing/config";
-      openDefaultPorts = false;
     };
   };
   allowUnfree = true;
