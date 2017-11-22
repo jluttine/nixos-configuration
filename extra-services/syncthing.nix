@@ -28,6 +28,7 @@ with lib;
 
     syncthing = {
       enable = true;
+      openDefaultPorts = true;
     } // userConfig;
 
     nginx = if cfg.domain == null then {} else {
