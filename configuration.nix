@@ -219,8 +219,6 @@
         neovim
         xclip  # system clipboard support for vim
 
-        owncloud-client
-
         # VPN
         pptp
         openvpn
