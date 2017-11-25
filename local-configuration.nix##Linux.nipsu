@@ -28,12 +28,7 @@
     };
     printServer = true;
     weechat = true;
-  #  emacs = false;
-  #  salmon = true;
-  #  tuhlaajapojat = true;
-  #  mythbackend = true;
-  #  mythfrontend = true;
-  #  storj = true;
+    tuhlaajapojat = true;
     tv = {
       enable = true;
       domain = "tv.nipsu.fi";
