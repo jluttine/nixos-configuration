@@ -177,8 +177,8 @@ in {
     services.nginx = {
       enable = true;
       virtualHosts."tuhlaajapojat.fi" = {
-        forceSSL = false;
-        enableACME = false;
+        forceSSL = true;
+        enableACME = true;
 
         locations = {
           "/robots.txt" = {
