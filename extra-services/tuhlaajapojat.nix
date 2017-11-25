@@ -6,9 +6,15 @@ let
   buildPythonApplication = pythonPackages.buildPythonApplication;
 
   sportsteam = buildPythonPackage rec {
-    name = "sportsteam-${version}";
-    version = "0.1.14";
-    src = /home/jluttine/Workspace/django-sportsteam;
+    name = "${pname}-${version}";
+    pname = "django-sportsteam";
+    version = "0.1.16";
+    src = pkgs.fetchFromGitHub {
+      owner = "jluttine";
+      repo = pname;
+      rev = version;
+      sha256 = "1nqfsb9qqcv3x4vv30p6607ywbb0cla9pj5n8x65pshx1f5kglx3";
+    };
     # Couldn't get the tests working. "App's aren't loaded yet"
     doCheck = false;
     propagatedBuildInputs = with pythonPackages; [
