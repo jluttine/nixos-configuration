@@ -179,10 +179,10 @@ in {
             extraConfig = "allow all;";
           };
           "/media" = {
-            alias = "${sportsteam}/media";
+            alias = "${directory}/media";
           };
           "/static" = {
-            alias = "${sportsteam}/static";
+            alias = "${directory}/static";
           };
           "/" = {
             extraConfig = ''
