@@ -165,7 +165,7 @@ in {
       chmod 700 ${directory}
       chown ${socketUser} ${directory}
       ${manageTuhlaajapojat}/bin/manage-tuhlaajapojat migrate
-      ${manageTuhlaajapojat}/bin/manage-tuhlaajapojat collectstatic
+      ${manageTuhlaajapojat}/bin/manage-tuhlaajapojat collectstatic --no-input
     '';
 
     services.nginx = {
