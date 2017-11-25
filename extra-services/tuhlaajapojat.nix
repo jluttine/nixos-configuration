@@ -177,6 +177,7 @@ in {
     services.nginx = {
       enable = true;
       virtualHosts."tuhlaajapojat.fi" = {
+        serverAliases = ["tuhlaajapojat.fi" "www.tuhlaajapojat.fi"];
         forceSSL = true;
         enableACME = true;
 
