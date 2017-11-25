@@ -22,7 +22,7 @@ let
   settingsFile = pkgs.writeText "settings.py" ''
     from sportsteam.settings.prod import *
 
-    DEBUG = True
+    DEBUG = False
 
     TEAM_NAME = 'FC Tuhlaajapojat'
     TEAM_SLUG = 'tuhlaajapojat'
