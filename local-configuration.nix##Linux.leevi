@@ -12,7 +12,6 @@
     sshd = false;
     emacs = false;
     salmon = true;
-    tuhlaajapojat = true;
     mythbackend = true;
     mythfrontend = true;
     storj = true;
