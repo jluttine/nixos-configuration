@@ -13,6 +13,9 @@
       enable = true;
       user = "meri";
     };
+    cryptos = {
+      enable = true;
+    };
   };
   allowUnfree = true;
   extraPackages = with pkgs; [

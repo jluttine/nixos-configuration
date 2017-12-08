@@ -18,6 +18,9 @@
     storj = true;
     bluray = true;
     adb = true;
+    cryptos = {
+      enable = true;
+    };
     syncthing = {
       enable = true;
       user = "jluttine";
@@ -73,10 +76,6 @@
     # Twitter
     corebird
 
-    # Bitcoin
-    electrum
-    zbar
-    monero
     cpp_ethereum
 
     # Encryption

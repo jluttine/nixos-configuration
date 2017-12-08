@@ -23,5 +23,6 @@
       ./weechat.nix
       ./radicale.nix
       ./syncthing.nix
+      ./cryptos.nix
     ];
 }
