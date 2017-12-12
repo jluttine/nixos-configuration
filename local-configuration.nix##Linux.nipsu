@@ -42,7 +42,7 @@
     };
     syncthing = {
       enable = true;
-      domain = "boksi.nipsu.fi";
+      domain = null; #"boksi.nipsu.fi";
     };
   };
   extraPackages = with pkgs; [
