@@ -89,6 +89,9 @@
 
         # Splash screen at boot time
         plymouth.enable = false;
+
+        cleanTmpDir = true;
+
       };
 
       # fileSystems = cfg.fileSystems;
