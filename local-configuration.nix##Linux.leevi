@@ -97,5 +97,7 @@
     # Mobile SSH replacement
     mosh
 
+    k3b
+
   ];
 }
