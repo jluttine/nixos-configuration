@@ -1,12 +1,12 @@
-hardware-configuration.nix
 .yadm/repo.git
 .yadm/config
 
 # Ignore encrypted files
 passwords
 
-# Ignore (symbolic link to) local configuration
+# Ignore symbolic links
 local-configuration.nix
+hardware-configuration.nix
 
 # ddclient passwords
 extra-services/ddclient-account.nix
