@@ -60,17 +60,22 @@
     cfg = config.localConfiguration;
 
   in {
-      nix = (
-        if cfg.nixpkgs == null
-        then {}
-        else {
-          nixPath = [
-            "nixpkgs=${cfg.nixpkgs}"
-            "nixos-config=/etc/nixos/configuration.nix"
-          ];
-        }
-      ) // {
+      nix = {
+
         useSandbox = true;
+
+        # Enable automatic garbage collection
+        gc = {
+          automatic = true;
+          dates = "daily";
+          options = "--delete-older-than 14d";
+        };
+
+      } // lib.optionalAttrs (cfg.nixpkgs != null) {
+        nixPath = [
+          "nixpkgs=${cfg.nixpkgs}"
+          "nixos-config=/etc/nixos/configuration.nix"
+        ];
       };
 
       # This enables type checking
