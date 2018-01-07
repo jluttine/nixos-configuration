@@ -1,16 +1,16 @@
 # NixOS configurations
 
-My personal NixOS configurations. Clone the repository:
+My personal NixOS configurations.
+
+You can put these configuration files under `/etc/nixos` as follows:
 
 ```
-git clone https://username@github.com/jluttine/nixos-configuration /etc/nixos
-cd /etc/nixos
-```
-
-Decrypt some encrypted configuration:
-```
+nix-shell -p yadm -p git -p gnupg1orig
+yadm clone https://github.com/jluttine/nixos-configuration.git -w /etc/nixos -Y /etc/nixos/.yadm
 yadm -Y /etc/nixos/.yadm decrypt
-``` 
+yadm -Y /etc/nixos/.yadm alt
+exit
+```
 
 If your hostname isn't included in the configuration file alternatives, symlinks
 aren't created properly. See Yadm manuals for more information.
@@ -32,53 +32,68 @@ Test internet connection:
 ping google.com
 ```
 
-### Creating fully encrypted file system
+### Creating fully encrypted file systems
+
+You first need to decide how to partition your disk(s). I'm using fully
+encrypted file systems with GPT partition table. I created the partitions with
+fdisk. Run `fdisk /dev/some-device` for each device you want to partition. I
+created GPT partition tables for them. Below are my somewhat cryptic and compact
+notes on how I partitioned my two machines.
+
+On a laptop with only one disk, I created an unencrypted partition for `/boot`
+and an encrypted partition for `/`:
+
+- 250 GB SSD
+  - partition 4, type 4 = BIOS boot, size = 1M
+  - partition 1, size = 1G, ext4 nixos-boot, `/boot`
+  - partition 2, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
+
+On a server with three disks:
+
+- 60 GB SSD
+  - partition 4, type 4 = BIOS boot, size = 1M
+  - partition 1, size = 1G, ext4 nixos-boot, `/boot`
+  - partition 2, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
+- 2 TB HDD
+  - partition 1, size = 100%, LUKS luks-nixos-media, ext4 nixos-media, `/media`
+- 600 GB HDD
+  - partition 1, type 31 = LVM, size = 500G, VG vg-nixos-var
+    - LV lv-nixos-var, size = 450G, LUKS luks-nixos-var, ext4 nixos-var, `/var`
+    - remaining 50G will be reserved for snapshots
+  - partition 2, size = 100%, LUKS luks-nixos-home, ext4 nixos-home, `/home`
+
+One notable goal of the above construction is to have everything that needs to
+be backed up under `/var`. This encrypted partition is under LVM, so I can take
+a snapshot of the encrypted disk and then sync that encrypted disk image with
+diskrsync to an untrusted remote location efficiently and safely. Also, note
+that I needed to create 1M BIOS boot partitions so that GPT works with BIOS.
+
+Creating logical volumes:
 
 ```
-DISK=/dev/sda
+# Use pvcreate for each partition you want to put under LVM
+pvcreate /dev/put-device-here
+# List all partitions this volume group should use
+vgcreate put-vg-label-here /dev/put-devices-here
+# Create logical volumes for the volume groups
+lvcreate -L 666G -n put-lv-label-here put-vg-label-here
 ```
 
+In my case, I put only one partition under LVM. I had only one volume group
+which contained only one logical volume.
+
+Creating LUKS encrypted file systems:
 
 ```
-sgdisk --zap-all $DISK
+cryptsetup -y -v luksFormat /dev/put-device-here
+cryptsetup open /dev/put-device-here put-luks-label-here
+mkfs.ext4 -L put-filesystem-label-here /dev/mapper/put-luks-label-here
 ```
 
-```
-fdisk $DISK
-```
-
-Create GPT partition table. If using BIOS (with GPT), create 1M partition of
-type BIOS boot (e.g., partition id 4). Then, create partitions for boot (e.g.,
-partition id 1 assumed below and 1GB) and (encrypted) root (partition id 2
-assumed below). The BIOS boot partition won't be given any filesystem, it is
-just for grub.
+Mount each file system to its place under `/mnt`. For instance, I mounted
+`nixos-root` under `/mnt` and `nixos-boot` under `/mnt/boot`.
 
 
-After fdisk, prepare an encrypted root file system:
-
-```
-cryptsetup -y -v luksFormat "$DISK"2
-cryptsetup open "$DISK"2 cryptroot
-mkfs.ext4 -L nixos-root /dev/mapper/cryptroot
-mount -t ext4 /dev/mapper/cryptroot /mnt
-```
-
-Optionally, test that the encrypted file system works:
-
-```
-umount /mnt
-cryptsetup close cryptroot
-cryptsetup open "$DISK"2 cryptroot
-mount -t ext4 /dev/mapper/cryptroot /mnt
-```
-
-Prepare boot partition:
-
-```
-mkfs.ext4 -L nixos-boot "$DISK"1
-mkdir /mnt/boot
-mount -t ext4 "$DISK"1 /mnt/boot
-```
 
 ### Fetching configuration
 
@@ -117,7 +132,13 @@ nixos-generate-config --root /mnt
 ```
 
 NOTE: If you are installing from an existing NixOS installation, umask for root
-account may cause incorrect permissions for `/mnt/etc`. Check those.
+account may cause incorrect permissions for `/mnt/etc`. Check those. This issue
+has been fixed in recent NixOS.
+
+**NOTE: If you are using LUKS inside LVM, you need to manually modify the
+hardware configuration file `/mnt/etc/nixos/hardware-configuration.nix`. By
+default, LVM is loaded after LUKS, so for those LUKS devices that are inside
+LVM, you must set `preLVM = false`.**
 
 ### Installing
 
