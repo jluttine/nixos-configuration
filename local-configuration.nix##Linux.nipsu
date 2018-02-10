@@ -1,7 +1,7 @@
 { users, pkgs }:
 {
   hostName = "nipsu";
-  grubDevice = "/dev/sda";
+  grubDevice = "/dev/disk/by-id/ata-KINGSTON_SV300S37A60G_50026B773A0045B1";
   users = with users; [
     (jluttine { groups = [ "wheel" ]; })
     (meri { groups = []; })
