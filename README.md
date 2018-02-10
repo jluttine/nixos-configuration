@@ -94,6 +94,15 @@ Mount each file system to its place under `/mnt`. For instance, I mounted
 `nixos-root` under `/mnt` and `nixos-boot` under `/mnt/boot`.
 
 
+#### Backing up encrypted logical volume
+
+```
+modprobe dm-snapshot    # if needed
+lvcreate -l 100%FREE -s -n lv-nixos-var-snapshot /dev/vg-nixos-var/lv-nixos-var
+diskrsync --no-compress /dev/vg-nixos-var/lv-nixos-var-snapshot user@host:/path/to/disk.img
+```
+
+
 
 ### Fetching configuration
 
