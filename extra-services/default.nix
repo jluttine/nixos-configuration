@@ -24,5 +24,6 @@
       ./radicale.nix
       ./syncthing.nix
       ./cryptos.nix
+      ./rss.nix
     ];
 }
