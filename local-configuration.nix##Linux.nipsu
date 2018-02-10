@@ -51,5 +51,8 @@
 
     emacs
 
+    # Remote disk image backup tool
+    diskrsync
+
   ];
 }
