@@ -271,7 +271,7 @@
         # GUI for sound control
         pavucontrol
 
-        python3Packages.magic-wormhole
+        #python3Packages.magic-wormhole
 
       ] ++ cfg.extraPackages;
 
