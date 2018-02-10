@@ -84,10 +84,6 @@
       # Use the GRUB 2 boot loader.
       boot = {
 
-        # FIXME: This is temporary fix until the added to NixOS:
-        # https://github.com/NixOS/nixpkgs/pull/33529
-        initrd.availableKernelModules = [ "hid-logitech-hidpp" ];
-
         kernelModules = [ "nf_conntrack_pptp" ];
 
         loader.grub = {
