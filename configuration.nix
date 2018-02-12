@@ -68,7 +68,7 @@
         gc = {
           automatic = true;
           dates = "daily";
-          options = "--delete-older-than 14d";
+          options = "--delete-older-than 30d";
         };
 
       } // lib.optionalAttrs (cfg.nixpkgs != null) {
@@ -83,10 +83,6 @@
 
       # Use the GRUB 2 boot loader.
       boot = {
-
-        # FIXME: This is temporary fix until the added to NixOS:
-        # https://github.com/NixOS/nixpkgs/pull/33529
-        initrd.availableKernelModules = [ "hid-logitech-hidpp" ];
 
         kernelModules = [ "nf_conntrack_pptp" ];
 
@@ -275,7 +271,7 @@
         # GUI for sound control
         pavucontrol
 
-        python3Packages.magic-wormhole
+        #python3Packages.magic-wormhole
 
       ] ++ cfg.extraPackages;
 
