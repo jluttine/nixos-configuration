@@ -18,6 +18,7 @@ with lib;
       # Wallets
       electrum
       monero
+      monero-gui
       electron-cash
 
       # Tools
