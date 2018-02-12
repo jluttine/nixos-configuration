@@ -119,6 +119,11 @@ let
   socketUser = "nginx";
   socket = "${config.services.uwsgi.runDir}/tuhlaajapojat.sock";
 
+  robotsTxt = pkgs.writeText "robots.txt" ''
+    User-agent: *
+    Disallow: /
+  '';
+
 in {
 
   options.localConfiguration.extraServices.tuhlaajapojat = mkOption {
@@ -183,7 +188,7 @@ in {
 
         locations = {
           "/robots.txt" = {
-            extraConfig = "allow all;";
+            alias = "${robotsTxt}";
           };
           "/media" = {
             alias = "${directory}/media";
