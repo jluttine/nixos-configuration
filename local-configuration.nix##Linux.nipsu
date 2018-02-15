@@ -29,6 +29,9 @@
     printServer = true;
     weechat = true;
     tuhlaajapojat = true;
+    mailserver = {
+      enable = true;
+    };
     tv = {
       enable = true;
       domain = "tv.nipsu.fi";

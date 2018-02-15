@@ -13,7 +13,7 @@
       ./tuhlaajapojat.nix
       ./mythbackend.nix
       ./mythfrontend.nix
-      ./salmon.nix
+      ./mailserver
       ./storj.nix
       ./tv.nix
       ./ddclient.nix

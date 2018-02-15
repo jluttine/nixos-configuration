@@ -11,7 +11,9 @@
   extraServices = {
     sshd = false;
     emacs = false;
-    salmon = true;
+    mailserver = {
+      enable = true;
+    };
     mythbackend = true;
     mythfrontend = true;
     storj = true;
