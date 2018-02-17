@@ -51,19 +51,13 @@ with lib;
       destination = [ ];
       # Relay @tuhlaajapojat.fi to Salmon LMTP server
       relayDomains = [ "tuhlaajapojat.fi" ];
-      transport = ''
-        tuhlaajapojat.fi lmtp:localhost:8823
-      '';
-      mapFiles = {
-        relay_recipients = pkgs.writeText "postfix-relay_recipients" ''
-          @tuhlaajapojat.fi x
-        '';
-      };
       extraConfig = ''
+        # No local delivery
         local_recipient_maps =
         local_transport = error: local main delivery disabled
 
-        relay_recipient_maps = hash:/etc/postfix/relay_recipients
+        # Use Salmon LMTP as a relay
+        relay_transport = lmtp:127.0.0.1:8823
       '';
     };
 
