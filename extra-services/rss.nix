@@ -22,7 +22,9 @@ with lib;
       virtualHost = cfg.domain;
       selfUrlPath = "https://${cfg.domain}/";
       database = {
-        type = "mysql";
+        # MySQL didn't work, see: https://github.com/NixOS/nixpkgs/issues/35469
+        #type = "mysql";
+        type = "pgsql";
       };
     };
 
@@ -30,8 +32,8 @@ with lib;
     services.nginx = {
       enable = true;
       virtualHosts."${cfg.domain}" = {
-        forceSSL = cfg.ssl;
-        enableACME = cfg.ssl;
+        forceSSL = true;
+        enableACME = true;
       };
     };
 
