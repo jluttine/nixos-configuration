@@ -26,6 +26,10 @@
       "nipsu.fi" = [ "nipsu.fi" ];
       "tuhlaajapojat.fi" = [ "tuhlaajapojat.fi" ];
     };
+    rss = {
+      enable = true;
+      domain = "feed.nipsu.fi";
+    };
     printServer = true;
     weechat = true;
     tuhlaajapojat = true;
