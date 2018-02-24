@@ -12,7 +12,7 @@
     sshd = false;
     emacs = false;
     mailserver = {
-      enable = true;
+      enable = false;
     };
     mythbackend = true;
     mythfrontend = true;
