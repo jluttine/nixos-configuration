@@ -9,6 +9,11 @@
     ];
 
   boot.initrd.availableKernelModules = [ "ata_generic" "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+
+  # This kernel module is needed so the system can boot when there are LVM
+  # snapshots present
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
+
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
