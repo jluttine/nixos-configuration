@@ -20,12 +20,5 @@
   allowUnfree = true;
   extraPackages = with pkgs; [
 
-    # Instant messaging
-    #tdesktop
-    #qtox
-    #linphone
-
-    dropbox
-
   ];
 }
