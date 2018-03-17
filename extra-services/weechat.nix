@@ -19,6 +19,21 @@ with lib;
       tmux
       weechat
     ];
+    nixpkgs.overlays = [
+      (
+        self: super: {
+          weechat = super.weechat.override {
+            configure = {availablePlugins, ...}: {
+              plugins = with availablePlugins; [
+                (python.withPackages (ps: with ps; [websocket_client]))
+                perl
+                #(lua.withPackages (ps: with ps; [cjson]))
+              ];
+            };
+          };
+        }
+      )
+    ];
 
   };
 
