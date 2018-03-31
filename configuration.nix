@@ -224,7 +224,6 @@
 
         # Text editors
         vim
-        neovim
         xclip  # system clipboard support for vim
 
         # VPN
