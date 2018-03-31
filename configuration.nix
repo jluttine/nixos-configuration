@@ -156,7 +156,7 @@
         printing = {
           enable = true;
           webInterface = true;
-          gutenprint = true;
+          drivers = with pkgs; [ gutenprint ];
         };
         avahi = {
           enable = true;
