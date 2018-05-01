@@ -25,5 +25,6 @@
       ./syncthing.nix
       ./cryptos.nix
       ./rss.nix
+      ./backup.nix
     ];
 }

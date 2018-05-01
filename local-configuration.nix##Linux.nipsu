@@ -51,6 +51,16 @@
       enable = true;
       domain = null; #"boksi.nipsu.fi";
     };
+    backup = {
+      enable = true;
+      compress = false;
+      snapshotName = "lv-nixos-var-snapshot";
+      volumeGroupName = "vg-nixos-var";
+      logicalVolumeName = "lv-nixos-var";
+      host = "jluttine@kapsi.fi";
+      filename = "/home/users/jluttine/siilo/nipsu.img";
+      startAt = "01:00";
+    };
   };
   extraPackages = with pkgs; [
 
