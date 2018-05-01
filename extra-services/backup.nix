@@ -105,7 +105,7 @@ with lib;
       echo "Start syncing to file ${host}$UNFINISHED_DST .."
 
       # Update backup disk image
-      ${pkgs.diskrsync}/bin/diskrsync ${compress} /dev/${cfg.volumeGroupName}/${cfg.snapshotName} ${host}${target}
+      ${pkgs.diskrsync}/bin/diskrsync ${compress} /dev/${cfg.volumeGroupName}/${cfg.snapshotName} ${host}$UNFINISHED_DST
 
       echo "Syncing finished."
 
