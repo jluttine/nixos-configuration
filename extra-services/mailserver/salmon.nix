@@ -7,10 +7,10 @@ let
   cfg = config.services.salmon;
 
   extraLibs = cfg.extraLibs cfg.pythonPackages;
-  salmon = cfg.package cfg.pythonPackages;
+  salmonPackage = cfg.package cfg.pythonPackages;
 
   penv = cfg.pythonPackages.python.buildEnv.override {
-    extraLibs = extraLibs ++ [salmon];
+    extraLibs = extraLibs ++ [salmonPackage];
   };
 
   uid = toString config.users.users."${cfg.user}".uid;
