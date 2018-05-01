@@ -214,6 +214,7 @@
         htop
         nix-repl
         yle-dl
+        nix-index
 
         # Gamin: a file and directory monitoring system
         fam
