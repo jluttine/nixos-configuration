@@ -27,5 +27,6 @@
       ./rss.nix
       ./backup.nix
       ./mpd.nix
+      ./bluetooth.nix
     ];
 }
