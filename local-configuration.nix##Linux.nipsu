@@ -51,6 +51,9 @@
       enable = true;
       domain = null; #"boksi.nipsu.fi";
     };
+    mpd = {
+      enable = true;
+    };
     backup = {
       enable = true;
       compress = false;

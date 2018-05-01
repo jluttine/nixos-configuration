@@ -26,5 +26,6 @@
       ./cryptos.nix
       ./rss.nix
       ./backup.nix
+      ./mpd.nix
     ];
 }
