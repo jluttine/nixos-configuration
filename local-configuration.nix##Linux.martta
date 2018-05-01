@@ -13,9 +13,8 @@
       enable = true;
       user = "meri";
     };
-    cryptos = {
-      enable = true;
-    };
+    cryptos.enable = true;
+    bluetooth.enable = true;
   };
   allowUnfree = true;
   extraPackages = with pkgs; [
