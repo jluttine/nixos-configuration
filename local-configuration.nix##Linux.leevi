@@ -61,6 +61,9 @@
     # Photo manager
     shotwell
 
+    # MPD client
+    cantata
+
     # Panorama stitcher
     hugin
     # HDR photography
@@ -77,7 +80,6 @@
     # Twitter
     corebird
 
-    cpp_ethereum
 
     # Encryption
     openssl
@@ -89,7 +91,6 @@
     emacs
     gitAndTools.gitflow
     pgadmin
-    nbstripout
 
     # Separate tiling window manager
     #i3
@@ -101,5 +102,6 @@
 
     k3b
 
+    dvdplusrwtools
   ];
 }
