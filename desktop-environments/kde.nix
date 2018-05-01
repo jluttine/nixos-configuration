@@ -86,10 +86,6 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
 
     # Office suit
     libreoffice
-    scribus
-
-    # Vector graphics
-    inkscape
 
     # Photo/image editor
     gwenview
