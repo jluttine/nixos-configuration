@@ -19,7 +19,7 @@ with lib;
       username = account.username;
       password = account.password;
       protocol = "cloudflare";
-      domain = "";
+      domains = [];
       extraConfig = let
         zones = attrNames cfg;
       in lib.concatStrings (
