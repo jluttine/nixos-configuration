@@ -97,7 +97,7 @@ with lib;
       ${pkgs.lvm2}/bin/lvcreate ${cfg.snapshotSize} -s -n ${cfg.snapshotName} ${cfg.volumeGroupName}/${cfg.logicalVolumeName}
 
       # Timestamp of the snapshot is used as backup file suffix
-      FINISHED_DST=${target}$(date +%Y%m%d%H%M%S)
+      FINISHED_DST=${target}#$(date +%Y%m%d%H%M%S)
 
       # Get the oldest version file to write into
       UNFINISHED_DST=$(${ssh} ls -1 ${target}#* | head -n 1)
