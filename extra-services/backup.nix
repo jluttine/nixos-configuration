@@ -71,13 +71,22 @@ with lib;
     cfg = config.localConfiguration.extraServices.backup;
 
     # Support both local and SSH remote locations
-    ssh = if cfg.host == null then "" else "${pkgs.openssh}/bin/ssh ${cfg.host}";
+    ssh = optionalString (cfg.host != null) "${pkgs.openssh}/bin/ssh ${cfg.host}";
 
     # Whether to use compressing
     compress = optionalString (!cfg.compress) "--no-compress";
 
     # "[user@]host:" for SSH remote locations, "" otherwise
-    host = if cfg.host == null then "" else "${cfg.host}:";
+    host = optionalString (cfg.host != null) "${cfg.host}:";
+
+    remoteUpdate = optionalString (cfg.host != null) ''
+      # Update the disk image in the remote alone to reduce network bandwidth
+      LATEST_BACKUP=$(${ssh} ls -1 ${target}#* | tail -n 1)
+      if [ "$LATEST_BACKUP" != "$OLDEST_BACKUP" ]; then
+        echo "Syncing $LATEST_BACKUP to $OLDEST_BACKUP remotely.."
+        ${ssh} diskrsync ${compress} "$LATEST_BACKUP" "$OLDEST_BACKUP"
+      fi
+    '';
 
     # Add double quotes around the target filename so it works more robustly
     target = "\"${cfg.filename}\"";
@@ -97,22 +106,24 @@ with lib;
       ${pkgs.lvm2}/bin/lvcreate ${cfg.snapshotSize} -s -n ${cfg.snapshotName} ${cfg.volumeGroupName}/${cfg.logicalVolumeName}
 
       # Timestamp of the snapshot is used as backup file suffix
-      FINISHED_DST=${target}#$(date +%Y%m%d%H%M%S)
+      UPDATED_BACKUP=${target}#$(date +%Y%m%d%H%M%S)
 
       # Get the oldest version file to write into
-      UNFINISHED_DST=$(${ssh} ls -1 ${target}#* | head -n 1)
+      OLDEST_BACKUP=$(${ssh} ls -1 ${target}#* | head -n 1)
 
-      echo "Start syncing to file ${host}$UNFINISHED_DST .."
+      ${remoteUpdate}
+
+      echo "Start syncing to file ${host}$OLDEST_BACKUP .."
 
       # Update backup disk image
-      ${pkgs.diskrsync}/bin/diskrsync ${compress} /dev/${cfg.volumeGroupName}/${cfg.snapshotName} ${host}$UNFINISHED_DST
+      ${pkgs.diskrsync}/bin/diskrsync ${compress} /dev/${cfg.volumeGroupName}/${cfg.snapshotName} ${host}"$OLDEST_BACKUP"
 
       echo "Syncing finished."
 
       # Rename the backup file with the correct timestamp
-      ${ssh} mv $UNFINISHED_DST $FINISHED_DST
+      ${ssh} mv "$OLDEST_BACKUP" "$UPDATED_BACKUP"
 
-      echo "File renamed to ${host}$FINISHED_DST"
+      echo "File renamed to ${host}$UPDATED_BACKUP"
     '';
 
   in mkIf cfg.enable {
