@@ -128,6 +128,57 @@ with lib;
       echo "File renamed to ${host}$UPDATED_BACKUP"
     '';
 
+    sshfsMount = remoteString ''
+      # Mount read-only remote over SSH
+      #LATEST_BACKUP=$(${ssh} ls -1 ${target}#* | tail -n 1)
+      sshfs -o ro ${host}${baseDir} {cfg.sshfsDir}
+    '';
+
+    sshfsUmount = remoteString ''
+      # Unmount SSH filesystem
+      fusermount -u ${cfg.sshfsDir}
+    '';
+
+    mountScript = pkgs.writeScript "mount-diskrsync-backup" ''
+      # Exit if any command fails
+      set -e
+
+      # Print commands
+      set -x
+
+      ${sshfsMount}
+
+      # Use loop device to access the file as a file system
+      LATEST_BACKUP=$(ls -1 ${cfg.sshfsDir}/${filenameWithoutPath}#* | tail -n 1)
+      LOOPDEVICE=`losetup --read-only --show --find $LATEST_BACKUP`
+
+      # Decrypt the encrypted file system
+      cryptsetup luksOpen --readonly $LOOPDEVICE ${cfg.luksMapper}
+
+      # Mount the decrypted file system. Need to use norecovery in order to
+      # mount read-only.
+      mount -o ro,norecovery /dev/mapper/${cfg.luksMapper} ${cfg.mountDir}
+    '';
+
+    umountScript = pkgs.writeScript "umount-diskrsync-backup" ''
+      # Print commands
+      set -x
+
+      # Unmount decrypted file system
+      umount ${cfg.mountDir}
+
+      # Detach decryption
+      cryptsetup luksClose /dev/mapper/${cfg.luksMapper}
+
+      # Detach loop device(s)
+      LOOPDEVICES=`losetup -j ${cfg.sshfsDir}/${WHATHERE} | sed 's/\(\/dev\/loop[[:digit:]]\).*/\1/'`
+      for LOOPDEVICE in $LOOPDEVICES; do
+        losetup -d $LOOPDEVICE
+      done
+
+      ${sshfsUmount}
+    '';
+
   in mkIf cfg.enable {
 
     systemd.services.diskrsync = {
