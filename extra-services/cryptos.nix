@@ -20,6 +20,7 @@ with lib;
       monero
       monero-gui
       electron-cash
+      nano-wallet
 
       # Tools
       zbar
