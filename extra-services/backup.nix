@@ -70,16 +70,19 @@ with lib;
 
     cfg = config.localConfiguration.extraServices.backup;
 
+    # String used only when a remote SSH location for the backup
+    remoteString = optionalString (cfg.host != null);
+
     # Support both local and SSH remote locations
-    ssh = optionalString (cfg.host != null) "${pkgs.openssh}/bin/ssh ${cfg.host}";
+    ssh = remoteString "${pkgs.openssh}/bin/ssh ${cfg.host}";
 
     # Whether to use compressing
-    compress = optionalString (!cfg.compress) "--no-compress";
+    compress = remoteString "--no-compress";
 
     # "[user@]host:" for SSH remote locations, "" otherwise
-    host = optionalString (cfg.host != null) "${cfg.host}:";
+    host = remoteString "${cfg.host}:";
 
-    remoteUpdate = optionalString (cfg.host != null) ''
+    remoteUpdate = remoteString ''
       # Update the disk image in the remote alone to reduce network bandwidth
       LATEST_BACKUP=$(${ssh} ls -1 ${target}#* | tail -n 1)
       if [ "$LATEST_BACKUP" != "$OLDEST_BACKUP" ]; then
@@ -91,7 +94,6 @@ with lib;
     # Add double quotes around the target filename so it works more robustly
     target = "\"${cfg.filename}\"";
 
-    #backupScript = pkgs.writeScript "diskrsync-backup.sh" ''
     backupScript = ''
       # Delete existing snapshot (if one exists)
       set +e
