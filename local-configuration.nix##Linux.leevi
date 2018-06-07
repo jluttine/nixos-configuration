@@ -11,6 +11,9 @@
   extraServices = {
     sshd = false;
     emacs = false;
+    bluetooth = {
+      enable = true;
+    };
     mailserver = {
       enable = false;
     };
