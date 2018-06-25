@@ -153,11 +153,42 @@ LVM, you must set `preLVM = false`.**
 
 Install the system:
 
+Something like could work on existing system but there's a bug in nixos-enter
+that network doesn't work. See: https://github.com/NixOS/nixpkgs/issues/39665.
+
 ```
-nixos-install
+nixos-enter --root /mnt
+yadm -Y /etc/nixos/.yadm alt
+mkdir -p /run/user/0
+nixos-install --root /
 ```
 
-Reboot to the new system:
+If this worked (or yadm used relative alt links), all the yadm-related `/mnt`
+tricks should be unnecessary on an existing system. But instead use the
+following:
+
+```
+nixos-install --no-root-passwd
+```
+
+If you have NixOS already installed and you want to use nixpkgs from that
+installation:
+
+```
+nixos-install --no-root-passwd -I /nix/store/<SOME HASH HERE>/nixos/nixpkgs
+```
+
+To find out the hash, figure out where the symlinks are pointing recursively:
+
+```
+ls -l /nix/var/nix/profiles/per-user/root/channels
+```
+
+NOTE: The symlinks are pointing to absolute paths `/nix/...` but that existing
+system is under `/mnt/nix/...` so the symlinks aren't actually working but must
+be prepended with `/mnt`.
+
+Finally, after running the installation, reboot to the new system:
 
 ```
 reboot
