@@ -45,7 +45,7 @@
       device = "/dev/disk/by-uuid/e4e9b62b-9da1-4b7e-8ce1-2fb1a71cc533";
     };
     "luks-nixos-home" = {
-      device = "/dev/disk/by-uuid/63621ebc-1654-45f6-ab89-803cfdf69a24";
+      device = "/dev/disk/by-uuid/3d06b1c7-603e-4df4-b6f8-8a702a67cc5c";
     };
     "luks-nixos-media" = {
       device = "/dev/disk/by-uuid/bd0f1db8-acec-4026-b407-9e955ad059e7";
