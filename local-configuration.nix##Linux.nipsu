@@ -65,6 +65,11 @@
       filename = "/home/users/jluttine/siilo/nipsu.img";
       startAt = "01:00";
     };
+    swap = {
+      enable = true;
+      device = "/media/swapfile";
+      size = 4096;
+    };
   };
   extraPackages = with pkgs; [
 

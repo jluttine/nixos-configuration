@@ -28,5 +28,6 @@
       ./backup.nix
       ./mpd.nix
       ./bluetooth.nix
+      ./swap.nix
     ];
 }
