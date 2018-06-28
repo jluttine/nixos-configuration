@@ -103,7 +103,7 @@ in {
       };
       serviceConfig = {
         WorkingDirectory = cfg.directory;
-        ExecStart = "${penv}/bin/salmon start --uid ${uid} --gid ${gid} --boot ${cfg.bootModule}";
+        ExecStart = "${penv}/bin/salmon start --force --uid ${uid} --gid ${gid} --boot ${cfg.bootModule}";
         ExecStop = "${penv}/bin/salmon stop";
       };
       # Make state directories
