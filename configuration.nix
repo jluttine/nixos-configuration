@@ -202,6 +202,11 @@
 
       nixpkgs.config.allowUnfree = cfg.allowUnfree;
 
+      # Add a udev rule to grant all users access to the Polar V800 USB device
+      services.udev.extraRules = ''
+        SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="0da4", ATTRS{idProduct}=="0008", MODE="0666"
+      '';
+
       # Fundamental core packages
       environment.systemPackages = with pkgs; [
 
