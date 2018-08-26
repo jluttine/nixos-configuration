@@ -220,7 +220,6 @@
         zip
         unzip
         htop
-        nix-repl
         yle-dl
         nix-index
 
