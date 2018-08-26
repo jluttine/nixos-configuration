@@ -110,7 +110,7 @@
 
       # System state version. NOTE: It's probably best to update the channel too
       # when updating this.
-      system.nixos.stateVersion = "18.03";
+      system.stateVersion = "18.03";
 
       # Immutable users and groups
       users.mutableUsers = false;
