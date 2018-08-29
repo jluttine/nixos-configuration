@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 {
 
@@ -17,7 +17,7 @@ with lib;
     };
   };
 
-  config.services = let
+  config = let
     cfg = config.localConfiguration.extraServices.syncthing;
     userConfig = if cfg.user == null then {} else {
       user = cfg.user;
@@ -26,12 +26,12 @@ with lib;
     };
   in mkIf cfg.enable {
 
-    syncthing = {
+    services.syncthing = {
       enable = true;
       openDefaultPorts = true;
     } // userConfig;
 
-    nginx = if cfg.domain == null then {} else {
+    services.nginx = if cfg.domain == null then {} else {
       enable = true;
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
@@ -43,6 +43,24 @@ with lib;
         };
       };
     };
+
+    nixpkgs.overlays = [
+      (
+        self: super: {
+          syncthing = super.syncthing.overrideAttrs (
+            oldAttrs: {
+              version = "0.14.50-rc.2";
+              src = pkgs.fetchFromGitHub {
+                owner  = "syncthing";
+                repo   = "syncthing";
+                rev    = "v0.14.50-rc.2";
+                sha256 = "1ybaamp0sdx8fymrrk6fz8mncx76arv0v39s1g6hn2qiyyvjp1gf";
+              };
+            }
+          );
+        }
+      )
+    ];
 
   };
 
