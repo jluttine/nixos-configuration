@@ -19,12 +19,12 @@ with lib;
 
     mailserver = ps: ps.buildPythonPackage rec {
       pname = "mailserver";
-      version = "0.1.2";
+      version = "0.1.3";
       src = pkgs.fetchFromGitHub {
         owner = "jluttine";
         repo = pname;
         rev = version;
-        sha256 = "0wpmkml6vbynljz02alqrywx2qx11906p43ig541jvwvgmx44l9x";
+        sha256 = "0ca8mfwbmnkjls6i0ldyz7mw70vagxmg4x3g5f2rfdhi4kx9xd8m";
       };
       propagatedBuildInputs = [ ps.requests ps.salmon-mail ];
 
