@@ -30,7 +30,7 @@
       enable = true;
       domain = "feed.nipsu.fi";
     };
-    bluetooth.enable = false;
+    bluetooth.enable = true;
     printServer = true;
     weechat = true;
     tuhlaajapojat = true;
