@@ -7,8 +7,11 @@ with lib;
     default = false;
   };
 
-  config.programs = {
-    adb.enable = config.localConfiguration.extraServices.adb;
+  config = let
+    enabled = config.localConfiguration.extraServices.adb;
+  in {
+    programs.adb.enable = enabled;
+    nixpkgs.config.android_sdk.accept_license = enabled;
   };
 
 }

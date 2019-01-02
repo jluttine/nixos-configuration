@@ -200,10 +200,7 @@
         ];
       };
 
-      nixpkgs.config = {
-        allowUnfree = cfg.allowUnfree;
-        android_sdk.accept_license = true;
-      };
+      nixpkgs.config.allowUnfree = cfg.allowUnfree;
 
       # Add a udev rule to grant all users access to the Polar V800 USB device
       services.udev.extraRules = ''
