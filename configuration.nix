@@ -152,6 +152,9 @@
           #extraBackends = [ pkgs.hplipWithPlugin ];
         };
         #opengl.enable = true;
+        firmware = [
+          pkgs.openelec-dvb-firmware
+        ];
       };
 
       services = {
