@@ -44,24 +44,6 @@ with lib;
       };
     };
 
-    nixpkgs.overlays = [
-      (
-        self: super: {
-          syncthing = super.syncthing.overrideAttrs (
-            oldAttrs: {
-              version = "0.14.50-rc.2";
-              src = pkgs.fetchFromGitHub {
-                owner  = "syncthing";
-                repo   = "syncthing";
-                rev    = "v0.14.50-rc.2";
-                sha256 = "1ybaamp0sdx8fymrrk6fz8mncx76arv0v39s1g6hn2qiyyvjp1gf";
-              };
-            }
-          );
-        }
-      )
-    ];
-
   };
 
 }
