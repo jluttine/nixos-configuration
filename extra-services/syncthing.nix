@@ -22,7 +22,8 @@ with lib;
     userConfig = if cfg.user == null then {} else {
       user = cfg.user;
       group = cfg.user;
-      dataDir = "/home/${cfg.user}/.syncthing/config";
+      dataDir = "/home/${cfg.user}/.syncthing/folders";
+      configDir = "/home/${cfg.user}/.syncthing/config";
     };
   in mkIf cfg.enable {
 
