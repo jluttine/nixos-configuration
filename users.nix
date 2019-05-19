@@ -9,7 +9,7 @@ let
       description = realname;
       uid = id;
       group = username;
-      extraGroups = [ "networkmanager" "users" ] ++ groups;
+      extraGroups = [ "networkmanager" "users" "video" ] ++ groups;
       home = "/home/${username}";
       isNormalUser = true;
       hashedPassword = builtins.getAttr username passwords;
