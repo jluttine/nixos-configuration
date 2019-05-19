@@ -70,8 +70,10 @@
     # MPD client
     cantata
 
-    # Panorama stitcher
+    # Panorama stitcher (with raw support)
     hugin
+    dcraw
+
     # HDR photography
     luminanceHDR
 
