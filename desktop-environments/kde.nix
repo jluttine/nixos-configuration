@@ -24,6 +24,7 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
   ];
 
   # Use Plasma 5
+  services.xserver.desktopManager.default = "plasma5";
   services.xserver.desktopManager.plasma5.enable = true;
 
   environment.systemPackages = with pkgs; [
