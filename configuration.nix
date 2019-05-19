@@ -172,6 +172,7 @@
         xserver = {
           enable = true;
           displayManager."${cfg.displayManager}".enable = true;
+          desktopManager.vaakko.enable = true;
           synaptics = {
             enable = true;
             twoFingerScroll = true;
