@@ -108,9 +108,14 @@
       # Manual upgrades
       system.autoUpgrade.enable = false;
 
-      # System state version. NOTE: It's probably best to update the channel too
-      # when updating this.
-      # system.stateVersion = "18.03";
+      # NOTE: This is something you should probably never change. It's not
+      # really related to NixOS version. It just prevents some backwards
+      # incompatible changes from happening. Grep nixpkgs for "stateVersion" to
+      # see how it's used. Basically, when some default setting value is
+      # modified, this version number is used to check whether you are using the
+      # old or new default, so your system won't break if, for instance, a
+      # database changes its default data directory.
+      system.stateVersion = "18.03";
 
       # Immutable users and groups
       users.mutableUsers = false;
