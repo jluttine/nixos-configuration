@@ -28,6 +28,7 @@ in {
     ./keyboard.nix
     ./kill.nix
     ./apps.nix
+    ./bar.nix
   ];
 
   # TODO: Make modifier key configurable
