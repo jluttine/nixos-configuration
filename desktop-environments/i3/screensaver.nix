@@ -69,12 +69,17 @@ in {
           Physlock
 
           Pros:
+
           - Locks also virtual terminals so you cannot switch to another VT
             when locked.
 
           Cons:
-          - If you suspend (lock) the laptop while in a VT without logged in user,
-            the locking fails and nothing is locked when waking up.
+
+          - If you suspend (lock) the laptop while in a VT without logged in
+            user, the locking fails and nothing is locked when waking up.
+            Perhaps do something like "until physlock" to force trying to lock
+            until succeeds.
+
           - Doesn't support screen saving features via DPMS. See
             https://github.com/muennich/physlock/issues/9. One should use
             setterm but I couldn't figure out how and where to call it
@@ -84,12 +89,15 @@ in {
           Slock
 
           Pros:
+
           - Locks X no matter which VT you suspend in.
 
           Cons:
+
           - Locks only X so you can switch to other VTs even if they have logged
             in users. Slock does recommend disabling VT switching for the entire
             X but that isn't convenient because VTs are useful.
+
         '';
       };
     };
