@@ -95,6 +95,10 @@ with lib;
     target = "\"${cfg.filename}\"";
 
     backupScript = ''
+      # Propagate errors through pipes correctly and raise errors on unknown
+      # variables
+      set -uo pipefail
+
       # Delete existing snapshot (if one exists)
       set +e
       ${pkgs.lvm2}/bin/lvremove --yes ${cfg.volumeGroupName}/${cfg.snapshotName}
