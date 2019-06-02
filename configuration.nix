@@ -33,7 +33,7 @@
       default = "lightdm";
     };
     desktopEnvironment = mkOption {
-      type = types.enum [ "kde" ];
+      type = types.enum [ "kde" "vaakko" ];
       default = "kde";
     };
     allowUnfree = mkOption {
@@ -177,7 +177,6 @@
         xserver = {
           enable = true;
           displayManager."${cfg.displayManager}".enable = true;
-          desktopManager.vaakko.enable = true;
           synaptics = {
             enable = true;
             twoFingerScroll = true;

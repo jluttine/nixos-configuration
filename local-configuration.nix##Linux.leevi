@@ -7,7 +7,7 @@
     (jluttine { groups = [ "wheel" "adbusers" ]; })
   ];
   displayManager = "sddm";
-  desktopEnvironment = "kde";
+  desktopEnvironment = "vaakko";
   extraServices = {
     sshd = false;
     emacs = false;

@@ -2,6 +2,6 @@
 {
   imports = [
     ./kde.nix
-    ./i3
+    ./vaakko.nix
   ];
 }
