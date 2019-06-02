@@ -34,6 +34,7 @@ with lib;
     # Reverse proxy so we can have domain name and SSL
     services.nginx = {
       enable = true;
+      recommendedProxySettings = true;
       virtualHosts."${cfg.domain}" = {
         forceSSL = cfg.ssl;
         enableACME = cfg.ssl;

@@ -40,6 +40,7 @@ with lib;
     # Reverse proxy so we can have domain name and SSL
     services.nginx = {
       enable = true;
+      recommendedProxySettings = true;
       virtualHosts."${cfg.domain}" = {
         forceSSL = cfg.ssl;
         enableACME = cfg.ssl;
@@ -47,7 +48,6 @@ with lib;
           "/" = {
             proxyPass = "http://localhost:5232/"; # The / is important!
             extraConfig = ''
-              proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
               proxy_pass_header Authorization;
             '';
           };

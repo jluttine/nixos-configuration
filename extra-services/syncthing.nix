@@ -34,6 +34,7 @@ with lib;
 
     services.nginx = if cfg.domain == null then {} else {
       enable = true;
+      recommendedProxySettings = true;
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
         enableACME = true;
