@@ -120,7 +120,7 @@ let
   socketUser = "nginx";
   socket = "${config.services.uwsgi.runDir}/tuhlaajapojat.sock";
 
-  robotsTxt = pkgs.writeText "robots.txt" ''
+  robotsTxt = pkgs.writeTextDir "robots.txt" ''
     User-agent: *
     Disallow: /
   '';
@@ -189,13 +189,13 @@ in {
 
         locations = {
           "/robots.txt" = {
-            alias = "${robotsTxt}";
+            root = "${robotsTxt}";
           };
-          "/media" = {
-            alias = "${directory}/media";
+          "/media/" = {
+            alias = "${directory}/media/";
           };
-          "/static" = {
-            alias = "${directory}/static";
+          "/static/" = {
+            alias = "${directory}/static/";
           };
           "/" = {
             extraConfig = ''
