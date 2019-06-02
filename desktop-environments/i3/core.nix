@@ -15,10 +15,19 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    # Add DejaVu font
+    # Add DejaVu font and same fonts as Plasma
     fonts.fonts = with pkgs; [
       dejavu_fonts
+      noto-fonts
+      hack-font
     ];
+
+    # These are the same fonts as Plasma uses
+    fonts.fontconfig.defaultFonts = {
+      monospace = [ "Hack" "Noto Mono" ];
+      sansSerif = [ "Noto Sans" ];
+      serif = [ "Noto Serif" ];
+    };
 
     # There also is the (new) i3-dmenu-desktop which only displays applications
     # shipping a .desktop file. It is a wrapper around dmenu, so you need that
