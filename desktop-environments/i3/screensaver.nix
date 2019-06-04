@@ -153,7 +153,8 @@ in {
       xss-lock = {
         enable = true;
         # TODO: Add dimming. See xss-lock man page for help.
-        lockerCommand = "--transfer-sleep-lock -- ${locker}";
+        extraOptions = [ "--transfer-sleep-lock" ];
+        lockerCommand = "${locker}";
       };
     };
 
