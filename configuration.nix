@@ -230,6 +230,7 @@
         htop
         yle-dl
         nix-index
+        dnsutils
 
         # Gamin: a file and directory monitoring system
         fam
