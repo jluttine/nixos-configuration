@@ -229,6 +229,7 @@
         unzip
         htop
         yle-dl
+        youtube-dl
         nix-index
         dnsutils
 
