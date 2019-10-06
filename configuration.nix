@@ -177,6 +177,7 @@
         xserver = {
           enable = true;
           displayManager."${cfg.displayManager}".enable = true;
+          libinput.enable = false; # or should this be used instead of synaptics??
           synaptics = {
             enable = true;
             twoFingerScroll = true;
@@ -232,6 +233,11 @@
         youtube-dl
         nix-index
         dnsutils
+        whois
+        coreutils
+        vbetool
+        killall
+        nethogs
 
         # Gamin: a file and directory monitoring system
         fam
