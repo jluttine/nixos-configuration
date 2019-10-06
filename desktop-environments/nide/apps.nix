@@ -2,14 +2,14 @@
 
 let
 
-  cfg = config.services.xserver.desktopManager.vaakko;
+  cfg = config.services.xserver.desktopManager.nide;
 
 
 in {
 
   options = with lib; {
 
-    services.xserver.desktopManager.vaakko = {};
+    services.xserver.desktopManager.nide = {};
 
   };
 
@@ -18,7 +18,7 @@ in {
     # There also is the (new) i3-dmenu-desktop which only displays applications
     # shipping a .desktop file. It is a wrapper around dmenu, so you need that
     # installed.
-    services.xserver.desktopManager.vaakko.i3Config = ''
+    services.xserver.desktopManager.nide.i3Config = ''
       bindsym $mod+Return exec st
       bindsym $mod+Home exec dolphin
     '';
@@ -28,8 +28,12 @@ in {
 
     # Other core apps for making a complete desktop environment experience.
     environment.systemPackages = with pkgs; [
+
       # Simple tabless terminal
       st
+
+      # Simple image viewer
+      sxiv
 
       # Simple tabless web browser options
       vimb

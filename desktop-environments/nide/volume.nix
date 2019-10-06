@@ -2,7 +2,7 @@
 
 let
 
-  cfg = config.services.xserver.desktopManager.vaakko;
+  cfg = config.services.xserver.desktopManager.nide;
 
 in {
 
@@ -10,8 +10,8 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    services.xserver.desktopManager.vaakko.i3Config = let
-      pasystray = "${config.hardware.pulseaudio.package}/bin/pasystray";
+    services.xserver.desktopManager.nide.i3Config = let
+      pasystray = "${pkgs.pasystray}/bin/pasystray";
       pactl = "${config.hardware.pulseaudio.package}/bin/pactl";
       sink = "@DEFAULT_SINK@";
     in ''

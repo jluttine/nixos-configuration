@@ -2,7 +2,7 @@
 
 let
 
-  cfg = config.services.xserver.desktopManager.vaakko;
+  cfg = config.services.xserver.desktopManager.nide;
 
 in {
 

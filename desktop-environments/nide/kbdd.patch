@@ -1,0 +1,13 @@
+diff --git a/src/libkbdd.c b/src/libkbdd.c
+index 3fae410..19c3087 100644
+--- a/src/libkbdd.c
++++ b/src/libkbdd.c
+@@ -657,7 +657,7 @@ int is_ehwm_supported(void) {
+     long unsigned int nItems, bytesAfter;
+     int ret = XGetWindowProperty(_kbdd.display,_kbdd.root_window, _kbdd.atom_netActiveWindow, 0, sizeof(Window), 0, XA_WINDOW,
+                         &actualType, &actualFormat, &nItems, &bytesAfter, &propReturn);
+-    if ( ret == Success && propReturn) {
++    if ( 1 ) {
+         XFree(propReturn);
+         _kbdd.supportEWMH = True;
+         fprintf(stderr,"EWMH is supported\n");

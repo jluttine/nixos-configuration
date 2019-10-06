@@ -2,14 +2,14 @@
 
 let
 
-  cfg = config.services.xserver.desktopManager.vaakko;
+  cfg = config.services.xserver.desktopManager.nide;
 
 
 in {
 
   options = with lib; {
 
-    services.xserver.desktopManager.vaakko = {};
+    services.xserver.desktopManager.nide = {};
 
   };
 
@@ -17,8 +17,8 @@ in {
 
     systemd.user.services.udiskie = {
       description = "Udiskie daemon";
-      wantedBy = [ "vaakko.target" ];
-      partOf = [ "vaakko.target" ];
+      wantedBy = [ "nide.target" ];
+      partOf = [ "nide.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.udiskie}/bin/udiskie --no-automount --tray";
       };

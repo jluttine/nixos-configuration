@@ -2,7 +2,7 @@
 
 let
 
-  cfg = config.services.xserver.desktopManager.vaakko;
+  cfg = config.services.xserver.desktopManager.nide;
 
 in {
 
@@ -19,6 +19,12 @@ in {
     # Without this, D-Bus didn't seem to work.. Not sure though.
     services.xserver.startDbusSession = true;
     services.xserver.updateDbusEnvironment = true;
+
+    services.dbus.enable = true;
+    services.dbus.packages = [ pkgs.dunst ];
+
+    # This is the default, but setting true just broke all dbus things..
+    services.dbus.socketActivated = false;
 
     environment.systemPackages = with pkgs; [
       libnotify

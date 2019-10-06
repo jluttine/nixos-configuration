@@ -2,20 +2,20 @@
 
 let
 
-  cfg = config.services.xserver.desktopManager.vaakko;
+  cfg = config.services.xserver.desktopManager.nide;
 
 
 in {
 
   options = with lib; {
 
-    services.xserver.desktopManager.vaakko = {};
+    services.xserver.desktopManager.nide = {};
 
   };
 
   config = lib.mkIf cfg.enable {
 
-    services.xserver.desktopManager.vaakko.i3Config = ''
+    services.xserver.desktopManager.nide.i3Config = ''
       # Assign workspace names to variables
       set $ws1 "1"
       set $ws2 "2"

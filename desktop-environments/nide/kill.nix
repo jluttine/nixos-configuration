@@ -2,7 +2,7 @@
 
 let
 
-  cfg = config.services.xserver.desktopManager.vaakko;
+  cfg = config.services.xserver.desktopManager.nide;
 
   kill-window = let
     xprop = "${pkgs.xlibs.xprop}/bin/xprop";
@@ -21,7 +21,7 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    services.xserver.desktopManager.vaakko.i3Config = let
+    services.xserver.desktopManager.nide.i3Config = let
     in ''
       bindsym $mod+Escape kill
       bindsym $mod+Shift+Escape exec --no-startup-id ${kill-window} TERM

@@ -33,7 +33,7 @@
       default = "lightdm";
     };
     desktopEnvironment = mkOption {
-      type = types.enum [ "kde" "vaakko" ];
+      type = types.enum [ "kde" "gnome" "nide" ];
       default = "kde";
     };
     allowUnfree = mkOption {
