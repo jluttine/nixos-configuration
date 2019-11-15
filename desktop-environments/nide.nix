@@ -2,11 +2,20 @@
 
 let
   cfg = config.localConfiguration;
+  # 1) Use NiDE from my local checkout
+  nide = "/etc/nide";
+  # 2) Use NiDE from GitHub:
+  # nide = let
+  #   rev = "0.1.0";
+  # in builtins.fetchTarball {
+  #   url = "https://github.com/jluttine/NiDE/archive/${rev}.tar.gz";
+  #   sha256 = "139l66hh8f86iwmq5wm4v1a342v2i06dfz5m69ja65q4a74yxvp7";
+  # };
 in
 {
 
   imports = [
-    ./nide
+    nide
   ];
 
   config = lib.mkIf (cfg.desktopEnvironment == "nide") {
