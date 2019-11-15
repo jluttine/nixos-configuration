@@ -99,6 +99,11 @@
     emacs
     gitAndTools.gitflow
     pgadmin
+    gitAndTools.hub
+    direnv
+
+    # Password manager
+    pass
 
     # Separate tiling window manager
     #i3
