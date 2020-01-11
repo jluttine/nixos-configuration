@@ -39,7 +39,7 @@ in
 
     # Use Plasma 5
     services.xserver.desktopManager.nide.enable = true;
-    services.xserver.desktopManager.default = "nide";
+    services.xserver.displayManager.defaultSession = "nide";
 
     environment.systemPackages = with pkgs; [
 
