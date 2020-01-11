@@ -72,7 +72,7 @@
 
     # Panorama stitcher (with raw support)
     hugin
-    dcraw
+    #dcraw # marked as insecure
 
     # HDR photography
     luminanceHDR
