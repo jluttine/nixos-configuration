@@ -116,5 +116,12 @@
     k3b
 
     dvdplusrwtools
+
+    (python3.withPackages (ps: with ps; [
+      numpy
+      scipy
+      # Python language server for Emacs
+      python-language-server
+    ]))
   ];
 }
