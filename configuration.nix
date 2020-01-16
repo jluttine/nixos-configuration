@@ -216,6 +216,19 @@
         SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="0da4", ATTRS{idProduct}=="0008", MODE="0666"
       '';
 
+      # TEMPORARY FIX UNTIL PR MERGED: https://github.com/NixOS/nixpkgs/pull/77811
+      nixpkgs.overlays = [
+        (
+          self: super: {
+            yle-dl = super.yle-dl.overrideAttrs (oldAttrs: {
+              propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+                pkgs.pythonPackages.setuptools
+              ];
+            });
+          }
+        )
+      ];
+
       # Fundamental core packages
       environment.systemPackages = with pkgs; [
 
