@@ -25,7 +25,7 @@ with lib;
           weechat = super.weechat.override {
             configure = {availablePlugins, ...}: {
               scripts = with pkgs.weechatScripts; [
-                weechat-xmpp
+                #weechat-xmpp
                 weechat-matrix
                 wee-slack
               ];

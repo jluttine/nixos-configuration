@@ -24,7 +24,7 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
   ];
 
   # Use Plasma 5
-  services.xserver.desktopManager.default = "plasma5";
+  services.xserver.displayManager.defaultSession = "plasma5";
   services.xserver.desktopManager.plasma5.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -48,7 +48,7 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
     # GPG manager for KDE
     kgpg
     # This is needed for graphical dialogs used to enter GPG passphrases
-    pinentry_qt5
+    pinentry-qt
 
     kdeplasma-addons
 
