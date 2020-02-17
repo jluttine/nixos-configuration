@@ -310,6 +310,9 @@
         # GUI for sound control
         pavucontrol
 
+        # Trash management from the command line
+        trash-cli
+
         python3Packages.magic-wormhole
 
       ] ++ cfg.extraPackages;
