@@ -67,6 +67,9 @@
     # Audio editor
     audacity
 
+    # Screen recorder
+    simplescreenrecorder
+
     # MPD client
     cantata
 
