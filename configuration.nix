@@ -259,6 +259,9 @@
         imagemagick
         ghostscript
 
+        # Simple PDF
+        mupdf
+
         # Text editors
         vim
         xclip  # system clipboard support for vim
