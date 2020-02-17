@@ -196,7 +196,6 @@
           inconsolata # monospaced
           unifont # some international languages
           font-awesome-ttf
-          source-code-pro
           freefont_ttf
           opensans-ttf
           liberation_ttf
@@ -206,6 +205,9 @@
           ubuntu_font_family
           gentium
           symbola
+          # Good monospace fonts
+          jetbrains-mono
+          source-code-pro
         ];
       };
 
