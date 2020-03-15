@@ -210,6 +210,10 @@
         ];
       };
 
+      security.acme = {
+        email = "jaakko.luttinen@iki.fi";
+        acceptTerms = true;
+      };
       nixpkgs.config.allowUnfree = cfg.allowUnfree;
 
       # Add a udev rule to grant all users access to the Polar V800 USB device
