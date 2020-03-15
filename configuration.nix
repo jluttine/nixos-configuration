@@ -204,7 +204,6 @@
           libertine
           ubuntu_font_family
           gentium
-          symbola
           # Good monospace fonts
           jetbrains-mono
           source-code-pro
