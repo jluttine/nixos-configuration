@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, options, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 
@@ -214,10 +214,6 @@
         email = "jaakko.luttinen@iki.fi";
         acceptTerms = true;
       };
-      # Add some ciphers because tinytiny rss clients and some android browsers
-      # complained about SSL handshake. See: https://syslink.pl/cipherlist/
-      # Also, see the pull request: https://github.com/NixOS/nixpkgs/pull/80952
-      services.nginx.sslCiphers = "EECDH+AESGCM:EDH+AESGCM:" + options.services.nginx.sslCiphers.default;
 
       nixpkgs.config.allowUnfree = cfg.allowUnfree;
 
