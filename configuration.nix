@@ -290,6 +290,7 @@
 
         # Password hash generator
         mkpasswd
+        openssl
 
         # Android
         jmtpfs
