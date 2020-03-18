@@ -18,6 +18,8 @@
   };
   allowUnfree = true;
   extraPackages = with pkgs; [
+    zoom-us
+    linphone
 
   ];
 }
