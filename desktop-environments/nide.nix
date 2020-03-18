@@ -6,10 +6,10 @@ in
 {
 
   imports = [
-    ./i3
+    (import ./nide-src.nix)
   ];
 
-  config = lib.mkIf (cfg.desktopEnvironment == "vaakko") {
+  config = lib.mkIf (cfg.desktopEnvironment == "nide") {
     # Open ports for KDE Connect
     networking.firewall.allowedTCPPorts = [
                           1714 1715 1716 1717 1718 1719
@@ -29,15 +29,15 @@ in
     ];
 
     # Use Plasma 5
-    services.xserver.desktopManager.vaakko.enable = true;
-    services.xserver.desktopManager.default = "vaakko";
+    services.xserver.desktopManager.nide.enable = true;
+    services.xserver.displayManager.defaultSession = "nide";
 
     environment.systemPackages = with pkgs; [
 
       # Password manager for KDE
-      kdeFrameworks.kwallet
-      kdeApplications.kwalletmanager
-      kwalletcli
+      # kdeFrameworks.kwallet
+      # kdeApplications.kwalletmanager
+      # kwalletcli
 
       # Allow automatic unlocking of kwallet if the same password. This seems to
       # work without installing kwallet-pam.
@@ -53,9 +53,9 @@ in
       # GPG manager for KDE
       kgpg
       # This is needed for graphical dialogs used to enter GPG passphrases
-      pinentry_qt5
+      # pinentry_qt5
 
-      kdeplasma-addons
+      # kdeplasma-addons
 
       # Screenshots
       kdeApplications.spectacle
@@ -67,7 +67,7 @@ in
       kate
 
       # Torrenting
-      ktorrent
+      #ktorrent
 
       # Connect desktop and phone
       kdeconnect
@@ -104,9 +104,9 @@ in
       vlc
 
       # KDE apps
-      kdeFrameworks.kconfig
-      kdeFrameworks.kconfigwidgets
-      konsole
+      # kdeFrameworks.kconfig
+      # kdeFrameworks.kconfigwidgets
+      # konsole
       dolphin
       kdeApplications.dolphin-plugins
 

@@ -7,7 +7,7 @@
     (jluttine { groups = [ "wheel" "adbusers" ]; })
   ];
   displayManager = "sddm";
-  desktopEnvironment = "vaakko";
+  desktopEnvironment = "nide";
   extraServices = {
     sshd = false;
     emacs = false;
@@ -67,12 +67,15 @@
     # Audio editor
     audacity
 
+    # Screen recorder
+    simplescreenrecorder
+
     # MPD client
     cantata
 
     # Panorama stitcher (with raw support)
     hugin
-    dcraw
+    #dcraw # marked as insecure
 
     # HDR photography
     luminanceHDR
@@ -99,6 +102,11 @@
     emacs
     gitAndTools.gitflow
     pgadmin
+    gitAndTools.hub
+    direnv
+
+    # Password manager
+    pass
 
     # Separate tiling window manager
     #i3
@@ -111,5 +119,12 @@
     k3b
 
     dvdplusrwtools
+
+    (python3.withPackages (ps: with ps; [
+      numpy
+      scipy
+      # Python language server for Emacs
+      python-language-server
+    ]))
   ];
 }

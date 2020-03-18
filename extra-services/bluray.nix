@@ -25,7 +25,6 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       vlc
-      aacskeys
     ];
 
   };

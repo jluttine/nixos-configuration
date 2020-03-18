@@ -15,7 +15,7 @@ with lib;
 
     services.ddclient = {
       enable = true;
-      server = "www.cloudflare.com";
+      server = "api.cloudflare.com/client/v4";
       username = account.username;
       password = account.password;
       protocol = "cloudflare";

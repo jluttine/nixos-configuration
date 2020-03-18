@@ -33,7 +33,7 @@
       default = "lightdm";
     };
     desktopEnvironment = mkOption {
-      type = types.enum [ "kde" "vaakko" ];
+      type = types.enum [ "kde" "gnome" "nide" ];
       default = "kde";
     };
     allowUnfree = mkOption {
@@ -177,6 +177,7 @@
         xserver = {
           enable = true;
           displayManager."${cfg.displayManager}".enable = true;
+          libinput.enable = false; # or should this be used instead of synaptics??
           synaptics = {
             enable = true;
             twoFingerScroll = true;
@@ -195,7 +196,6 @@
           inconsolata # monospaced
           unifont # some international languages
           font-awesome-ttf
-          source-code-pro
           freefont_ttf
           opensans-ttf
           liberation_ttf
@@ -204,8 +204,15 @@
           libertine
           ubuntu_font_family
           gentium
-          symbola
+          # Good monospace fonts
+          jetbrains-mono
+          source-code-pro
         ];
+      };
+
+      security.acme = {
+        email = "jaakko.luttinen@iki.fi";
+        acceptTerms = true;
       };
 
       nixpkgs.config.allowUnfree = cfg.allowUnfree;
@@ -214,6 +221,19 @@
       services.udev.extraRules = ''
         SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="0da4", ATTRS{idProduct}=="0008", MODE="0666"
       '';
+
+      # TEMPORARY FIX UNTIL PR MERGED: https://github.com/NixOS/nixpkgs/pull/77811
+      nixpkgs.overlays = [
+        (
+          self: super: {
+            yle-dl = super.yle-dl.overrideAttrs (oldAttrs: {
+              propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+                pkgs.pythonPackages.setuptools
+              ];
+            });
+          }
+        )
+      ];
 
       # Fundamental core packages
       environment.systemPackages = with pkgs; [
@@ -229,7 +249,14 @@
         unzip
         htop
         yle-dl
+        youtube-dl
         nix-index
+        dnsutils
+        whois
+        coreutils
+        vbetool
+        killall
+        nethogs
 
         # Gamin: a file and directory monitoring system
         fam
@@ -237,6 +264,9 @@
         # Basic image manipulation and handling stuff
         imagemagick
         ghostscript
+
+        # Simple PDF
+        mupdf
 
         # Text editors
         vim
@@ -265,6 +295,7 @@
 
         # Password hash generator
         mkpasswd
+        openssl
 
         # Android
         jmtpfs
@@ -285,6 +316,9 @@
 
         # GUI for sound control
         pavucontrol
+
+        # Trash management from the command line
+        trash-cli
 
         python3Packages.magic-wormhole
 

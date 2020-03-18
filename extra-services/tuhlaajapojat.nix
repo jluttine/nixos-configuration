@@ -18,7 +18,7 @@ let
     # Couldn't get the tests working. "App's aren't loaded yet"
     doCheck = false;
     propagatedBuildInputs = with pythonPackages; [
-      django
+      django_1_11
       icalendar
       numpy
     ];

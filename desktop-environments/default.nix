@@ -2,6 +2,7 @@
 {
   imports = [
     ./kde.nix
-    ./vaakko.nix
+    ./nide.nix
+    ./gnome.nix
   ];
 }

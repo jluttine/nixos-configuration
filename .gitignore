@@ -13,6 +13,8 @@ extra-services/ddclient-account.nix
 
 extra-services/radicale-passwords*
 
+desktop-environments/nide-src.nix
+
 
 # Ignore swap files
 *.swp

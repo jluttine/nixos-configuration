@@ -24,11 +24,16 @@ with lib;
         self: super: {
           weechat = super.weechat.override {
             configure = {availablePlugins, ...}: {
-              plugins = with availablePlugins; [
-                (python.withPackages (ps: with ps; [websocket_client]))
-                perl
-                #(lua.withPackages (ps: with ps; [cjson]))
+              scripts = with pkgs.weechatScripts; [
+                #weechat-xmpp
+                weechat-matrix
+                wee-slack
               ];
+              plugins = builtins.attrValues (availablePlugins // {
+                python = availablePlugins.python.withPackages (ps: with ps; [
+                  websocket_client
+                ]);
+              });
             };
           };
         }
