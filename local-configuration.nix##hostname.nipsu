@@ -80,5 +80,8 @@
     # Remote disk image backup tool
     diskrsync
 
+    # Sync video for among multiple clients
+    syncplay
+
   ];
 }
