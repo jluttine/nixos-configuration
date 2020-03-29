@@ -207,3 +207,46 @@ symlinks.
 ```
 yadm -Y /etc/nixos/.yadm alt
 ```
+
+## Other useful stuff
+
+### Encrypted USB sticks
+
+These instructions help creating a USB stick so that it's encrypted but anyone
+who can decrypt the stick, can have read&write permissions to all files and can
+create new files. The stick works only on Linux though.
+
+- TODO: Create the encrypted disk..
+
+- Mount the disk.
+
+- Go to the mounted directory:
+
+  `cd /run/media/username/SOME_STICK_NAME`
+
+- Make `users` the default group:
+
+  `chmod g+s .`
+
+- Set default permissions for new files and directoies:
+
+  ```
+  setfacl -R -d -m u::rwx .
+  setfacl -R -d -m g::rwx .
+  setfacl -R -d -m o::0 .
+  ```
+
+If you had created the encrypted stick before, you may already have something
+on the stick. You can configure that content as follows:
+
+- Change the group to `users`:
+
+  `chgrp -R users .`
+
+- Set the default group recursively (only for directories):
+
+  `find . -type d -exec chmod g+s {} \;`
+
+- Set permissions:
+
+  `chmod -R ug+rwX .`
