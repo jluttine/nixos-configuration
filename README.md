@@ -222,11 +222,15 @@ create new files. The stick works only on Linux though.
 
 - Go to the mounted directory:
 
-  `cd /run/media/username/SOME_STICK_NAME`
+  ```
+  cd /run/media/username/SOME_STICK_NAME
+  ```
 
 - Make `users` the default group:
 
-  `chmod g+s .`
+  ```
+  chmod g+s .
+  ```
 
 - Set default permissions for new files and directoies:
 
@@ -241,12 +245,18 @@ on the stick. You can configure that content as follows:
 
 - Change the group to `users`:
 
-  `chgrp -R users .`
+  ```
+  chgrp -R users .
+  ```
 
 - Set the default group recursively (only for directories):
 
-  `find . -type d -exec chmod g+s {} \;`
+  ```
+  find . -type d -exec chmod g+s {} \;
+  ```
 
 - Set permissions:
 
-  `chmod -R ug+rwX .`
+  ```
+  chmod -R ug+rwX .
+  ```
