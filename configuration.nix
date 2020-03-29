@@ -61,16 +61,7 @@
 
   in {
       nix = {
-
         useSandbox = true;
-
-        # Enable automatic garbage collection
-        gc = {
-          automatic = true;
-          dates = "daily";
-          options = "--delete-older-than 30d";
-        };
-
       } // lib.optionalAttrs (cfg.nixpkgs != null) {
         nixPath = [
           "nixpkgs=${cfg.nixpkgs}"
