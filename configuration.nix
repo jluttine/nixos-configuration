@@ -168,9 +168,11 @@
         xserver = {
           enable = true;
           displayManager."${cfg.displayManager}".enable = true;
-          libinput.enable = false; # or should this be used instead of synaptics??
+          libinput = {
+            enable = true; # or should this be used instead of synaptics??
+          };
           synaptics = {
-            enable = true;
+            enable = false;
             twoFingerScroll = true;
           };
         };
