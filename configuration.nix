@@ -248,6 +248,7 @@
         vbetool
         killall
         nethogs
+        binutils
 
         # Gamin: a file and directory monitoring system
         fam
