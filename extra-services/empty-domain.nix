@@ -13,8 +13,9 @@ with lib;
   in mkIf (domain != null) {
     services.nginx = {
       virtualHosts."${domain}" = {
-        forceSSL = cfg.ssl;
-        enableACME = cfg.ssl;
+        default = true;
+        forceSSL = true;
+        enableACME = true;
         # Return 403 for everything
         locations = {
           "/" = {
