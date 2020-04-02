@@ -22,6 +22,7 @@
   # '';
   desktopEnvironment = "kde";
   extraServices = {
+    emptyDomain = "nipsu.fi";
     sshd = true;
     ddclient = {
       "nipsu.fi" = [ "nipsu.fi" ];

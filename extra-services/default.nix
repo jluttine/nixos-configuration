@@ -29,5 +29,6 @@
       ./mpd.nix
       ./bluetooth.nix
       ./swap.nix
+      ./empty-domain.nix
     ];
 }
