@@ -62,6 +62,11 @@
   in {
       nix = {
         useSandbox = true;
+        # See: https://github.com/nix-community/nix-direnv#usage
+        extraOptions = ''
+          keep-derivations = true
+          keep-outputs = true
+        '';
       } // lib.optionalAttrs (cfg.nixpkgs != null) {
         nixPath = [
           "nixpkgs=${cfg.nixpkgs}"
