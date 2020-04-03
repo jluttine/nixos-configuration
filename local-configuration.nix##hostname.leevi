@@ -11,6 +11,9 @@
   extraServices = {
     sshd = false;
     emacs = false;
+    multiplayerGames = {
+      enable = true;
+    };
     bluetooth = {
       enable = true;
     };
