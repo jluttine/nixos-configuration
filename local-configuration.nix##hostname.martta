@@ -19,5 +19,8 @@
   allowUnfree = true;
   extraPackages = with pkgs; [
 
+    # Disk usage analysis
+    filelight
+
   ];
 }

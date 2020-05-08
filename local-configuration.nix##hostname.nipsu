@@ -79,6 +79,9 @@
 
     emacs
 
+    # Disk space analysis
+    ncdu
+
     # Remote disk image backup tool
     diskrsync
 

@@ -60,6 +60,9 @@
 
     w_scan
 
+    # Disk usage analysis
+    filelight
+
     # Photo manager
     shotwell
 
