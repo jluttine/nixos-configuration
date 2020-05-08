@@ -256,7 +256,8 @@
         killall
         nethogs
         binutils
-        pmount
+        lsof
+        usbutils
 
         # Gamin: a file and directory monitoring system
         fam
