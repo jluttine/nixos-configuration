@@ -27,6 +27,12 @@ with lib;
       xonotic
       stuntrally
       superTuxKart
+      # megaglest
+      # zeroad
+      # hedgewars
+      # freeciv
+      # openttd
+      # teeworlds
     ];
   };
 }
