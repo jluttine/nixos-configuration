@@ -103,7 +103,6 @@
     # Programming
     emacs
     gitAndTools.gitflow
-    pgadmin
     gitAndTools.hub
     direnv
 
