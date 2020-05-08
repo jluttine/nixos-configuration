@@ -122,6 +122,10 @@
 
     dvdplusrwtools
 
+    nixpkgs-review
+    nixpkgs-fmt
+    gdb
+
     (python3.withPackages (ps: with ps; [
       numpy
       scipy
