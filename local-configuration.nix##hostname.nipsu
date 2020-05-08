@@ -1,6 +1,7 @@
 { users, pkgs }:
 {
   hostName = "nipsu";
+  nixpkgs = "/etc/nixpkgs";
   grubDevice = "/dev/disk/by-id/ata-KINGSTON_SV300S37A60G_50026B773A0045B1";
   users = with users; [
     (jluttine { groups = [ "wheel" ]; })
@@ -21,6 +22,7 @@
   # '';
   desktopEnvironment = "kde";
   extraServices = {
+    emptyDomain = "nipsu.fi";
     sshd = true;
     ddclient = {
       "nipsu.fi" = [ "nipsu.fi" ];
@@ -77,8 +79,14 @@
 
     emacs
 
+    # Disk space analysis
+    ncdu
+
     # Remote disk image backup tool
     diskrsync
+
+    # Sync video for among multiple clients
+    syncplay
 
   ];
 }

@@ -15,7 +15,10 @@ with lib;
 
     hardware = {
 
-      bluetooth.enable = true;
+      bluetooth = {
+        enable = true;
+        package = pkgs.bluezFull;
+      };
 
       # NixOS allows either a lightweight build (default) or full build of
       # PulseAudio to be installed. Only the full build has Bluetooth support,
@@ -23,6 +26,8 @@ with lib;
       pulseaudio.package = pkgs.pulseaudioFull;
 
     };
+
+    services.blueman.enable = true;
 
   };
 

@@ -11,6 +11,9 @@
   extraServices = {
     sshd = false;
     emacs = false;
+    multiplayerGames = {
+      enable = true;
+    };
     bluetooth = {
       enable = true;
     };
@@ -55,11 +58,10 @@
     #feedreader
     rssguard
 
+    w_scan
+
     # Disk usage analysis
     filelight
-    qdirstat
-
-    w_scan
 
     # Photo manager
     shotwell
@@ -86,7 +88,7 @@
     qtox
     linphone
     pybitmessage
-    riot-web
+    riot-desktop
 
     # Twitter
     corebird
@@ -101,7 +103,6 @@
     # Programming
     emacs
     gitAndTools.gitflow
-    pgadmin
     gitAndTools.hub
     direnv
 
@@ -119,6 +120,10 @@
     k3b
 
     dvdplusrwtools
+
+    nixpkgs-review
+    nixpkgs-fmt
+    gdb
 
     (python3.withPackages (ps: with ps; [
       numpy

@@ -61,16 +61,12 @@
 
   in {
       nix = {
-
         useSandbox = true;
-
-        # Enable automatic garbage collection
-        gc = {
-          automatic = true;
-          dates = "daily";
-          options = "--delete-older-than 30d";
-        };
-
+        # See: https://github.com/nix-community/nix-direnv#usage
+        extraOptions = ''
+          keep-derivations = true
+          keep-outputs = true
+        '';
       } // lib.optionalAttrs (cfg.nixpkgs != null) {
         nixPath = [
           "nixpkgs=${cfg.nixpkgs}"
@@ -177,9 +173,11 @@
         xserver = {
           enable = true;
           displayManager."${cfg.displayManager}".enable = true;
-          libinput.enable = false; # or should this be used instead of synaptics??
+          libinput = {
+            enable = true; # or should this be used instead of synaptics??
+          };
           synaptics = {
-            enable = true;
+            enable = false;
             twoFingerScroll = true;
           };
         };
@@ -257,6 +255,9 @@
         vbetool
         killall
         nethogs
+        binutils
+        lsof
+        usbutils
 
         # Gamin: a file and directory monitoring system
         fam
