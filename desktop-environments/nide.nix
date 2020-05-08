@@ -142,6 +142,7 @@ in
       #(rofi.override { configDir = "/home/jluttine/rofi-tmp/"; })
       polybar
       dunst
+      libnotify
       dex
       st
       kbdd
@@ -281,6 +282,13 @@ in
       #
       # That binary is included in gitFull.
       gitAndTools.gitFull
+
+      # Choose some icon theme
+      gnome3.adwaita-icon-theme
+      maia-icon-theme
+      # Not sure if this is needed:
+      hicolor-icon-theme
+
     ];
 
   };
