@@ -269,6 +269,9 @@
         # Simple PDF
         mupdf
 
+        # Disk usage analysis
+        filelight
+
         # Text editors
         vim
         xclip  # system clipboard support for vim
