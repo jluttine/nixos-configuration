@@ -272,9 +272,11 @@ system to the new hardware. Here's a rough overview of the steps:
 
 1. Create disk partitions on the new hardware as desired (see above).
 2. Copy important stateful content from the old setup to the new one.
-  - Home directory content can be copied from disk to another with `rsync -a
-    /path/to/old/ /path/to/new/`. Or if it was lost, it can be restored with
-    syncthing from the home server.
+  - Home directory content can be copied from disk to another with:
+    ```
+    rsync -a --delete --info=progress2 --exclude="/lost+found" /path/to/old/ /path/to/new/
+    ```
+    Or if it was lost, it can be restored with syncthing from the home server.
   - Dotfiles can be restored from GitHub.
   - Home server `/var` logical volume can be cloned from a local disk or remote
     disk image.
