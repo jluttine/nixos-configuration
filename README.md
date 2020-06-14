@@ -57,8 +57,7 @@ NixOS to be installed to and boot it to the NixOS installer.
 
 ### Setting up internet connection
 
- The installer needs internet connection. If you
-need to set up WLAN:
+The installer needs internet connection. If you need to set up WLAN:
 
 ```
 nmcli dev wifi connect <name> password <password>
@@ -74,9 +73,9 @@ ping google.com
 
 You first need to decide how to partition your disk(s). I'm using fully
 encrypted file systems with GPT partition table. I created the partitions with
-fdisk. Run `fdisk /dev/some-device` for each device you want to partition. I
-created GPT partition tables for them. Below are my somewhat cryptic and compact
-notes on how I partitioned my two machines.
+fdisk. Run `sudo fdisk /dev/some-device` for each device you want to partition.
+I created GPT partition tables for them. Below are my somewhat cryptic and
+compact notes on how I partitioned my two machines.
 
 On a laptop with only one disk, I created an unencrypted partition for `/boot`
 and an encrypted partition for `/`:
