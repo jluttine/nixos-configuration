@@ -132,16 +132,6 @@ Mount each file system to its place under `/mnt`. For instance, I mounted
 `nixos-root` under `/mnt` and `nixos-boot` under `/mnt/boot`.
 
 
-#### Backing up encrypted logical volume
-
-```
-modprobe dm-snapshot    # if needed
-lvcreate -l 100%FREE -s -n lv-nixos-var-snapshot /dev/vg-nixos-var/lv-nixos-var
-diskrsync --no-compress /dev/vg-nixos-var/lv-nixos-var-snapshot user@host:/path/to/disk.img
-```
-
-
-
 ### Fetching configuration
 
 Create folder under which configuration will be fetched:
@@ -244,6 +234,100 @@ symlinks.
 
 ```
 yadm -Y /etc/nixos/.yadm alt
+```
+
+### Backing up the system
+
+Different parts of the system are backed up differently. Here's an overview how
+I've set it up:
+
+- System configuration -> NixOS configuration files in GitHub
+- Dotfiles in home directory -> GitHub
+- Important files under home directory -> home server by using syncthing
+- Home server stateful `/var` directory -> remote encrypted disk snapshot
+
+(Note that the syncthing on the home server stores files under `/var` so they'll
+get backed up remotely.)
+
+So, for the server, the setup is such that everything that needs to be backed up
+is under `/var` which is inside an encrypted logical volume `lv-nixos-var`.
+Snapshots of this logical volume are stored remotely so that even if the house
+burned down, there's an encrypted remote backup that can be used to restore
+`/var` exactly as it was.
+
+In short, the system is backed up by taking a snapshot and syncing that to a
+remote disk image file:
+
+```
+modprobe dm-snapshot    # if needed
+lvcreate -l 100%FREE -s -n lv-nixos-var-snapshot /dev/vg-nixos-var/lv-nixos-var
+diskrsync --no-compress /dev/vg-nixos-var/lv-nixos-var-snapshot user@host:/path/to/disk.img
+```
+
+
+### Restoring the system
+
+If something breaks or hardware is changed, one needs to copy the existing/old
+system to the new hardware. Here's a rough overview of the steps:
+
+1. Create disk partitions on the new hardware as desired (see above).
+2. Copy important stateful content from the old setup to the new one.
+  - Home directory content can be copied from disk to another with `rsync -a
+    /path/to/old/ /path/to/new/`. Or if it was lost, it can be restored with
+    syncthing from the home server.
+  - Dotfiles can be restored from GitHub.
+  - Home server `/var` logical volume can be cloned from a local disk or remote
+    disk image.
+3. Copy NixOS configuration (see above).
+4. Install NixOS (see above).
+
+This section explains how restore `/var` logical volume of the home server. One
+may want to restore or clone the encrypted logical volume if the disk needs to
+be updated or if it broke. In the first case, one can attach the old and the new
+disk to a same machine and just clone the logical volume. In the second case,
+use the (remote) disk image that was backed up and clone the logical volume
+based on that. In either case, make sure the new logical volume has exactly the
+same size (`lsblk -b`). If needed, it can be resized after cloning.
+
+#### Cloning a local logical volume
+
+If restoring from a local disk on a same machine, having the same VG and LV
+names on two disks (the old and the new) causes problems. So, first detach the
+new disk and boot with a live USB stick. Rename the volume group on the old
+disk, for instance:
+
+```
+vgrename vg-nixos-var vg-nixos-var-old
+```
+
+(It is possible to rename while they both are attached by checking the UID with
+`vgdisplay` and then using `vgrename <UID> vg-nixos-var-old`. But the above
+method might be less error-prone and safer.)
+
+Now, reboot to the live USB stick with both the new and the old disks attached.
+First, make sure the logical volumes are active (`lvscan`) but not mounted
+(`lsblk`). Especially the disk with a snapshot might require special attention:
+
+```
+modprobe dm-snapshot
+vgchange -a y vg-nixos-var-old
+```
+
+Finally, the actual cloning. Here's an example but be sure to set the input and
+output names correctly:
+
+```
+dd if=/dev/vg-nixos-var-old/lv-nixos-var of=/dev/vg-nixos-var/lv-nixos-var bs=64M status=progress oflag=sync
+```
+
+#### Cloning a (remote) disk image
+
+(If it's a remote disk image, perhaps mount the directory first with `sshfs`.)
+
+Cloning example:
+
+```
+dd if=/path/to/diskimage.img of=/dev/vg-nixos-var/lv-nixos-var bs=64M status=progress oflag=sync
 ```
 
 ## Other useful stuff
