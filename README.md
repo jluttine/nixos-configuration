@@ -85,19 +85,15 @@ and an encrypted partition for `/`:
   - partition 1, size = 1G, ext4 nixos-boot, `/boot`
   - partition 2, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
 
-On a server with three disks:
+On a server with one large disk:
 
-- 60 GB SSD
+- 2 TB SSD
   - partition 4, type 4 = BIOS boot, size = 1M
   - partition 1, size = 1G, ext4 nixos-boot, `/boot`
-  - partition 2, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
-- 2 TB HDD
-  - partition 1, size = 100%, LUKS luks-nixos-media, ext4 nixos-media, `/media`
-- 600 GB HDD
-  - partition 1, type 31 = LVM, size = 500G, VG vg-nixos-var
+  - partition 2, type 31 = LVM, size = 500G, VG vg-nixos-var
     - LV lv-nixos-var, size = 450G, LUKS luks-nixos-var, ext4 nixos-var, `/var`
     - remaining 50G will be reserved for snapshots
-  - partition 2, size = 100%, LUKS luks-nixos-home, ext4 nixos-home, `/home`
+  - partition 3, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
 
 One notable goal of the above construction is to have everything that needs to
 be backed up under `/var`. This encrypted partition is under LVM, so I can take
@@ -126,6 +122,11 @@ cryptsetup -y -v luksFormat /dev/put-device-here
 cryptsetup open /dev/put-device-here put-luks-label-here
 mkfs.ext4 -L put-filesystem-label-here /dev/mapper/put-luks-label-here
 ```
+
+(When running `mkfs.ext4` command, I once got a warning that complained about
+existing `atari` partition table. Apparently, some random data in the LUKS
+device was interpreted incorrectly, and it got fixed by running `wipefs -a
+/dev/mapper/put-luks-label-here`.)
 
 Mount each file system to its place under `/mnt`. For instance, I mounted
 `nixos-root` under `/mnt` and `nixos-boot` under `/mnt/boot`.
