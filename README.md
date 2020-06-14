@@ -18,16 +18,54 @@ aren't created properly. See Yadm manuals for more information.
 
 ## Installing NixOS
 
-Boot to NixOS installer.
+### Creating the installer USB stick
 
+Download the installer ISO image from [nixos.org](https://nixos.org). Plug a USB
+stick to your computer and find its device name with:
+
+```
+lsblk
+```
+
+If the USB stick is mounted, unmount all the mounted partitions as follows but
+replace `/dev/sdxN` with the device name (e.g., `/dev/sdb1`):
+
+```
+umount /dev/sdxN
+```
+
+So, for instance, it could be:
+
+```
+umount /dev/sdb1
+umount /dev/sdb2
+```
+
+Write the ISO image to the USB stick as follows but replace `path/to/nixos.iso`
+with the ISO image file path and `/dev/sdx` with the USB stick device path
+(`lsblk` can be used to show that):
+
+```
+sudo dd bs=4M if=path/to/nixos.iso of=/dev/sdx status=progress oflag=sync
+```
+
+Of course, there are many alternative USB disk writing tools that provide
+graphical user interface.
+
+After the writing has completed, plug the USB stick to the computer you want
+NixOS to be installed to and boot it to the NixOS installer.
 
 ### Setting up internet connection
 
-The installer needs internet connection. If you need to set up WLAN:
+ The installer needs internet connection. If you
+need to set up WLAN:
+
 ```
 nmcli dev wifi connect <name> password <password>
 ```
+
 Test internet connection:
+
 ```
 ping google.com
 ```
