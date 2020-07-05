@@ -125,6 +125,9 @@
     nixpkgs-fmt
     gdb
 
+    # Break timer
+    stretchly
+
     (python3.withPackages (ps: with ps; [
       numpy
       scipy
