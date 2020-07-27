@@ -155,13 +155,6 @@ yadm -Y /mnt/etc/nixos/.yadm alt
 exit
 ```
 
-This funny thing is done because `nixos-install` changes root and yadm has
-created symlinks with /mnt at the beginning:
-
-```
-ln -s . /mnt/mnt
-```
-
 Generate hardware configuration automatically:
 
 ```
@@ -177,12 +170,36 @@ hardware configuration file `/mnt/etc/nixos/hardware-configuration.nix`. By
 default, LVM is loaded after LUKS, so for those LUKS devices that are inside
 LVM, you must set `preLVM = false`.**
 
+Check that the grub device is set correctly. In this repository, it is set in
+`local-configuration.nix` file. The value should point to one of the disks (not
+partitions).
+
+Also, if in `local-configuration.nix`, `nixpkgs` is set and it points to a local
+path like `/etc/nixpkgs`, clone nixpkgs repository under `/mnt/etc/nixpkgs`,
+checkout the desired branch/commit and create a symlink `ln -s /mnt/etc/nixpkgs
+/etc/nixpkgs`.
+
 ### Installing
 
-Install the system:
+#### From live USB stick
 
-Something like could work on existing system but there's a bug in nixos-enter
-that network doesn't work. See: https://github.com/NixOS/nixpkgs/issues/39665.
+If installing from a live USB stick, just run:
+
+```
+nixos-install --no-root-passwd
+```
+
+Or if using local checkout of `nixpkgs`:
+
+```
+nixos-install --no-root-passwd -I /mnt/etc/nixpkgs
+```
+
+#### From existing installation
+
+If installing from an existing running NixOS installation, something like could
+work on existing system but there's a bug in nixos-enter that network doesn't
+work. See: https://github.com/NixOS/nixpkgs/issues/39665.
 
 ```
 nixos-enter --root /mnt
@@ -191,9 +208,7 @@ mkdir -p /run/user/0
 nixos-install --root /
 ```
 
-If this worked (or yadm used relative alt links), all the yadm-related `/mnt`
-tricks should be unnecessary on an existing system. But instead use the
-following:
+But instead use the following:
 
 ```
 nixos-install --no-root-passwd
@@ -216,25 +231,23 @@ NOTE: The symlinks are pointing to absolute paths `/nix/...` but that existing
 system is under `/mnt/nix/...` so the symlinks aren't actually working but must
 be prepended with `/mnt`.
 
+
+### Booting to the new system
+
 Finally, after running the installation, reboot to the new system:
 
 ```
 reboot
 ```
 
-After you have booted to the newly installed NixOS system, remove the hack
-symlink:
+Modify the worktree path in `/etc/nixos/.yadm/repo.git/config`.
+
+Set permissions for `/etc/nixos` (and `/etc/nixpkgs` if used):
 
 ```
-rm /mnt
+TODO
 ```
 
-Modify the worktree path in `/etc/nixos/.yadm/repo.git/config`. Regenerate alt
-symlinks.
-
-```
-yadm -Y /etc/nixos/.yadm alt
-```
 
 ### Backing up the system
 
