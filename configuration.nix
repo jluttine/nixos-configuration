@@ -233,6 +233,13 @@
         )
       ];
 
+      programs.ssh.knownHosts = {
+        kapsi = {
+          hostNames = [ "kapsi.fi" ];
+          publicKeyFile = ./pubkeys/kapsi.pub;
+        };
+      };
+
       # Fundamental core packages
       environment.systemPackages = with pkgs; [
 
