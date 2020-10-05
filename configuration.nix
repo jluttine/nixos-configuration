@@ -48,6 +48,10 @@
       type = types.nullOr types.str;
       default = null;
     };
+    bootMode= mkOption {
+      type = types.enum [ "bios" "uefi" ];
+      default = "bios";
+    };
   };
 
   config = let
@@ -82,12 +86,17 @@
 
         kernelModules = [ "nf_conntrack_pptp" ];
 
-        loader.grub = {
+        # BIOS systems
+        loader.grub = lib.mkIf (cfg.bootMode == "bios") {
           enable = true;
           version = 2;
           device = cfg.grubDevice;
         };
-
+        # UEFI systems
+        loader.systemd-boot = lib.mkIf (cfg.bootMode == "uefi") {
+          enable = true;
+          editor = false;
+        };
         # Splash screen at boot time
         plymouth.enable = false;
 

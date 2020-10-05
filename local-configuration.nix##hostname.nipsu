@@ -2,6 +2,7 @@
 {
   hostName = "nipsu";
   nixpkgs = "/etc/nixpkgs";
+  bootMode = "uefi";
   grubDevice = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_2TB_S4X1NE0MA03611M";
   users = with users; [
     (jluttine { groups = [ "wheel" ]; })
