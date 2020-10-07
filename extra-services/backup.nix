@@ -86,8 +86,16 @@ with lib;
       # Update the disk image in the remote alone to reduce network bandwidth
       LATEST_BACKUP=$(${ssh} ls -1 ${target}#* | tail -n 1)
       if [ "$LATEST_BACKUP" != "$OLDEST_BACKUP" ]; then
-        echo "Syncing $LATEST_BACKUP to $OLDEST_BACKUP remotely.."
-        ${ssh} diskrsync ${compress} "$LATEST_BACKUP" "$OLDEST_BACKUP"
+        # Check modification times. If the target is actually more recent than the source,
+        # let's not update. It could be that the syncing has already been done but interrupted.
+        IS_OLDER=$(${ssh} "if [ \"$OLDEST_BACKUP\" -ot \"$LATEST_BACKUP\" ]; then echo OK; fi")
+        if [ "$IS_OLDER" = "OK" ]
+        then
+          echo "Syncing $LATEST_BACKUP to $OLDEST_BACKUP remotely.."
+          ${ssh} diskrsync ${compress} "$LATEST_BACKUP" "$OLDEST_BACKUP"
+        else
+          echo "Not syncing remotely because the target is newer than the source"
+        fi
       fi
     '';
 
