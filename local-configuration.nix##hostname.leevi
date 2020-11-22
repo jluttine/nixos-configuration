@@ -79,20 +79,15 @@
     hugin
     #dcraw # marked as insecure
 
+    ffmpeg-full
+
     # HDR photography
     luminanceHDR
 
     # Instant messaging
-    #cutegram
     tdesktop
-    qtox
     linphone
-    pybitmessage
-    riot-desktop
-
-    # Twitter
-    corebird
-
+    element-desktop
 
     # Encryption
     openssl
