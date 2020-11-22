@@ -12,7 +12,10 @@ in
 
   config = lib.mkIf (cfg.desktopEnvironment == "nide") {
 
-    services.xserver.desktopManager.nide.enable = true;
+    services.xserver.desktopManager.nide = {
+      enable = true;
+      installPackages = false;
+    };
 
     # Do not cache when fetching tarballs without sha256. Then, NiDE tarball
     # will always be fetched, it isn't cached for 1h.
