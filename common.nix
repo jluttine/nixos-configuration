@@ -10,7 +10,6 @@
     nide = builtins.fetchTarball "https://github.com/jluttine/NiDE/archive/master.tar.gz";
   in [
     ./hardware-configuration.nix
-    ./desktop-environments
     ./services
     ./programs
     ./users.nix
@@ -262,6 +261,38 @@
 
     # Disk usage analysis
     filelight
+
+    # Browsers
+    firefox
+    chromium
+
+    # Email
+    #kmail
+    thunderbird
+
+    # Office suit
+    libreoffice
+
+    # Printing and scanning
+    kdeApplications.print-manager
+    simple-scan
+
+    # Document readers
+    okular
+
+    # Photo/image editor
+    gwenview
+    digikam5
+    gimp-with-plugins
+
+    # Archives (e.g., tar.gz and zip)
+    ark
+
+    # Screenshots
+    kdeApplications.spectacle
+
+    # Bluetooth
+    bluedevil
 
   ];
 
