@@ -1,0 +1,211 @@
+{ config, pkgs, ... }:
+{
+  imports = [
+    ./common.nix
+  ];
+
+  networking.hostName = "leevi";
+
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+  };
+
+  system.stateVersion = "18.03";
+
+  nix.nixPath = [
+    "nixpkgs=/etc/nixpkgs"
+    "nixos-config=/etc/nixos/configuration.nix"
+  ];
+
+  users.predefinedUsers = {
+    jluttine = [ "wheel" "adbusers" ];
+  };
+
+  services = {
+
+    xserver = {
+      displayManager.sddm.enable = true;
+      desktopManager.nide = {
+        enable = true;
+        installPackages = false;
+      };
+    };
+
+    syncthing = {
+      enable = true;
+      user = "jluttine";
+      group = "users";
+      dataDir = "/home/jluttine/.syncthing/folders";
+      configDir = "/home/jluttine/.syncthing/config";
+    };
+
+  };
+
+  programs = {
+    adb.enable = true;
+    kdeconnect.enable = true;
+    cryptos.enable = true;
+    bluray.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    # LaTeX
+    texlive.combined.scheme-full
+
+    # OpenStreetMap editor
+    josm
+
+    # 3D modelling
+    blender
+
+    # Zotero client
+    #qnotero
+
+    encfs
+
+    # E-books
+    fbreader
+    calibre
+
+    # RSS reader
+    # rssguard
+    #feedreader
+    rssguard
+
+    w_scan
+
+    # Disk usage analysis
+    filelight
+
+    # Photo manager
+    shotwell
+
+    # Audio editor
+    audacity
+
+    # Screen recorder
+    simplescreenrecorder
+
+    # MPD client
+    cantata
+
+    # Panorama stitcher (with raw support)
+    hugin
+    #dcraw # marked as insecure
+
+    #kdenlive
+    ffmpeg-full
+    # mlt
+    # frei0r
+
+    # HDR photography
+    luminanceHDR
+
+    # Instant messaging
+    tdesktop
+    #linphone
+    element-desktop
+
+    # Encryption
+    openssl
+
+    # Tool for searching files/binaries from Nix packages
+    nix-index
+
+    # Programming
+    emacs
+    gitAndTools.gitflow
+    gitAndTools.hub
+    direnv
+
+    # Password manager
+    pass
+
+    # Separate tiling window manager
+    #i3
+
+    patchelf
+
+    # Mobile SSH replacement
+    mosh
+
+    # k3b
+
+    dvdplusrwtools
+
+    nixpkgs-review
+    nixpkgs-fmt
+    gdb
+
+    # Break timer
+    stretchly
+
+    (python3.withPackages (ps: with ps; [
+      numpy
+      scipy
+      # Python language server for Emacs
+      python-language-server
+    ]))
+
+    # File manager
+    dolphin
+    kdeApplications.dolphin-plugins
+
+    # Archives (e.g., tar.gz and zip)
+    ark
+
+    # GPG manager for KDE
+    kgpg
+
+    # Screenshots
+    kdeApplications.spectacle
+
+    # Bluetooth
+    bluedevil
+
+    # Text editor
+    kate
+
+    # Printing and scanning
+    kdeApplications.print-manager
+    simple-scan
+
+    # Document readers
+    okular
+
+    # Browsers
+    firefox
+    chromium
+
+    # Email
+    thunderbird
+
+    # Office suit
+    libreoffice
+
+    # Photo/image editor
+    gwenview
+    digikam5
+    gimp-with-plugins
+    # Gimp requires this, see: https://github.com/NixOS/nixpkgs/issues/60918
+    #gnome3.gnome-themes-extra
+
+    # Media player
+    vlc
+
+    # For GNOME Keyring to work for git https protocol, use git-credential-libsecret:
+    #
+    #   git config --global credential-helper /run/current-system/sw/bin/git-credential-libsecret
+    #
+    # That binary is included in gitFull.
+    gitAndTools.gitFull
+
+    # Choose some icon theme
+    gnome3.adwaita-icon-theme
+    maia-icon-theme
+    # Not sure if this is needed:
+    hicolor-icon-theme
+  ];
+
+}

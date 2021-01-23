@@ -1,0 +1,166 @@
+{ lib, config, pkgs, ... }:
+{
+  imports = [
+    ./common.nix
+  ];
+
+  networking.hostName = "nipsu";
+
+  # UEFI boot
+  boot.loader.systemd-boot.enable = true;
+  #boot.loader.grub.grubDevice = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_2TB_S4X1NE0MA03611M";
+
+  swapDevices = {
+    device = "/media/swapfile";
+    size = 4096;
+  };
+
+  # Use local checkout of nixpkgs
+  nix.nixPath = [
+    "nixpkgs=/etc/nixpkgs"
+    "nixos-config=/etc/nixos/configuration.nix"
+  ];
+
+  # TODO: Set root home directory to /var/root so it'll get backed up.
+  users.predefinedUsers = {
+    jluttine = [ "wheel" "syncthing" ];
+    meri = [ "syncthing" ];
+  };
+
+  services = {
+
+    syncthing = {
+      enable = true;
+    };
+
+    printServer = {
+      enable = true;
+    };
+
+    mopidy = {
+      enable = false;
+    };
+
+    tuhlaajapojat = {
+      enable = true;
+      mailserver = {
+        enable = true;
+      };
+    };
+
+    tv = {
+      enable = true;
+      domain = "tv.nipsu.fi";
+      ssl = true;
+    };
+
+    diskrsync = {
+      enable = true;
+      compress = false;
+      snapshotName = "lv-nixos-var-snapshot";
+      volumeGroupName = "vg-nixos-var";
+      logicalVolumeName = "lv-nixos-var";
+      host = "jluttine@kapsi.fi";
+      filename = "/home/users/jluttine/siilo/nipsu.img";
+      startAt = "01:00";
+    };
+
+    radicale = {
+      enable = true;
+      virtualHost = "paivyri.nipsu.fi";
+      ssl = true;
+      # Create/modify htpasswd file with:
+      #   htpasswd -B radicale-passwords username
+      htpasswd = lib.readFile ./passwords/radicale-passwords;
+    };
+
+    emptyDomain = {
+      enable = true;
+      domain = "nipsu.fi";
+    };
+
+    # SSH server
+    openssh = {
+      enable = true;
+      permitRootLogin = "no";
+      ports = [6662];
+      passwordAuthentication = false;
+    };
+
+    # Tiny tiny RSS server
+    services.tt-rss = {
+      enable = true;
+      virtualHost = "feed.nipsu.fi";
+      # MySQL didn't work, see: https://github.com/NixOS/nixpkgs/issues/35469
+      database.type = "pgsql";
+    };
+
+    # DNS for dynamic IP
+    ddclient = let
+      account = import ./passwords/ddclient-account.nix;
+    in {
+      enable = true;
+      server = "api.cloudflare.com/client/v4";
+      username = account.username;
+      password = account.password;
+      protocol = "cloudflare";
+      domains = [];
+      # nixpkgs doesn't support multiple zones so we have to use extraConfig
+      extraConfig = let
+        cfg = {
+          "nipsu.fi" = [ "nipsu.fi" ];
+          "tuhlaajapojat.fi" = [ "tuhlaajapojat.fi" ];
+        };
+      in lib.concatStrings (
+        lib.mapAttrsToList (
+          zone: domains: let
+            domainsString = lib.concatStringsSep "," domains;
+          in ''
+            zone=${zone}
+            ${domainsString}
+          ''
+        ) cfg
+      );
+    };
+
+    xserver = {
+      # # SDDM fails at least on nipsu with video projector. See:
+      # #
+      # # https://github.com/sddm/sddm/issues/699
+      # #
+      # # https://wiki.archlinux.org/index.php/SDDM#Screen_resolution_is_too_low
+      #
+      # # This would solve it:
+      #
+      # extraConfig = ''
+      #   [General]
+      #   EnableHiDPI=false
+      # '';
+      displayManager.lightdm.enable = true;
+      desktopManager.plasma5.enable = true;
+    };
+  };
+
+  programs = {
+    mosh.enable = true;
+    weechat.enable = true;
+  };
+
+  extraPackages = with pkgs; [
+
+    emacs
+
+    # Disk space analysis
+    ncdu
+
+    # Sync video for among multiple clients
+    syncplay
+
+    # VLC was failing on July 23, 2020. Dragon seemed to work fine.
+    dragon
+
+    # Disk usage analysis on the command-line
+    ncdu
+
+  ];
+}

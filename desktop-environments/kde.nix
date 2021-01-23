@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let
-  cfg = config.localConfiguration;
-in lib.mkIf (cfg.desktopEnvironment == "kde")
+lib.mkIf config.services.xserver.desktopManager.plasma5.enable
 {
 
   # Open ports for KDE Connect
@@ -24,8 +22,8 @@ in lib.mkIf (cfg.desktopEnvironment == "kde")
   ];
 
   # Use Plasma 5
-  services.xserver.displayManager.defaultSession = "plasma5";
-  services.xserver.desktopManager.plasma5.enable = true;
+  # services.xserver.displayManager.defaultSession = "plasma5";
+  # services.xserver.desktopManager.plasma5.enable = true;
 
   environment.systemPackages = with pkgs; [
 
