@@ -30,7 +30,8 @@
     meri = [ "syncthing" ];
   };
 
-  users.users.root.home = "/var/lib/root";
+  # Put root home directory under a backed up partition.
+  users.users.root.home = lib.mkForce "/var/lib/root";
 
   services = {
 
