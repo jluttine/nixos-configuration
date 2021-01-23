@@ -2,7 +2,7 @@
 {
 
   # Add a few options to the existing radicale service
-  options.localConfiguration.extraServices.radicale = {
+  options.services.radicale = {
     ssl = lib.mkOption {
       type = lib.types.bool;
       default = true;

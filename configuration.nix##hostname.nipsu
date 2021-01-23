@@ -10,10 +10,12 @@
   boot.loader.systemd-boot.enable = true;
   #boot.loader.grub.grubDevice = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_2TB_S4X1NE0MA03611M";
 
-  swapDevices = {
-    device = "/media/swapfile";
-    size = 4096;
-  };
+  swapDevices = [
+    {
+      device = "/media/swapfile";
+      size = 4096;
+    }
+  ];
 
   # Use local checkout of nixpkgs
   nix.nixPath = [
@@ -88,7 +90,7 @@
     };
 
     # Tiny tiny RSS server
-    services.tt-rss = {
+    tt-rss = {
       enable = true;
       virtualHost = "feed.nipsu.fi";
       # MySQL didn't work, see: https://github.com/NixOS/nixpkgs/issues/35469
@@ -146,7 +148,7 @@
     weechat.enable = true;
   };
 
-  extraPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
 
     emacs
 
