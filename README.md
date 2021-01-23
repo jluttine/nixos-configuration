@@ -171,10 +171,10 @@ default, LVM is loaded after LUKS, so for those LUKS devices that are inside
 LVM, you must set `preLVM = false`.**
 
 Check that the grub device is set correctly. In this repository, it is set in
-`local-configuration.nix` file. The value should point to one of the disks (not
+`configuration.nix` file. The value should point to one of the disks (not
 partitions).
 
-Also, if in `local-configuration.nix`, `nixpkgs` is set and it points to a local
+Also, if in `configuration.nix`, `nixpkgs` is set and it points to a local
 path like `/etc/nixpkgs`, clone nixpkgs repository under `/mnt/etc/nixpkgs`,
 checkout the desired branch/commit and create a symlink `ln -s /mnt/etc/nixpkgs
 /etc/nixpkgs`.
