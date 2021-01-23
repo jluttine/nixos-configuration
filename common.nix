@@ -273,7 +273,6 @@
     libreoffice
 
     # Printing and scanning
-    kdeApplications.print-manager
     simple-scan
 
     # Document readers
@@ -288,7 +287,7 @@
     ark
 
     # Screenshots
-    kdeApplications.spectacle
+    spectacle
 
     # Bluetooth
     bluedevil
