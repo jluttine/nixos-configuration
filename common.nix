@@ -13,7 +13,6 @@
     ./services
     ./programs
     ./users.nix
-    ./local-configuration.nix
     "${nide}/nix/configuration.nix"
   ];
 

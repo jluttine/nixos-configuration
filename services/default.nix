@@ -10,7 +10,6 @@
       ./nginx.nix
       ./emacs.nix
       ./tuhlaajapojat
-      ./storj.nix
       ./tv.nix
       ./printserver.nix
       ./weechat.nix

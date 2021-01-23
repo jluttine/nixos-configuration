@@ -5,14 +5,15 @@
 
   config = lib.mkIf config.programs.kdeconnect.enable {
     networking.firewall = {
-      allowedTCPPortRanges = {
+      allowedTCPPortRanges = [{
         from = 1714;
         to = 1764;
-      };
-      allowedUDPPortRanges = {
+      }];
+      allowedUDPPortRanges = [{
         from = 1714;
         to = 1764;
-      };
+      }];
+    };
     environment.systemPackages = with pkgs; [ kdeconnect ];
   };
 }
