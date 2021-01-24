@@ -7,12 +7,12 @@ let
   sportsteam = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "django-sportsteam";
-    version = "0.2.1";
+    version = "0.3.0";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
-      sha256 = "0rn7slrnygi3450q416k586j2377gbx58accnqvjk5r0hvib8r5h";
+      sha256 = "1md0mrd550pcf8dq6dnnrrr6zvwagiiz8cf6crqrpj0hy7m3wp65";
     };
     # Couldn't get the tests working. "App's aren't loaded yet"
     doCheck = false;
@@ -110,10 +110,7 @@ let
     "manage-tuhlaajapojat"
     ''
       #!${pkgs.stdenv.shell}
-      ${pkgs.sudo}/bin/sudo -u ${socketUser} \
-        DJANGO_SETTINGS_MODULE=${settings}   \
-        ${tuhlaajapojat}/bin/manage.py       \
-        "$@"
+      DJANGO_SETTINGS_MODULE=${settings} ${tuhlaajapojat}/bin/manage.py "$@"
     '';
 
   socketUser = "nginx";

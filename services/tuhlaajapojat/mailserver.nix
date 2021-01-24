@@ -47,7 +47,7 @@
         local_transport = error: local main delivery disabled
 
         # Use Salmon LMTP as a relay
-        relay_transport = lmtp:127.0.0.1:8823
+        relay_transport = lmtp:localhost:8823
       '';
     };
 
