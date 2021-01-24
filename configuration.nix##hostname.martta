@@ -1,0 +1,37 @@
+{ lib, config, pkgs }:
+{
+  imports = [
+    ./common.nix
+  ];
+  networking.hostName = "martta";
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+  };
+  system.stateVersion = TODO;
+  users.predefinedUsers = {
+    jluttine = [ "wheel" ];
+    meri = [ "wheel" ];
+  };
+  services = {
+    syncthing = {
+      enable = true;
+      user = "meri";
+      group = "users";
+      dataDir = "/home/meri/.syncthing/folders";
+      configDir = "/home/meri/.syncthing/config";
+    };
+    xserver = {
+      displayManager.sddm.enable = true;
+      desktopManager.plasma5.enable = true;
+    };
+  };
+  programs = {
+    cryptos.enable = true;
+  };
+  allowUnfree = true;
+  environment.systemPackages = with pkgs; [
+    # Add any desired applications here. Use, for instance,
+    # https://search.nixos.org/packages to search for package names.
+  ];
+}

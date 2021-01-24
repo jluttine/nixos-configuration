@@ -8,58 +8,35 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "ata_generic" "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-
-  # This kernel module is needed so the system can boot when there are LVM
-  # snapshots present
+  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems = {
-    "/boot" = {
-      device = "/dev/disk/by-uuid/79249308-352b-4e9d-875e-ac695a961ddc";
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/f5a4c59a-c734-47a7-a71d-0dd40f9a553c";
       fsType = "ext4";
     };
-    "/" = {
-      device = "/dev/mapper/luks-nixos-root";
-      fsType = "ext4";
-    };
-    "/home" = {
-      device = "/dev/mapper/luks-nixos-home";
-      fsType = "ext4";
-    };
-    "/var" = {
-      device = "/dev/mapper/luks-nixos-var";
-      fsType = "ext4";
-    };
-    "/media" = {
-      device = "/dev/mapper/luks-nixos-media";
-      fsType = "ext4";
-    };
-  };
 
-  boot.initrd.luks.devices = {
-    "luks-nixos-root" = {
-      device = "/dev/disk/by-uuid/e4e9b62b-9da1-4b7e-8ce1-2fb1a71cc533";
+  boot.initrd.luks.devices."luks-nixos-root".device = "/dev/disk/by-uuid/a7561bd1-f3ef-4f4d-ab3b-69121e64689f";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/C044-3885";
+      fsType = "vfat";
     };
-    "luks-nixos-home" = {
-      device = "/dev/disk/by-uuid/3d06b1c7-603e-4df4-b6f8-8a702a67cc5c";
+
+  fileSystems."/var" =
+    { device = "/dev/disk/by-uuid/93d938e8-0d95-4d30-94dc-6533b7610236";
+      fsType = "ext4";
     };
-    "luks-nixos-media" = {
-      device = "/dev/disk/by-uuid/bd0f1db8-acec-4026-b407-9e955ad059e7";
-    };
-    "luks-nixos-var" = {
-      device = "/dev/vg-nixos-var/lv-nixos-var";
-      # luks-nixos-var contains an LVM so it needs to be opened after LVM has been
-      # activated.
-      preLVM = false;
-    };
-  };
+
+  boot.initrd.luks.devices."luks-nixos-var".device = "/dev/disk/by-uuid/54c4bc98-ac8c-43e1-9c98-1889ff858dfc";
+  # luks-nixos-var contains an LVM so it needs to be opened after LVM has been
+  # activated
+  boot.initrd.luks.devices."luks-nixos-var".preLVM = false;
 
   swapDevices = [ ];
 
-  nix.maxJobs = lib.mkDefault 2;
-  powerManagement.cpuFreqGovernor = "ondemand";
+  nix.maxJobs = lib.mkDefault 4;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

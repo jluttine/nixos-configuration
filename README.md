@@ -18,16 +18,53 @@ aren't created properly. See Yadm manuals for more information.
 
 ## Installing NixOS
 
-Boot to NixOS installer.
+### Creating the installer USB stick
 
+Download the installer ISO image from [nixos.org](https://nixos.org). Plug a USB
+stick to your computer and find its device name with:
+
+```
+lsblk
+```
+
+If the USB stick is mounted, unmount all the mounted partitions as follows but
+replace `/dev/sdxN` with the device name (e.g., `/dev/sdb1`):
+
+```
+umount /dev/sdxN
+```
+
+So, for instance, it could be:
+
+```
+umount /dev/sdb1
+umount /dev/sdb2
+```
+
+Write the ISO image to the USB stick as follows but replace `path/to/nixos.iso`
+with the ISO image file path and `/dev/sdx` with the USB stick device path
+(`lsblk` can be used to show that):
+
+```
+sudo dd bs=4M if=path/to/nixos.iso of=/dev/sdx status=progress oflag=sync
+```
+
+Of course, there are many alternative USB disk writing tools that provide
+graphical user interface.
+
+After the writing has completed, plug the USB stick to the computer you want
+NixOS to be installed to and boot it to the NixOS installer.
 
 ### Setting up internet connection
 
 The installer needs internet connection. If you need to set up WLAN:
+
 ```
 nmcli dev wifi connect <name> password <password>
 ```
+
 Test internet connection:
+
 ```
 ping google.com
 ```
@@ -36,9 +73,9 @@ ping google.com
 
 You first need to decide how to partition your disk(s). I'm using fully
 encrypted file systems with GPT partition table. I created the partitions with
-fdisk. Run `fdisk /dev/some-device` for each device you want to partition. I
-created GPT partition tables for them. Below are my somewhat cryptic and compact
-notes on how I partitioned my two machines.
+fdisk. Run `sudo fdisk /dev/some-device` for each device you want to partition.
+I created GPT partition tables for them. Below are my somewhat cryptic and
+compact notes on how I partitioned my two machines.
 
 On a laptop with only one disk, I created an unencrypted partition for `/boot`
 and an encrypted partition for `/`:
@@ -48,19 +85,15 @@ and an encrypted partition for `/`:
   - partition 1, size = 1G, ext4 nixos-boot, `/boot`
   - partition 2, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
 
-On a server with three disks:
+On a server with one large disk:
 
-- 60 GB SSD
+- 2 TB SSD
   - partition 4, type 4 = BIOS boot, size = 1M
   - partition 1, size = 1G, ext4 nixos-boot, `/boot`
-  - partition 2, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
-- 2 TB HDD
-  - partition 1, size = 100%, LUKS luks-nixos-media, ext4 nixos-media, `/media`
-- 600 GB HDD
-  - partition 1, type 31 = LVM, size = 500G, VG vg-nixos-var
+  - partition 2, type 31 = LVM, size = 500G, VG vg-nixos-var
     - LV lv-nixos-var, size = 450G, LUKS luks-nixos-var, ext4 nixos-var, `/var`
     - remaining 50G will be reserved for snapshots
-  - partition 2, size = 100%, LUKS luks-nixos-home, ext4 nixos-home, `/home`
+  - partition 3, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
 
 One notable goal of the above construction is to have everything that needs to
 be backed up under `/var`. This encrypted partition is under LVM, so I can take
@@ -90,18 +123,13 @@ cryptsetup open /dev/put-device-here put-luks-label-here
 mkfs.ext4 -L put-filesystem-label-here /dev/mapper/put-luks-label-here
 ```
 
+(When running `mkfs.ext4` command, I once got a warning that complained about
+existing `atari` partition table. Apparently, some random data in the LUKS
+device was interpreted incorrectly, and it got fixed by running `wipefs -a
+/dev/mapper/put-luks-label-here`.)
+
 Mount each file system to its place under `/mnt`. For instance, I mounted
 `nixos-root` under `/mnt` and `nixos-boot` under `/mnt/boot`.
-
-
-#### Backing up encrypted logical volume
-
-```
-modprobe dm-snapshot    # if needed
-lvcreate -l 100%FREE -s -n lv-nixos-var-snapshot /dev/vg-nixos-var/lv-nixos-var
-diskrsync --no-compress /dev/vg-nixos-var/lv-nixos-var-snapshot user@host:/path/to/disk.img
-```
-
 
 
 ### Fetching configuration
@@ -127,13 +155,6 @@ yadm -Y /mnt/etc/nixos/.yadm alt
 exit
 ```
 
-This funny thing is done because `nixos-install` changes root and yadm has
-created symlinks with /mnt at the beginning:
-
-```
-ln -s . /mnt/mnt
-```
-
 Generate hardware configuration automatically:
 
 ```
@@ -149,12 +170,36 @@ hardware configuration file `/mnt/etc/nixos/hardware-configuration.nix`. By
 default, LVM is loaded after LUKS, so for those LUKS devices that are inside
 LVM, you must set `preLVM = false`.**
 
+Check that the grub device is set correctly. In this repository, it is set in
+`configuration.nix` file. The value should point to one of the disks (not
+partitions).
+
+Also, if in `configuration.nix`, `nixpkgs` is set and it points to a local
+path like `/etc/nixpkgs`, clone nixpkgs repository under `/mnt/etc/nixpkgs`,
+checkout the desired branch/commit and create a symlink `ln -s /mnt/etc/nixpkgs
+/etc/nixpkgs`.
+
 ### Installing
 
-Install the system:
+#### From live USB stick
 
-Something like could work on existing system but there's a bug in nixos-enter
-that network doesn't work. See: https://github.com/NixOS/nixpkgs/issues/39665.
+If installing from a live USB stick, just run:
+
+```
+nixos-install --no-root-passwd
+```
+
+Or if using local checkout of `nixpkgs`:
+
+```
+nixos-install --no-root-passwd -I /mnt/etc/nixpkgs
+```
+
+#### From existing installation
+
+If installing from an existing running NixOS installation, something like could
+work on existing system but there's a bug in nixos-enter that network doesn't
+work. See: https://github.com/NixOS/nixpkgs/issues/39665.
 
 ```
 nixos-enter --root /mnt
@@ -163,9 +208,7 @@ mkdir -p /run/user/0
 nixos-install --root /
 ```
 
-If this worked (or yadm used relative alt links), all the yadm-related `/mnt`
-tricks should be unnecessary on an existing system. But instead use the
-following:
+But instead use the following:
 
 ```
 nixos-install --no-root-passwd
@@ -188,24 +231,118 @@ NOTE: The symlinks are pointing to absolute paths `/nix/...` but that existing
 system is under `/mnt/nix/...` so the symlinks aren't actually working but must
 be prepended with `/mnt`.
 
+
+### Booting to the new system
+
 Finally, after running the installation, reboot to the new system:
 
 ```
 reboot
 ```
 
-After you have booted to the newly installed NixOS system, remove the hack
-symlink:
+Modify the worktree path in `/etc/nixos/.yadm/repo.git/config`.
+
+Set permissions for `/etc/nixos` (and `/etc/nixpkgs` if used):
 
 ```
-rm /mnt
+TODO
 ```
 
-Modify the worktree path in `/etc/nixos/.yadm/repo.git/config`. Regenerate alt
-symlinks.
+
+### Backing up the system
+
+Different parts of the system are backed up differently. Here's an overview how
+I've set it up:
+
+- System configuration -> NixOS configuration files in GitHub
+- Dotfiles in home directory -> GitHub
+- Important files under home directory -> home server by using syncthing
+- Home server stateful `/var` directory -> remote encrypted disk snapshot
+
+(Note that the syncthing on the home server stores files under `/var` so they'll
+get backed up remotely.)
+
+So, for the server, the setup is such that everything that needs to be backed up
+is under `/var` which is inside an encrypted logical volume `lv-nixos-var`.
+Snapshots of this logical volume are stored remotely so that even if the house
+burned down, there's an encrypted remote backup that can be used to restore
+`/var` exactly as it was.
+
+In short, the system is backed up by taking a snapshot and syncing that to a
+remote disk image file:
 
 ```
-yadm -Y /etc/nixos/.yadm alt
+modprobe dm-snapshot    # if needed
+lvcreate -l 100%FREE -s -n lv-nixos-var-snapshot /dev/vg-nixos-var/lv-nixos-var
+diskrsync --no-compress /dev/vg-nixos-var/lv-nixos-var-snapshot user@host:/path/to/disk.img
+```
+
+
+### Restoring the system
+
+If something breaks or hardware is changed, one needs to copy the existing/old
+system to the new hardware. Here's a rough overview of the steps:
+
+1. Create disk partitions on the new hardware as desired (see above).
+2. Copy important stateful content from the old setup to the new one.
+  - Home directory content can be copied from disk to another with:
+    ```
+    rsync -a --delete --info=progress2 --exclude="/lost+found" /path/to/old/ /path/to/new/
+    ```
+    Or if it was lost, it can be restored with syncthing from the home server.
+  - Dotfiles can be restored from GitHub.
+  - Home server `/var` logical volume can be cloned from a local disk or remote
+    disk image.
+3. Copy NixOS configuration (see above).
+4. Install NixOS (see above).
+
+This section explains how restore `/var` logical volume of the home server. One
+may want to restore or clone the encrypted logical volume if the disk needs to
+be updated or if it broke. In the first case, one can attach the old and the new
+disk to a same machine and just clone the logical volume. In the second case,
+use the (remote) disk image that was backed up and clone the logical volume
+based on that. In either case, make sure the new logical volume has exactly the
+same size (`lsblk -b`). If needed, it can be resized after cloning.
+
+#### Cloning a local logical volume
+
+If restoring from a local disk on a same machine, having the same VG and LV
+names on two disks (the old and the new) causes problems. So, first detach the
+new disk and boot with a live USB stick. Rename the volume group on the old
+disk, for instance:
+
+```
+vgrename vg-nixos-var vg-nixos-var-old
+```
+
+(It is possible to rename while they both are attached by checking the UID with
+`vgdisplay` and then using `vgrename <UID> vg-nixos-var-old`. But the above
+method might be less error-prone and safer.)
+
+Now, reboot to the live USB stick with both the new and the old disks attached.
+First, make sure the logical volumes are active (`lvscan`) but not mounted
+(`lsblk`). Especially the disk with a snapshot might require special attention:
+
+```
+modprobe dm-snapshot
+vgchange -a y vg-nixos-var-old
+```
+
+Finally, the actual cloning. Here's an example but be sure to set the input and
+output names correctly:
+
+```
+dd if=/dev/vg-nixos-var-old/lv-nixos-var of=/dev/vg-nixos-var/lv-nixos-var bs=64M status=progress oflag=sync
+```
+
+#### Cloning a (remote) disk image
+
+(If it's a remote disk image, perhaps mount the directory first with `sshfs`.)
+
+Cloning example:
+
+```
+dd if=/path/to/diskimage.img of=/dev/vg-nixos-var/lv-nixos-var bs=64M status=progress oflag=sync
 ```
 
 ## Other useful stuff

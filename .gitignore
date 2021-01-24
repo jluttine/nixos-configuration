@@ -5,16 +5,11 @@
 passwords
 
 # Ignore symbolic links
-local-configuration.nix
+configuration.nix
 hardware-configuration.nix
 
-# ddclient passwords
-extra-services/ddclient-account.nix
-
-extra-services/radicale-passwords*
-
-desktop-environments/nide-src.nix
-
+# NixOS build links
+result
 
 # Ignore swap files
 *.swp
