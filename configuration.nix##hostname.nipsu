@@ -6,6 +6,8 @@
 
   networking.hostName = "nipsu";
 
+  system.stateVersion = "21.03";
+
   # UEFI boot
   boot.loader.systemd-boot.enable = true;
   #boot.loader.grub.grubDevice = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_2TB_S4X1NE0MA03611M";

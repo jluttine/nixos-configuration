@@ -1,14 +1,15 @@
-{ lib, config, pkgs }:
+{ lib, config, pkgs, ... }:
 {
   imports = [
     ./common.nix
   ];
+  system.stateVersion = "21.03";
   networking.hostName = "martta";
   boot.loader.grub = {
     enable = true;
     device = "/dev/sda";
   };
-  system.stateVersion = TODO;
+  nixpkgs.config.allowUnfree = true;
   users.predefinedUsers = {
     jluttine = [ "wheel" ];
     meri = [ "wheel" ];
@@ -29,9 +30,10 @@
   programs = {
     cryptos.enable = true;
   };
-  allowUnfree = true;
   environment.systemPackages = with pkgs; [
     # Add any desired applications here. Use, for instance,
     # https://search.nixos.org/packages to search for package names.
+    zoom-us
+    pinentry_qt
   ];
 }
