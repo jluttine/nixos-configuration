@@ -103,7 +103,7 @@
 
       # Delete existing snapshot (if one exists)
       set +e
-      ${pkgs.lvm2}/bin/lvremove --yes ${cfg.volumeGroupName}/${cfg.snapshotName}
+      ${pkgs.lvm2.bin}/bin/lvremove --yes ${cfg.volumeGroupName}/${cfg.snapshotName}
       RETVAL=$?
       if [ $RETVAL -ne 0 ] && [ $RETVAL -ne 5 ]; then
         exit $RETVAL
@@ -111,7 +111,7 @@
       set -e
 
       # Take new snapshot
-      ${pkgs.lvm2}/bin/lvcreate ${cfg.snapshotSize} -s -n ${cfg.snapshotName} ${cfg.volumeGroupName}/${cfg.logicalVolumeName}
+      ${pkgs.lvm2.bin}/bin/lvcreate ${cfg.snapshotSize} -s -n ${cfg.snapshotName} ${cfg.volumeGroupName}/${cfg.logicalVolumeName}
 
       # Timestamp of the snapshot is used as backup file suffix
       UPDATED_BACKUP=${target}#$(date +%Y%m%d%H%M%S)
