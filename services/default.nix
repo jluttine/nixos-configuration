@@ -15,7 +15,7 @@
       ./weechat.nix
       ./radicale.nix
       ./tt-rss.nix
-      ./backup.nix
+      ./diskrsync.nix
       ./mpd.nix
       ./empty-domain.nix
       ./salmon.nix
