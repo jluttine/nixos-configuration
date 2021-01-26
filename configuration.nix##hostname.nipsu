@@ -170,5 +170,7 @@
     # Disk usage analysis on the command-line
     ncdu
 
+    vlc
+
   ];
 }
