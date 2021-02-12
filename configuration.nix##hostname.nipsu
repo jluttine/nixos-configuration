@@ -103,6 +103,8 @@
       database.type = "pgsql";
     };
 
+    postgresql.package = pkgs.postgresql_9_6;
+
     # DNS for dynamic IP
     ddclient = let
       account = import ./passwords/ddclient-account.nix;
