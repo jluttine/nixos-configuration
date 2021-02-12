@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 {
 
   options.services.printServer.enable = lib.mkEnableOption "printing server";
@@ -16,6 +16,10 @@
         browsing = true;
         defaultShared = true;
         listenAddresses = [ "*:631" ];
+        drivers = [
+          pkgs.gutenprint
+          pkgs.hplip
+        ];
       };
       avahi = {
         enable = true;
