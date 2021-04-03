@@ -23,7 +23,7 @@ let
     ];
   };
 
-  directory = "/var/lib/tuhlaajapojat";
+  directory = "/var/lib/uwsgi/tuhlaajapojat";
 
   settingsFile = pkgs.writeText "settings.py" ''
     from sportsteam.settings.prod import *
@@ -167,10 +167,13 @@ in {
     # - create state directory (if doesn't exist)
     # - run migrations
     # - collect static
+    systemd.services.uwsgi.serviceConfig = {
+      # Create directory for data
+      StateDirectory = "uwsgi";
+      # Create directory for the socket
+      RuntimeDirectory = "uwsgi";
+    };
     systemd.services.uwsgi.preStart = ''
-      mkdir -p ${directory}
-      chmod 700 ${directory}
-      chown ${socketUser} ${directory}
       ${manageTuhlaajapojat}/bin/manage-tuhlaajapojat migrate
       ${manageTuhlaajapojat}/bin/manage-tuhlaajapojat collectstatic --no-input
     '';
