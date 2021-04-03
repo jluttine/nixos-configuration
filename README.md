@@ -91,15 +91,17 @@ On a server with one large disk:
   - partition 4, type 4 = BIOS boot, size = 1M
   - partition 1, size = 1G, ext4 nixos-boot, `/boot`
   - partition 2, type 31 = LVM, size = 500G, VG vg-nixos-var
-    - LV lv-nixos-var, size = 450G, LUKS luks-nixos-var, ext4 nixos-var, `/var`
+    - LV lv-nixos-var, size = 450G, LUKS luks-nixos-var, ext4 nixos-var,
+      `/var/lib`
     - remaining 50G will be reserved for snapshots
   - partition 3, size = 100%, LUKS luks-nixos-root, ext4 nixos-root, `/`
 
 One notable goal of the above construction is to have everything that needs to
-be backed up under `/var`. This encrypted partition is under LVM, so I can take
-a snapshot of the encrypted disk and then sync that encrypted disk image with
-diskrsync to an untrusted remote location efficiently and safely. Also, note
-that I needed to create 1M BIOS boot partitions so that GPT works with BIOS.
+be backed up under `/var/lib`. This encrypted partition is under LVM, so I can
+take a snapshot of the encrypted disk and then sync that encrypted disk image
+with diskrsync to an untrusted remote location efficiently and safely. Also,
+note that I needed to create 1M BIOS boot partitions so that GPT works with
+BIOS.
 
 Creating logical volumes:
 

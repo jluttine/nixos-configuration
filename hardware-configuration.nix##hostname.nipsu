@@ -13,27 +13,32 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f5a4c59a-c734-47a7-a71d-0dd40f9a553c";
+  fileSystems = {
+    "/" = {
+      device = "/dev/mapper/luks-nixos-root";
       fsType = "ext4";
     };
-
-  boot.initrd.luks.devices."luks-nixos-root".device = "/dev/disk/by-uuid/a7561bd1-f3ef-4f4d-ab3b-69121e64689f";
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/C044-3885";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/C044-3885";
       fsType = "vfat";
     };
-
-  fileSystems."/var" =
-    { device = "/dev/disk/by-uuid/93d938e8-0d95-4d30-94dc-6533b7610236";
+    "/var/lib" = {
+      device = "/dev/mapper/luks-nixos-var";
       fsType = "ext4";
     };
+  };
 
-  boot.initrd.luks.devices."luks-nixos-var".device = "/dev/disk/by-uuid/54c4bc98-ac8c-43e1-9c98-1889ff858dfc";
-  # luks-nixos-var contains an LVM so it needs to be opened after LVM has been
-  # activated
-  boot.initrd.luks.devices."luks-nixos-var".preLVM = false;
+  boot.initrd.luks.devices = {
+    "luks-nixos-root" = {
+      device = "/dev/disk/by-uuid/a7561bd1-f3ef-4f4d-ab3b-69121e64689f";
+    };
+    "luks-nixos-var" = {
+      device = "/dev/vg-nixos-var/lv-nixos-var";
+      # luks-nixos-var is contained inside an LVM so it needs to be opened after
+      # LVM has been activated
+      preLVM = false;
+    };
+  };
 
   swapDevices = [ ];
 
