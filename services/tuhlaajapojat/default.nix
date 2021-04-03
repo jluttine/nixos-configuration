@@ -133,6 +133,10 @@ in {
 
     services.uwsgi = {
       enable = true;
+      # nginx needs to have access to the socket and the static files. It's
+      # easiest just to use nginx uid/gid for uwsgi too. It'd be probably better
+      # though, if we used separate uwsgi user for uwsgi and then just set
+      # permissions so that everything works correctly..
       user = "nginx";
       group = "nginx";
       #user = "uwsgi";
@@ -147,8 +151,9 @@ in {
             # Unfortunately, the socket file is created with user:group of the
             # main uwsgi process. Thus, these don't make a difference?
             #
-            # uid = "nginx";
-            # gid = "nginx";
+            #uid = "nginx";
+            #gid = "nginx";
+            "chmod-socket" = "600";
             socket = socket;
             pythonPackages = self: with self; [ tuhlaajapojat ];
             module = "sportsteam.wsgi:application";
