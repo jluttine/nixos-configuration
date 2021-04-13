@@ -112,7 +112,7 @@
       enable = true;
       libinput = {
         enable = true; # or should this be used instead of synaptics??
-        tapping = false;
+        touchpad.tapping = false;
       };
       synaptics = {
         enable = false;
