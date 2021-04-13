@@ -193,6 +193,7 @@
     binutils
     lsof
     usbutils
+    tree
 
     # Gamin: a file and directory monitoring system
     fam
