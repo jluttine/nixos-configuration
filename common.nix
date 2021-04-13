@@ -257,7 +257,9 @@
     # Trash management from the command line
     trash-cli
 
+    # Simple and secure file sending
     python3Packages.magic-wormhole
+    croc
 
     # Disk usage analysis
     filelight
