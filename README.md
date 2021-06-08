@@ -6,9 +6,9 @@ You can put these configuration files under `/etc/nixos` as follows:
 
 ```
 nix-shell -p yadm -p git -p gnupg1orig
-yadm clone https://github.com/jluttine/nixos-configuration.git -w /etc/nixos -Y /etc/nixos/.yadm
-yadm -Y /etc/nixos/.yadm decrypt
-yadm -Y /etc/nixos/.yadm alt
+yadm clone https://github.com/jluttine/nixos-configuration.git -w /etc/nixos --yadm-dir /etc/nixos/.yadm/config --yadm-data /etc/nixos/.yadm/data
+yadm --yadm-dir /etc/nixos/.yadm/config --yadm-data /etc/nixos/.yadm/data decrypt
+yadm --yadm-dir /etc/nixos/.yadm/config --yadm-data /etc/nixos/.yadm/data alt
 exit
 ```
 
@@ -150,10 +150,10 @@ hostname <name>
 Get the configuration from GitHub using yadm:
 
 ```
-nix-shell -p yadm -p git -p gnupg1orig
-yadm clone https://github.com/jluttine/nixos-configuration.git -w /mnt/etc/nixos -Y /mnt/etc/nixos/.yadm
-yadm -Y /mnt/etc/nixos/.yadm decrypt
-yadm -Y /mnt/etc/nixos/.yadm alt
+nix-shell -p yadm git gnupg1orig
+yadm clone https://github.com/jluttine/nixos-configuration.git -w /mnt/etc/nixos --yadm-dir /mnt/etc/nixos/.yadm/config --yadm-data /mnt/etc/nixos/.yadm/data
+yadm --yadm-dir /mnt/etc/nixos/.yadm/config --yadm-data /mnt/etc/nixos/.yadm/data decrypt
+yadm --yadm-dir /mnt/etc/nixos/.yadm/config --yadm-data /mnt/etc/nixos/.yadm/data alt
 exit
 ```
 

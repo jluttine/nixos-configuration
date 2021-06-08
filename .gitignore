@@ -1,5 +1,4 @@
-.yadm/repo.git
-.yadm/config
+.yadm/data/repo.git
 
 # Ignore encrypted files
 passwords
