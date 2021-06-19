@@ -272,6 +272,8 @@
     #kmail
     thunderbird
 
+    vlc
+
     # Office suit
     libreoffice
 
