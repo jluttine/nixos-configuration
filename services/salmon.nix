@@ -84,6 +84,7 @@ in {
 
     users.extraUsers = mkIf (cfg.user == "salmon") {
       salmon = {
+        isSystemUser = true;
         group = cfg.group;
         uid = 661; # config.ids.uids.salmon;
         description = "Salmon daemon user";
