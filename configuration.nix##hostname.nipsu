@@ -25,6 +25,11 @@
     "nixos-config=/etc/nixos/configuration.nix"
   ];
 
+  # Monero daemon P2P and RPC ports
+  networking.firewall = {
+    allowedTCPPorts = [ 18080 18081 ];
+  };
+
   users.predefinedUsers = {
     # Add those users to syncthing group that you want to be able to access
     # (read-only) those files.
@@ -102,6 +107,70 @@
       # MySQL didn't work, see: https://github.com/NixOS/nixpkgs/issues/35469
       database.type = "pgsql";
     };
+
+    monero = {
+      enable = true;
+      mining = {
+        enable = false;
+      };
+      limits = {
+        download = 200;
+        upload = 100;
+      };
+      rpc = {
+        #address = "0.0.0.0";
+        #address = "127.0.0.1";
+        #
+        # NOTE: There's no SSL verification support in wallets, so we cannot
+        # rely on SSL, so we cannot use login credentials, so we cannot use this
+        # outside intranet securely, so we shouldn't open the port in the
+        # router.
+        #
+        # TODO: Set up SSL on both the node and the clients, then use
+        # credentials.
+        address = "192.168.1.10";
+        port = 18081;
+        restricted = true;
+        ssl = {
+          enable = true;
+        };
+      };
+      #extraConfig = ''
+      #  confirm-external-bind=1
+      #'';
+      extraConfig = ''
+        confirm-external-bind=1
+        in-peers=4
+        out-peers=4
+      '';
+    };
+
+    # nginx.virtualHosts."monero.nipsu.fi" = {
+    #   enableACME = true;
+    #   forceSSL = true;
+    #   listen = [
+    #     {
+    #       addr = "0.0.0.0";
+    #       port = 80;
+    #       ssl = false;
+    #     }
+    #     {
+    #       addr = "0.0.0.0";
+    #       port = 443;
+    #       ssl = true;
+    #     }
+    #     {
+    #       addr = "0.0.0.0";
+    #       port = 18089;
+    #       ssl = true;
+    #     }
+    #   ];
+    #   locations = {
+    #     "/" = {
+    #       proxyPass = "http://localhost:18088/";
+    #     };
+    #   };
+    # };
 
     postgresql.package = pkgs.postgresql_9_6;
 
