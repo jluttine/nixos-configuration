@@ -46,7 +46,6 @@
     adb.enable = true;
     kdeconnect.enable = true;
     cryptos.enable = true;
-    bluray.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
