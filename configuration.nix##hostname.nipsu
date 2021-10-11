@@ -42,6 +42,28 @@
 
   services = {
 
+    calibre-web = {
+      enable = true;
+      openFirewall = false;
+      listen.ip = "127.0.0.1";
+      options = {
+        # NOTE: This needs to be a string, otherwise the path is copied to nix
+        # store
+        calibreLibrary = "/var/lib/calibre-web/library";
+        enableBookConversion = true;
+        enableBookUploading = true;
+      };
+    };
+    nginx.virtualHosts."kirjahylly.nipsu.fi" = {
+      enableACME = true;
+      forceSSL = true;
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:8083/";
+        };
+      };
+    };
+
     syncthing = {
       enable = true;
     };

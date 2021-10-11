@@ -65,7 +65,6 @@
 
     # E-books
     fbreader
-    calibre
 
     # RSS reader
     # rssguard
