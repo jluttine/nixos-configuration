@@ -76,9 +76,6 @@
     # Disk usage analysis
     filelight
 
-    # Photo manager
-    shotwell
-
     # Audio editor
     audacity
 
