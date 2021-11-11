@@ -158,9 +158,6 @@
     # Bluetooth
     bluedevil
 
-    # Text editor
-    kate
-
     # Printing and scanning
     simple-scan
 

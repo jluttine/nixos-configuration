@@ -207,6 +207,7 @@
 
     # Text editors
     vim
+    kate
     xclip  # system clipboard support for vim
 
     # VPN
