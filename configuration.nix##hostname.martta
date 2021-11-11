@@ -5,7 +5,10 @@
   ];
   system.stateVersion = "21.05";
   networking.hostName = "martta";
+  boot.plymouth.enable = true;
   boot.loader.systemd-boot.enable = true;
+  # Bigger font during boot time and in virtual terminals
+  console.font = "solar24x32";
   #boot.loader.grub = {
   #  enable = true;
   #  device = "/dev/nvme0n1";
@@ -25,6 +28,10 @@
     };
     xserver = {
       displayManager.sddm.enable = true;
+      # Adjust bigger size for the greeter
+      displayManager.sddm.settings = {
+        X11.ServerArguments = "-nolisten tcp -dpi 128";
+      };
       desktopManager.plasma5.enable = true;
     };
   };

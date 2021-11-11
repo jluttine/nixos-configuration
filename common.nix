@@ -42,8 +42,6 @@
     loader.systemd-boot = {
       editor = false;
     };
-    # Splash screen at boot time
-    plymouth.enable = false;
 
     cleanTmpDir = true;
 
@@ -54,6 +52,14 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Helsinki";
+
+  # Locale
+  i18n = {
+    defaultLocale = "en_DK.UTF-8";
+    extraLocaleSettings = {
+      LC_MONETARY = "fi_FI.UTF-8"; 
+    };
+  };
 
   # Manual upgrades
   system.autoUpgrade.enable = false;
