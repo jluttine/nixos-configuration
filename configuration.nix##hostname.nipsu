@@ -203,7 +203,7 @@
       enable = true;
       server = "api.cloudflare.com/client/v4";
       username = account.username;
-      password = account.password;
+      passwordFile = account.passwordFile;
       protocol = "cloudflare";
       domains = [];
       # nixpkgs doesn't support multiple zones so we have to use extraConfig
