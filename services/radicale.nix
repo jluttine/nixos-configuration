@@ -22,14 +22,13 @@
     htpasswdFile = pkgs.writeText "radicale-passwords" cfg.htpasswd;
   in lib.mkIf cfg.enable {
 
-    services.radicale = {
-      config = lib.mkIf (cfg.htpasswd != null) ''
-      [auth]
-      type = htpasswd
-      htpasswd_filename = ${htpasswdFile}
-      htpasswd_encryption = bcrypt
-      delay = 1
-      '';
+    services.radicale.settings = {
+      auth = lib.mkIf (cfg.htpasswd != null) {
+        type = "htpasswd";
+        htpasswd_filename = "${htpasswdFile}";
+        htpasswd_encryption = "bcrypt";
+        delay = "1";
+      };
     };
 
     # Reverse proxy so we can have domain name and SSL
