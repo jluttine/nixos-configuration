@@ -65,6 +65,9 @@
 
     encfs
 
+    # Command line
+    zsh
+
     # E-books
     fbreader
 
