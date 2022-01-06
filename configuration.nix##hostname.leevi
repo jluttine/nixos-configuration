@@ -40,6 +40,8 @@
       configDir = "/home/jluttine/.syncthing/config";
     };
 
+    autorandr.enable = true;
+
   };
 
   programs = {
