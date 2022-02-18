@@ -74,8 +74,22 @@
     };
   };
 
+  # Source: https://nixos.wiki/wiki/Accelerated_Video_Playback
+  #nixpkgs.config.packageOverrides = pkgs: {
+  #  vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  #};
   # Hardware
   hardware = {
+    # Source: https://nixos.wiki/wiki/Accelerated_Video_Playback
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
     pulseaudio = {
       enable = true;
     } // (
