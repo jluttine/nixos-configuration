@@ -65,6 +65,9 @@
 
     encfs
 
+    # Diff tools
+    kdiff3
+
     # Command line
     zsh
 
@@ -145,11 +148,14 @@
       numpy
       scipy
       # Python language server for Emacs
-      python-language-server
+      #python-language-server
     ]))
+    python-language-server
 
     # File manager
     dolphin
+    fish  # SSH support for dolphin
+    libsForQt5.kio-extras
 
     # Archives (e.g., tar.gz and zip)
     ark
