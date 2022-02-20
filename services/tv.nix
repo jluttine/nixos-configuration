@@ -20,10 +20,11 @@
     services.tvheadend.enable = true;
     # NOTE: Don't open firewall, use Nginx as reverse proxy.
 
-    # Kodi frontend
-    nixpkgs.config.kodi.enablePVRHTS = true;
+    # Kodi frontend. See: https://nixos.wiki/wiki/Kodi
     environment.systemPackages = with pkgs; [
-      kodi
+      (kodi.passthru.withPackages (kodiPkgs: with kodiPkgs; [
+        pvr-hts
+      ]))
     ];
 
     # Reverse proxy so we can have domain name and SSL
