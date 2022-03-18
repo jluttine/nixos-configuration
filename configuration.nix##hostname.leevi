@@ -187,7 +187,6 @@
 
     # Photo/image editor
     gwenview
-    digikam5
     gimp-with-plugins
     # Gimp requires this, see: https://github.com/NixOS/nixpkgs/issues/60918
     #gnome3.gnome-themes-extra

@@ -16,17 +16,15 @@
     "${nide}/nix/configuration.nix"
   ];
 
-  nix = {
-    useSandbox = true;
+  nix.settings = {
+    sandbox = true;
     # See: https://github.com/nix-community/nix-direnv#usage
     #
     # Also, do not cache when fetching tarballs without sha256. Then, NiDE
     # tarball will always be fetched, it isn't cached for 1h.
-    extraOptions = ''
-      keep-derivations = true
-      keep-outputs = true
-      tarball-ttl = 0
-    '';
+    keep-derivations = true;
+    keep-outputs = true;
+    tarball-ttl = 0;
   };
 
   # Use the GRUB 2 boot loader.
@@ -150,11 +148,11 @@
       #corefonts # Microsoft free fonts
       inconsolata # monospaced
       unifont # some international languages
-      font-awesome-ttf
+      font-awesome
       freefont_ttf
-      opensans-ttf
+      open-sans
       liberation_ttf
-      liberationsansnarrow
+      liberation-sans-narrow
       ttf_bitstream_vera
       libertine
       ubuntu_font_family
@@ -166,7 +164,7 @@
   };
 
   security.acme = {
-    email = "jaakko.luttinen@iki.fi";
+    defaults.email = "jaakko.luttinen@iki.fi";
     acceptTerms = true;
   };
 
@@ -176,8 +174,8 @@
   '';
 
   programs.ssh.knownHosts = {
-    kapsi = {
-      hostNames = [ "kapsi.fi" ];
+    "kapsi.fi" = {
+      extraHostNames = [ "kapsi" ];
       publicKeyFile = ./pubkeys/kapsi.pub;
     };
   };
@@ -189,7 +187,6 @@
     bash
     wget
     file
-    gksu
     git
     hdf5
     zip
@@ -236,7 +233,7 @@
     redshift
 
     # SSH filesystem
-    sshfsFuse
+    sshfs-fuse
 
     # Encryption key management
     gnupg
@@ -300,7 +297,7 @@
 
     # Photo/image editor
     gwenview
-    digikam5
+    digikam
     gimp-with-plugins
 
     # Archives (e.g., tar.gz and zip)
