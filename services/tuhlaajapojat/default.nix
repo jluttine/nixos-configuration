@@ -7,17 +7,17 @@ let
   sportsteam = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "django-sportsteam";
-    version = "0.3.4";
+    version = "0.4.0";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
-      sha256 = "0g14xy30502fxmg3i6ahw68gp29f8an2dm6wi2h8gw8c3a0b0qsl";
+      sha256 = "sha256-RVGRiGEjP1ZAtV0rJyXF1dHfovNnIjPWXghPX2rzYLs=";
     };
     # Couldn't get the tests working. "App's aren't loaded yet"
     doCheck = false;
     propagatedBuildInputs = with pythonPackages; [
-      django_2
+      django_3
       icalendar
       numpy
     ];
