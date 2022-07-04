@@ -11,6 +11,7 @@
       ./emacs.nix
       ./tuhlaajapojat
       ./tv.nix
+      ./media.nix
       ./printserver.nix
       ./weechat.nix
       ./radicale.nix

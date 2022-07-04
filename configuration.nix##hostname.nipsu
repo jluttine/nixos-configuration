@@ -33,8 +33,8 @@
   users.predefinedUsers = {
     # Add those users to syncthing group that you want to be able to access
     # (read-only) those files.
-    jluttine = [ "wheel" "syncthing" ];
-    meri = [ "syncthing" ];
+    jluttine = [ "wheel" "syncthing" "media" ];
+    meri = [ "syncthing" "media" ];
   };
 
   # Put root home directory under a backed up partition.
@@ -86,6 +86,12 @@
     tv = {
       enable = true;
       domain = "tv.nipsu.fi";
+      ssl = true;
+    };
+
+    media = {
+      enable = true;
+      domain = "media.nipsu.fi";
       ssl = true;
     };
 
