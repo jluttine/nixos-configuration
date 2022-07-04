@@ -309,6 +309,8 @@
     # Bluetooth
     bluedevil
 
+    jellyfin-media-player
+
   ];
 
 }
