@@ -180,6 +180,21 @@
     };
   };
 
+  nixpkgs.overlays = [
+    (
+      self: super: {
+        jellyfin-media-player = super.jellyfin-media-player.overrideAttrs (
+          old: {
+            patches = (old.patches or []) ++ [
+              # See: https://github.com/jellyfin/jellyfin-media-player/pull/279
+              ./dvbsub.patch
+            ];
+          }
+        );
+      }
+    )
+  ];
+
   # Fundamental core packages
   environment.systemPackages = with pkgs; [
 
