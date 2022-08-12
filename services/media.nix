@@ -1,8 +1,8 @@
 { lib, config, pkgs, ... }:
 {
 
-  options.services.tv = {
-    enable = lib.mkEnableOption "TV service with tvheadend and kodi";
+  options.services.media = {
+    enable = lib.mkEnableOption "Media server with jellyfin";
     domain = lib.mkOption {
       type = lib.types.str;
     };
@@ -13,35 +13,33 @@
   };
 
   config = let
-    cfg = config.services.tv;
+    cfg = config.services.media;
   in lib.mkIf cfg.enable {
 
-    # Tvheadend backend
-    services.tvheadend.enable = true;
+    services.jellyfin.enable = true;
 
-    # Provide access to (other) media files, so tvheadend can move recordings
-    # there
-    users.users.tvheadend.extraGroups = [ "media" ];
+    # Create a group for media files
+    users.groups.media = { };
+    users.users.jellyfin.extraGroups = [ "media" ];
+    systemd.services.jellyfin.serviceConfig.SupplementaryGroups = [
+      "media"
+    ];
 
     # NOTE: Don't open firewall, use Nginx as reverse proxy.
-
-    # Kodi frontend. See: https://nixos.wiki/wiki/Kodi
-    environment.systemPackages = with pkgs; [
-      (kodi.passthru.withPackages (kodiPkgs: with kodiPkgs; [
-        pvr-hts
-      ]))
-    ];
 
     # Reverse proxy so we can have domain name and SSL
     services.nginx = {
       enable = true;
       recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+      recommendedOptimisation = true;
+      recommendedGzipSettings = true;
       virtualHosts."${cfg.domain}" = {
         forceSSL = cfg.ssl;
         enableACME = cfg.ssl;
         locations = {
           "/" = {
-            proxyPass = "http://localhost:9981/"; # The / is important!
+            proxyPass = "http://localhost:8096/"; # The / is important!
           };
         };
       };

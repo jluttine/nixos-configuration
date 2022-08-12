@@ -33,8 +33,8 @@
   users.predefinedUsers = {
     # Add those users to syncthing group that you want to be able to access
     # (read-only) those files.
-    jluttine = [ "wheel" "syncthing" ];
-    meri = [ "syncthing" ];
+    jluttine = [ "wheel" "syncthing" "media" ];
+    meri = [ "syncthing" "media" ];
   };
 
   # Put root home directory under a backed up partition.
@@ -86,6 +86,12 @@
     tv = {
       enable = true;
       domain = "tv.nipsu.fi";
+      ssl = true;
+    };
+
+    media = {
+      enable = true;
+      domain = "media.nipsu.fi";
       ssl = true;
     };
 
@@ -194,7 +200,11 @@
     #   };
     # };
 
-    postgresql.package = pkgs.postgresql_9_6;
+    # If you ever need to change this, manual migration is required, otherwise
+    # the new version will have empty database. See:
+    # https://nixos.org/manual/nixos/stable/index.html#module-services-postgres-upgrading
+    # There is an existing script for v9->v11 upgrade under /var/lib/postgresql
+    postgresql.package = pkgs.postgresql_11;
 
     # DNS for dynamic IP
     ddclient = let
@@ -203,7 +213,7 @@
       enable = true;
       server = "api.cloudflare.com/client/v4";
       username = account.username;
-      password = account.password;
+      passwordFile = account.passwordFile;
       protocol = "cloudflare";
       domains = [];
       # nixpkgs doesn't support multiple zones so we have to use extraConfig

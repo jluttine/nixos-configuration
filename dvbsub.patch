@@ -1,0 +1,12 @@
+diff --git a/native/nativeshell.js b/native/nativeshell.js
+index 1241c76..a5fccbd 100644
+--- a/native/nativeshell.js
++++ b/native/nativeshell.js
+@@ -94,6 +94,7 @@ function getDeviceProfile() {
+             {'Format': 'smi', 'Method': 'External'},
+             {'Format': 'pgssub', 'Method': 'Embed'},
+             {'Format': 'dvdsub', 'Method': 'Embed'},
++            {'Format': 'dvbsub', 'Method': 'Embed'},
+             {'Format': 'pgs', 'Method': 'Embed'}
+         ]
+     };

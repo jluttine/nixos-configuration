@@ -40,6 +40,8 @@
       configDir = "/home/jluttine/.syncthing/config";
     };
 
+    autorandr.enable = true;
+
   };
 
   programs = {
@@ -62,6 +64,12 @@
     #qnotero
 
     encfs
+
+    # Diff tools
+    kdiff3
+
+    # Command line
+    zsh
 
     # E-books
     fbreader
@@ -140,11 +148,14 @@
       numpy
       scipy
       # Python language server for Emacs
-      python-language-server
+      #python-language-server
     ]))
+    python-language-server
 
     # File manager
     dolphin
+    fish  # SSH support for dolphin
+    libsForQt5.kio-extras
 
     # Archives (e.g., tar.gz and zip)
     ark
@@ -176,7 +187,6 @@
 
     # Photo/image editor
     gwenview
-    digikam5
     gimp-with-plugins
     # Gimp requires this, see: https://github.com/NixOS/nixpkgs/issues/60918
     #gnome3.gnome-themes-extra

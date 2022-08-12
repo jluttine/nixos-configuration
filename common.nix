@@ -16,17 +16,15 @@
     "${nide}/nix/configuration.nix"
   ];
 
-  nix = {
-    useSandbox = true;
+  nix.settings = {
+    sandbox = true;
     # See: https://github.com/nix-community/nix-direnv#usage
     #
     # Also, do not cache when fetching tarballs without sha256. Then, NiDE
     # tarball will always be fetched, it isn't cached for 1h.
-    extraOptions = ''
-      keep-derivations = true
-      keep-outputs = true
-      tarball-ttl = 0
-    '';
+    keep-derivations = true;
+    keep-outputs = true;
+    tarball-ttl = 0;
   };
 
   # Use the GRUB 2 boot loader.
@@ -80,8 +78,22 @@
     };
   };
 
+  # Source: https://nixos.wiki/wiki/Accelerated_Video_Playback
+  #nixpkgs.config.packageOverrides = pkgs: {
+  #  vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  #};
   # Hardware
   hardware = {
+    # Source: https://nixos.wiki/wiki/Accelerated_Video_Playback
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
     pulseaudio = {
       enable = true;
     } // (
@@ -142,11 +154,11 @@
       #corefonts # Microsoft free fonts
       inconsolata # monospaced
       unifont # some international languages
-      font-awesome-ttf
+      font-awesome
       freefont_ttf
-      opensans-ttf
+      open-sans
       liberation_ttf
-      liberationsansnarrow
+      liberation-sans-narrow
       ttf_bitstream_vera
       libertine
       ubuntu_font_family
@@ -158,7 +170,7 @@
   };
 
   security.acme = {
-    email = "jaakko.luttinen@iki.fi";
+    defaults.email = "jaakko.luttinen@iki.fi";
     acceptTerms = true;
   };
 
@@ -168,11 +180,26 @@
   '';
 
   programs.ssh.knownHosts = {
-    kapsi = {
-      hostNames = [ "kapsi.fi" ];
+    "kapsi.fi" = {
+      extraHostNames = [ "kapsi" ];
       publicKeyFile = ./pubkeys/kapsi.pub;
     };
   };
+
+  nixpkgs.overlays = [
+    (
+      self: super: {
+        jellyfin-media-player = super.jellyfin-media-player.overrideAttrs (
+          old: {
+            patches = (old.patches or []) ++ [
+              # See: https://github.com/jellyfin/jellyfin-media-player/pull/279
+              ./dvbsub.patch
+            ];
+          }
+        );
+      }
+    )
+  ];
 
   # Fundamental core packages
   environment.systemPackages = with pkgs; [
@@ -181,7 +208,6 @@
     bash
     wget
     file
-    gksu
     git
     hdf5
     zip
@@ -228,7 +254,7 @@
     redshift
 
     # SSH filesystem
-    sshfsFuse
+    sshfs-fuse
 
     # Encryption key management
     gnupg
@@ -292,7 +318,7 @@
 
     # Photo/image editor
     gwenview
-    digikam5
+    digikam
     gimp-with-plugins
 
     # Archives (e.g., tar.gz and zip)
@@ -303,6 +329,8 @@
 
     # Bluetooth
     bluedevil
+
+    jellyfin-media-player
 
   ];
 
