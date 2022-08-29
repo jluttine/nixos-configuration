@@ -306,6 +306,7 @@
     thunderbird
 
     vlc
+    mpv
 
     # Office suit
     libreoffice
