@@ -12,8 +12,8 @@
       electrum
       monero
       monero-gui
-      electron-cash
-      nano-wallet
+      #electron-cash
+      #nano-wallet
 
       # Tools
       zbar
