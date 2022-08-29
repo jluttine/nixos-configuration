@@ -25,6 +25,21 @@
     "nixos-config=/etc/nixos/configuration.nix"
   ];
 
+  nixpkgs.overlays = let
+    # Jellyfin Media Player requires older driver on nipsu, otherwise video
+    # playback is super slow (no hardware acceleration?)
+    jellyfin-media-player-overlay = self: super: {
+      jellyfin-media-player = super.jellyfin-media-player.overrideAttrs (old: {
+        buildInputs = old.buildInputs ++ [ pkgs.makeWrapper ];
+        postInstall = (old.postInstall or "") + ''
+          wrapProgram "$out/bin/jellyfinmediaplayer" --set LIBVA_DRIVER_NAME i965
+        '';
+      });
+    };
+  in [
+    jellyfin-media-player-overlay
+  ];
+
   # Monero daemon P2P and RPC ports
   networking.firewall = {
     allowedTCPPorts = [ 18080 18081 ];
