@@ -71,9 +71,6 @@
     # Command line
     zsh
 
-    # E-books
-    fbreader
-
     # RSS reader
     # rssguard
     #feedreader
@@ -121,6 +118,9 @@
     gitAndTools.gitflow
     gitAndTools.hub
     direnv
+    nix-direnv
+    ripgrep
+    fd
 
     # Password manager
     pass
