@@ -56,6 +56,7 @@
     defaultLocale = "en_DK.UTF-8";
     extraLocaleSettings = {
       LC_MONETARY = "fi_FI.UTF-8"; 
+      LC_TIME = "en_GB.UTF-8";
     };
   };
 
