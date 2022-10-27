@@ -107,11 +107,11 @@
     );
     sane.enable = true;
     firmware = [
-      pkgs.openelec-dvb-firmware
+      pkgs.libreelec-dvb-firmware
     ];
     bluetooth = {
       enable = lib.mkDefault true;
-      package = lib.mkDefault pkgs.bluezFull;
+      package = lib.mkDefault pkgs.bluez;
     };
   };
 
