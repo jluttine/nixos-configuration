@@ -138,8 +138,6 @@
     emacs
     gitAndTools.gitflow
     gitAndTools.hub
-    direnv
-    nix-direnv
     ripgrep
     fd
 
@@ -181,9 +179,6 @@
     # Archives (e.g., tar.gz and zip)
     ark
 
-    # GPG manager for KDE
-    kgpg
-
     # Screenshots
     spectacle
 
@@ -208,7 +203,6 @@
 
     # Photo/image editor
     gwenview
-    gimp-with-plugins
     # Gimp requires this, see: https://github.com/NixOS/nixpkgs/issues/60918
     #gnome3.gnome-themes-extra
 
