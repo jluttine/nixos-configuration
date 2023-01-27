@@ -7,5 +7,6 @@
     ./stuntrally.nix
     ./xonotic.nix
     ./jellyfin-media-player.nix
+    ./direnv.nix
   ];
 }
