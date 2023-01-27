@@ -6,12 +6,11 @@
 
   networking.hostName = "leevi";
 
-  boot.loader.grub = {
+  boot.loader.systemd-boot = {
     enable = true;
-    device = "/dev/sda";
   };
 
-  system.stateVersion = "18.03";
+  system.stateVersion = "23.05";
 
   nix.nixPath = [
     "nixpkgs=/etc/nixpkgs"
@@ -40,8 +39,26 @@
       configDir = "/home/jluttine/.syncthing/config";
     };
 
+    tlp = {
+      enable = false;  # not supported.. :(
+    };
+
     autorandr.enable = true;
 
+    udev.packages = [ pkgs.tuxedo-touchpad-switch ];
+
+  };
+
+  # Touchpad on/off toggle
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      {
+        keys = [ 29 85 125 ];
+        events = [ "key" ];
+        command = "${pkgs.tuxedo-touchpad-switch}/bin/tuxedo-touchpad-toggle";
+      }
+    ];
   };
 
   programs = {
@@ -52,6 +69,9 @@
   };
 
   environment.systemPackages = with pkgs; [
+
+    tuxedo-touchpad-switch
+
     # LaTeX
     texlive.combined.scheme-full
 
