@@ -72,6 +72,10 @@
 
     syncthing = {
       enable = true;
+      defaultVersioning = {
+        type = "trashcan";
+        params.cleanoutDays = "30";
+      };
     };
 
     printServer = {

@@ -1,3 +1,5 @@
 passwords/ddclient-account.nix
 passwords/default.nix##*
 passwords/radicale-passwords
+services/syncthing-ids.nix
+services/syncthing-secrets.nix##*

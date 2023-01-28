@@ -35,8 +35,8 @@
       enable = true;
       user = "jluttine";
       group = "users";
-      dataDir = "/home/jluttine/.syncthing/folders";
-      configDir = "/home/jluttine/.syncthing/config";
+      dataDir = "/home/jluttine/.syncthing";
+      configDir = "/home/jluttine/.syncthing/.config";
     };
 
     tlp = {

@@ -138,8 +138,6 @@
         twoFingerScroll = true;
       };
     };
-    # Set defaults for syncthing (but don't enable by default)
-    syncthing.openDefaultPorts = lib.mkDefault true;
     # Automatic device mounting daemon
     devmon.enable = true;
     # Bluetooth stuff
