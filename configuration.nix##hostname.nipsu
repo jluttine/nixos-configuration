@@ -63,6 +63,13 @@
     nginx.virtualHosts."kirjahylly.nipsu.fi" = {
       enableACME = true;
       forceSSL = true;
+      # Increase upload limits. Note that calibre-web has its own limits in
+      # addition to these nginx limits:
+      # https://github.com/janeczku/calibre-web/issues/452
+      extraConfig = ''
+        client_max_body_size 300M;
+        send_timeout 300s;
+      '';
       locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:8083/";
