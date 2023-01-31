@@ -198,9 +198,6 @@
     # Email
     thunderbird
 
-    # Office suit
-    libreoffice
-
     # Photo/image editor
     gwenview
     # Gimp requires this, see: https://github.com/NixOS/nixpkgs/issues/60918
