@@ -20,6 +20,8 @@
         gui = let
           secrets = import ./syncthing-secrets.nix;
         in {
+          # NOTE: Don't disable GUI! I suppose NixOS is communicating with the
+          # API and stops working if GUI is disabled..
           tls = true;
           user = secrets.user;
           password = secrets.password;
