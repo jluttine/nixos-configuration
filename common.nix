@@ -163,7 +163,6 @@
       ubuntu_font_family
       gentium
       # Good monospace fonts
-      jetbrains-mono
       source-code-pro
     ];
   };
