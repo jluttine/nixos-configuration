@@ -206,6 +206,8 @@
     # Media player
     vlc
 
+    youtube-music
+
     # For GNOME Keyring to work for git https protocol, use git-credential-libsecret:
     #
     #   git config --global credential-helper /run/current-system/sw/bin/git-credential-libsecret
