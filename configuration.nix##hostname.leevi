@@ -111,6 +111,9 @@
     # MPD client
     cantata
 
+    # Conda for Leanheat stuff
+    conda
+
     # Panorama stitcher (with raw support)
     hugin
     #dcraw # marked as insecure
