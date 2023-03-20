@@ -209,6 +209,7 @@
     # Media player
     vlc
 
+    jitsi-meet-electron
     youtube-music
 
     # For GNOME Keyring to work for git https protocol, use git-credential-libsecret:
