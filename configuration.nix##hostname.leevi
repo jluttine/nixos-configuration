@@ -170,9 +170,8 @@
       numpy
       scipy
       # Python language server for Emacs
-      #python-language-server
+      python-lsp-server
     ]))
-    python-language-server
 
     # File manager
     dolphin
