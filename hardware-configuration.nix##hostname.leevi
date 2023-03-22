@@ -41,5 +41,4 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   #hardware.tuxedo-keyboard.enable = true;  # This isn't actually needed for anything
-  hardware.video.hidpi.enable = true;
 }
