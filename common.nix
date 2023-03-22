@@ -30,7 +30,7 @@
   # Use the GRUB 2 boot loader.
   boot = {
 
-    kernelModules = [ "nf_conntrack_pptp" ];
+    #kernelModules = [ "nf_conntrack_pptp" ];
 
     # BIOS systems
     loader.grub = {
@@ -69,8 +69,8 @@
     firewall = {
       enable = true;
       # Enable PPTP VPN
-      autoLoadConntrackHelpers = true;
-      connectionTrackingModules = [ "pptp" ];
+      #autoLoadConntrackHelpers = true;
+      #connectionTrackingModules = [ "pptp" ];
       #autoLoadConntrackHelpers = true;
       extraCommands = ''
         iptables -A INPUT -p 47 -j ACCEPT
