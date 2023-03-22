@@ -272,11 +272,15 @@
   programs = {
     mosh.enable = true;
     weechat.enable = true;
+    direnv.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
 
+    # Doom Emacs stuff
     emacs
+    ripgrep
+    fd
 
     # Disk space analysis
     ncdu
