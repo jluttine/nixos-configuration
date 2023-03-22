@@ -14,10 +14,6 @@
         self: super: {
           jellyfin-media-player = super.jellyfin-media-player.overrideAttrs (
             old: {
-              patches = (old.patches or []) ++ [
-                # See: https://github.com/jellyfin/jellyfin-media-player/pull/279
-                ./dvbsub.patch
-              ];
               buildInputs = old.buildInputs ++ [ pkgs.makeWrapper ];
               postInstall = let
                 envvars = lib.escapeShellArgs (
