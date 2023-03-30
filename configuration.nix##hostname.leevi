@@ -210,6 +210,7 @@
 
     jitsi-meet-electron
     youtube-music
+    signal-desktop
 
     # For GNOME Keyring to work for git https protocol, use git-credential-libsecret:
     #
