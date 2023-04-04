@@ -218,6 +218,7 @@
     #
     # That binary is included in gitFull.
     gitAndTools.gitFull
+    git-extras
 
     # Choose some icon theme
     gnome3.adwaita-icon-theme
