@@ -1,0 +1,17 @@
+{
+    "SECRET_KEY_FILE": "@directory@/secret_key",
+    "DEBUG": false,
+    "ADMINS": [
+        ["Jaakko Luttinen", "jaakko.luttinen@iki.fi"]
+    ],
+    "DATABASES": {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME":   "@directory@/db.sqlite3"
+        }
+    },
+    "STATIC_ROOT": "@directory@/static/",
+    "MEDIA_ROOT": "@directory@/media/",
+    "TIME_ZONE": "Europe/Helsinki",
+    "ALLOWED_HOSTS": ["*"]
+}

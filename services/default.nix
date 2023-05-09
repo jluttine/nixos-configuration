@@ -21,5 +21,6 @@
       ./empty-domain.nix
       ./salmon.nix
       ./syncthing.nix
+      ./bayesleague.nix
     ];
 }
