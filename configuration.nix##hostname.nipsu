@@ -144,9 +144,11 @@
     # SSH server
     openssh = {
       enable = true;
-      permitRootLogin = "no";
       ports = [6662];
-      passwordAuthentication = false;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
     };
 
     # Tiny tiny RSS server
