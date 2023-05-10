@@ -6,25 +6,26 @@ let
   bayesleague = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "bayes-league";
-    version = "0.1.0";
+    version = "0.1.10";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
-      sha256 = "sha256-1234iGEjP1ZAtV0rJyXF1dHfovNnIjPWXghPX2rzYLs=";
+      sha256 = "sha256-yFBJV0XPIWAuqE25oYIsb5FVbUr2DZCytEFocJc/7Y4=";
     };
+    format = "pyproject";
     # Couldn't get the tests working. "App's aren't loaded yet"
     doCheck = false;
+    buildInputs = with pythonPackages; [
+      setuptools
+    ];
     propagatedBuildInputs = with pythonPackages; [
       django_3
       numpy
       scipy
-      jax
-      jaxlib
+      autograd
     ];
   };
-
-  pythonEnv = pythonPackages.python.withPackages ( ps: [ bayesleague ] );
 
   directory = "/var/lib/uwsgi/bayesleague";
 
@@ -38,7 +39,7 @@ let
     "manage-bayesleague"
     ''
       #!${pkgs.stdenv.shell}
-      BAYESLEAGUE_SETTINGS_JSON=${settings} ${pythonEnv}/bin/python ${bayesleague}/bin/manage.py "$@"
+      BAYESLEAGUE_SETTINGS_JSON=${settings} ${bayesleague}/bin/manage.py "$@"
     '';
 
   socketUser = "nginx";
@@ -81,9 +82,9 @@ in {
             socket = socket;
             pythonPackages = self: with self; [ bayesleague ];
             module = "website.wsgi:application";
-            # env = [
-            #   "DJANGO_SETTINGS_MODULE=${settings}"
-            # ];
+            env = [
+              "BAYESLEAGUE_SETTINGS_JSON=${settings}"
+            ];
             # Run with at least 1 process but increase up to 4 when needed
             cheaper = 1;
             processes = 4;
