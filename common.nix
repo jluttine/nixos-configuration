@@ -37,7 +37,7 @@
       editor = false;
     };
 
-    tmp.cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
 
   };
 
