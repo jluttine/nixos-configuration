@@ -32,16 +32,12 @@
 
     #kernelModules = [ "nf_conntrack_pptp" ];
 
-    # BIOS systems
-    loader.grub = {
-      version = 2;
-    };
     # UEFI systems
     loader.systemd-boot = {
       editor = false;
     };
 
-    cleanTmpDir = true;
+    tmp.cleanTmpDir = true;
 
   };
 
