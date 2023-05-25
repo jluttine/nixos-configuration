@@ -169,6 +169,7 @@
     (python3.withPackages (ps: with ps; [
       numpy
       scipy
+      ipython
       # Python language server for Emacs
       python-lsp-server
     ]))
