@@ -21,9 +21,11 @@
     # Create a group for media files
     users.groups.media = { };
     users.users.jellyfin.extraGroups = [ "media" ];
-    systemd.services.jellyfin.serviceConfig.SupplementaryGroups = [
-      "media"
-    ];
+    systemd.services.jellyfin.serviceConfig = {
+      SupplementaryGroups = ["media"];
+      # Enable /tmp folder so transcoding can put its files there
+      PrivateTmp = true;
+    };
 
     # NOTE: Don't open firewall, use Nginx as reverse proxy.
 
