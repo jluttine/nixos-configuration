@@ -91,6 +91,7 @@
 
     # Command line
     zsh
+    p7zip
 
     # RSS reader
     # rssguard
@@ -169,6 +170,7 @@
     (python3.withPackages (ps: with ps; [
       numpy
       scipy
+      pandas
       ipython
       # Python language server for Emacs
       python-lsp-server
