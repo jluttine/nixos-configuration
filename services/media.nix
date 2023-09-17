@@ -42,6 +42,11 @@
         locations = {
           "/" = {
             proxyPass = "http://localhost:8096/"; # The / is important!
+            # Caching needs to be disabled, see:
+            # https://github.com/jellyfin/jellyfin-web/issues/2525#issuecomment-1522292044
+            extraConfig = ''
+              proxy_cache off;
+            '';
           };
         };
       };
