@@ -1,6 +1,10 @@
 { lib, config, pkgs, ... }:
 let
-  pythonPackages = pkgs.python3Packages;
+  pythonPackages = pkgs.python3Packages.override {
+    overrides = self: super: {
+       django = super.django_4;
+    };
+  };
   buildPythonPackage = pythonPackages.buildPythonPackage;
 
   django-ordered-model = with pythonPackages; buildPythonPackage rec {
@@ -37,13 +41,13 @@ let
   bayesleague = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "bayes-league";
-    version = "0.3.3";
+    version = "0.9.5";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
       #sha256 = lib.fakeHash;
-      sha256 = "sha256-7sBmy3pZYL2pBbJcc3dQAyxerxJFiGTrKIrqfG0FAas=";
+      sha256 = "sha256-b506hEJTbmt+Fs5S4m/yQZ9zZlqfR96y/EWhz7gCRpk=";
     };
     format = "pyproject";
     # Couldn't get the tests working. "App's aren't loaded yet"
@@ -52,7 +56,7 @@ let
       setuptools
     ];
     propagatedBuildInputs = with pythonPackages; [
-      django_3
+      django
       numpy
       scipy
       autograd
@@ -161,6 +165,7 @@ in {
             extraConfig = ''
               uwsgi_pass unix://${socket};
               include ${pkgs.nginx}/conf/uwsgi_params;
+              uwsgi_read_timeout 600;
             '';
           };
         };
