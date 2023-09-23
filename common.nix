@@ -148,7 +148,7 @@
       enable = true;
     };
     enableGhostscriptFonts = true;
-    fonts = with pkgs; [
+    packages = with pkgs; [
       #corefonts # Microsoft free fonts
       inconsolata # monospaced
       unifont # some international languages
@@ -182,6 +182,11 @@
       publicKeyFile = ./pubkeys/kapsi.pub;
     };
   };
+
+  # Add a convenient yadm alias for working with NixOS configs
+  environment.interactiveShellInit = ''
+    alias yadm-nixos='yadm --yadm-dir /etc/nixos/.yadm/config --yadm-data /etc/nixos/.yadm/data'
+  '';
 
   # Fundamental core packages
   environment.systemPackages = with pkgs; [
