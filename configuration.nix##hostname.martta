@@ -42,7 +42,7 @@
     # Add any desired applications here. Use, for instance,
     # https://search.nixos.org/packages to search for package names.
     zoom-us
-    pinentry_qt
+    pinentry-qt
     audacity
   ];
 }
