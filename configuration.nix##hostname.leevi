@@ -195,6 +195,15 @@
 
     # Document readers
     okular
+    # Workaround for https://github.com/NixOS/nixpkgs/issues/226012
+    (krop.overridePythonAttrs (old: rec {
+      propagatedBuildInputs = with python3Packages; [
+        pyqt5
+        pypdf2
+        poppler-qt5
+        ghostscript
+      ];
+    }))
 
     # Browsers
     firefox
