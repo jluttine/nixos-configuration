@@ -204,7 +204,7 @@
     (krop.overridePythonAttrs (old: rec {
       propagatedBuildInputs = with python3Packages; [
         pyqt5
-        pypdf2
+        pypdf
         poppler-qt5
         ghostscript
       ];
