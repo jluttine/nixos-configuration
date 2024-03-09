@@ -151,6 +151,10 @@
 
     # Password manager
     pass
+    yubikey-manager-qt
+    yubikey-manager
+    yubikey-personalization-gui
+    yubikey-personalization
 
     # Separate tiling window manager
     #i3
