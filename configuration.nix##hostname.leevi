@@ -156,6 +156,10 @@
     yubikey-personalization-gui
     yubikey-personalization
 
+    # C64
+    vice
+    jstest-gtk
+
     # Separate tiling window manager
     #i3
 
