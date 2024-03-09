@@ -213,6 +213,8 @@
     lsof
     usbutils
     tree
+    pciutils
+    wirelesstools
 
     # Gamin: a file and directory monitoring system
     fam
