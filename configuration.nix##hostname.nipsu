@@ -227,7 +227,7 @@
     # the new version will have empty database. See:
     # https://nixos.org/manual/nixos/stable/index.html#module-services-postgres-upgrading
     # There is an existing script for v9->v11 upgrade under /var/lib/postgresql
-    postgresql.package = pkgs.postgresql_11;
+    postgresql.package = pkgs.postgresql_15;
 
     # DNS for dynamic IP
     ddclient = let
