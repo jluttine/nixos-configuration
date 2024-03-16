@@ -215,6 +215,7 @@
     tree
     pciutils
     wirelesstools
+    busybox
 
     # Gamin: a file and directory monitoring system
     fam

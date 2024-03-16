@@ -92,6 +92,7 @@
     # Command line
     zsh
     p7zip
+    qrencode
 
     # RSS reader
     # rssguard
