@@ -179,7 +179,10 @@
         #
         # TODO: Set up SSL on both the node and the clients, then use
         # credentials.
-        address = "127.0.0.1";
+        #
+        # NOTE: This is the binding address, so it can't be 127.0.0.1 or other
+        # machines won't be able to connect to it.
+        address = "192.168.10.10";
         port = 18081;
         restricted = true;
         ssl = {
