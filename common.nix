@@ -216,6 +216,7 @@
     pciutils
     wirelesstools
     busybox
+    nix-prefetch-github
 
     # Gamin: a file and directory monitoring system
     fam
