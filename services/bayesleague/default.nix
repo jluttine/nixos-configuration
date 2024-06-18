@@ -41,12 +41,12 @@ let
   bayesleague = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "bayes-league";
-    version = "0.10.0";
+    version = "0.11.14";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
-      sha256 = "sha256-Sjyu7v81anPaOrlIi6VHokIdDyNs9N/f5eySjy5QxL8=";
+      sha256 = "sha256-eWzq7YotvRwE3VBtstSy3QSy5eVRMaY8nd7+xmq1dZI=";
     };
     format = "pyproject";
     # Couldn't get the tests working. "App's aren't loaded yet"
@@ -121,9 +121,9 @@ in {
             env = [
               "BAYESLEAGUE_SETTINGS_JSON=${settings}"
             ];
-            # Run with at least 1 process but increase up to 4 when needed
-            cheaper = 1;
-            processes = 4;
+            # Run with at least 2 process but increase up to 8 when needed
+            cheaper = 2;
+            processes = 8;
           };
         };
       };
