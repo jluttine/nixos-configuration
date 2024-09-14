@@ -114,7 +114,7 @@
     cantata
 
     # Conda for Leanheat stuff
-    conda
+    python3Packages.conda
 
     # Panorama stitcher (with raw support)
     hugin
