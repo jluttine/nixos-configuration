@@ -23,8 +23,8 @@
 
   services = {
 
+    displayManager.sddm.enable = true;
     xserver = {
-      displayManager.sddm.enable = true;
       desktopManager.nide = {
         enable = true;
         installPackages = false;
@@ -175,7 +175,7 @@
 
     nixpkgs-review
     nixpkgs-fmt
-    nixfmt
+    nixfmt-classic
     gdb
 
     # Break timer
@@ -247,7 +247,7 @@
     git-extras
 
     # Choose some icon theme
-    gnome3.adwaita-icon-theme
+    adwaita-icon-theme
     maia-icon-theme
     # Not sure if this is needed:
     hicolor-icon-theme

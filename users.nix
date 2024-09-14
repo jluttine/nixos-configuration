@@ -28,7 +28,7 @@ in {
 
   options = {
     users.predefinedUsers = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.listOf lib.types.string);
+      type = lib.types.attrsOf (lib.types.listOf lib.types.str);
     };
   };
 

@@ -82,7 +82,7 @@
   # Hardware
   hardware = {
     # Source: https://nixos.wiki/wiki/Accelerated_Video_Playback
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver
@@ -112,6 +112,7 @@
   };
 
   services = {
+    pipewire.enable = false;
     # Printing
     printing = {
       enable = true;
@@ -120,18 +121,18 @@
     };
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
+    };
+    libinput = {
+      enable = true; # or should this be used instead of synaptics??
+      touchpad = {
+        tapping = false;
+        disableWhileTyping = true;
+      };
     };
     # Graphical environment (X server)
     xserver = {
       enable = true;
-      libinput = {
-        enable = true; # or should this be used instead of synaptics??
-        touchpad = {
-          tapping = false;
-          disableWhileTyping = true;
-        };
-      };
       synaptics = {
         enable = false;
         twoFingerScroll = true;
@@ -201,7 +202,7 @@
     unzip
     htop
     yle-dl
-    youtube-dl
+    yt-dlp
     nix-index
     dnsutils
     whois
@@ -219,7 +220,7 @@
     nix-prefetch-github
 
     # Gamin: a file and directory monitoring system
-    fam
+    #fam
 
     # Basic image manipulation and handling stuff
     imagemagick
