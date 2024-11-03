@@ -10,7 +10,7 @@
 
       # Wallets
       electrum
-      monero
+      monero-cli
       monero-gui
       #electron-cash
       #nano-wallet
