@@ -41,12 +41,12 @@ let
   bayesleague = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "bayes-league";
-    version = "0.11.14";
+    version = "0.14.1";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
-      sha256 = "sha256-eWzq7YotvRwE3VBtstSy3QSy5eVRMaY8nd7+xmq1dZI=";
+      sha256 = "sha256-PzfxS9Irifjr7cueYZ3Bmw7sjZwmOi4ZFfX5PAcMsNE=";
     };
     format = "pyproject";
     # Couldn't get the tests working. "App's aren't loaded yet"
@@ -121,9 +121,18 @@ in {
             env = [
               "BAYESLEAGUE_SETTINGS_JSON=${settings}"
             ];
-            # Run with at least 2 process but increase up to 8 when needed
-            cheaper = 2;
-            processes = 8;
+            # Run with at least 2 process but increase up to 16 when needed
+            # https://uwsgi-docs.readthedocs.io/en/latest/Cheaper.html#spare2-cheaper-algorithm
+            #
+            # cheaper-algo = "spare2";  # spare2 isn't yet available uwsgi 2.0. it'd be great
+            #
+            # It could be installed as a backport though:
+            # https://github.com/KLab/uwsgi-cheaper-spare2?tab=readme-ov-file
+            cheaper-algo = "spare";
+            cheaper = 4;
+            processes = 16;
+            cheaper-step = 4;
+            cheaper-idle = 60;  # affects spare2 only?
           };
         };
       };
