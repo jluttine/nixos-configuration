@@ -21,6 +21,23 @@
     jluttine = [ "wheel" "adbusers" ];
   };
 
+  hardware = {
+    printers = {
+      ensurePrinters = [
+        {
+          name = "HP_LaserJet_1010";
+          location = "Home";
+          deviceUri = "http://192.168.10.10:631/printers/HP_LaserJet_1010";
+          model = "drv:///sample.drv/generic.ppd";
+          ppdOptions = {
+            PageSize = "A4";
+          };
+        }
+      ];
+      ensureDefaultPrinter = "HP_LaserJet_1010";
+    };
+  };
+
   services = {
 
     displayManager.sddm.enable = true;
