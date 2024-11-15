@@ -48,6 +48,11 @@
 
   services = {
 
+    matrix-synapse = {
+      enable = false;
+      # NOTE: The configuration for Matrix Synapse is in services/matrix.nix file
+    };
+
     calibre-web = {
       enable = true;
       openFirewall = false;

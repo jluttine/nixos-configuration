@@ -22,5 +22,6 @@
       ./salmon.nix
       ./syncthing.nix
       ./bayesleague
+      ./matrix.nix
     ];
 }
