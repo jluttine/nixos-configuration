@@ -120,8 +120,8 @@
       drivers = with pkgs; [ gutenprint ];
     };
     avahi = {
-      enable = true;
-      nssmdns4 = true;
+      enable = false;
+      nssmdns = true;
     };
     libinput = {
       enable = true; # or should this be used instead of synaptics??

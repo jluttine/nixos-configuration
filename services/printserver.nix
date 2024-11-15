@@ -15,6 +15,7 @@
         enable = true;
         browsing = true;
         defaultShared = true;
+        # Should this be 192.168.10.10:631?
         listenAddresses = [ "*:631" ];
         drivers = [
           pkgs.gutenprint
@@ -22,7 +23,7 @@
         ];
       };
       avahi = {
-        enable = true;
+        enable = false;
         publish = {
           enable = true;
           userServices = true;
