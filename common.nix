@@ -121,7 +121,6 @@
     };
     avahi = {
       enable = false;
-      nssmdns = true;
     };
     libinput = {
       enable = true; # or should this be used instead of synaptics??
