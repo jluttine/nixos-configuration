@@ -7,12 +7,12 @@ let
   sportsteam = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "django-sportsteam";
-    version = "0.5.0";
+    version = "0.5.1";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
-      sha256 = "sha256-KXCF6OIi15xMiUxK4sMP8ci9c8MtMyRAlKx1wOEseiA=";
+      sha256 = "sha256-5IVb5vnoemm1HAgLzO54IWwnZZ1wcRdz3tgQUgj142I=";
     };
     # Couldn't get the tests working. "App's aren't loaded yet"
     doCheck = false;
