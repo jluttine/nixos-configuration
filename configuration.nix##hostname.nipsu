@@ -312,5 +312,8 @@
 
     vlc
 
+    # Run w_scan2 -f c -c FI --output-VLC > /home/jluttine/channels.xspf
+    w_scan2
+
   ];
 }
