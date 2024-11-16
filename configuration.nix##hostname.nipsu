@@ -110,7 +110,7 @@
     };
 
     tv = {
-      enable = true;
+      enable = false;
       domain = "tv.nipsu.fi";
       ssl = true;
     };
