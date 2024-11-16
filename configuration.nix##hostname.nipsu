@@ -248,7 +248,7 @@
       protocol = "cloudflare";
       domains = [];
       # The default web API stopped working with SSL
-      use = "web, web=api.ipify.org/, web-skip=''";
+      usev4 = "web, web=api.ipify.org/, web-skip=''";
       # nixpkgs doesn't support multiple zones so we have to use extraConfig
       extraConfig = let
         cfg = {
