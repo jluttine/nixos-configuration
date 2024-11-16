@@ -13,7 +13,7 @@
     services = {
       printing = {
         enable = true;
-        browsing = true;
+        browsing = false;
         defaultShared = true;
         # Should this be 192.168.10.10:631?
         listenAddresses = [ "*:631" ];
@@ -25,8 +25,8 @@
       avahi = {
         enable = false;
         publish = {
-          enable = true;
-          userServices = true;
+          enable = false;
+          userServices = false;
         };
       };
     };
