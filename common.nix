@@ -122,6 +122,8 @@
     avahi = {
       enable = false;
     };
+    # Browsed has security issues, disable it.
+    printing.browsed.enable = lib.mkForce false;
     libinput = {
       enable = true; # or should this be used instead of synaptics??
       touchpad = {
