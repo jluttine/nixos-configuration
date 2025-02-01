@@ -325,6 +325,8 @@
 
     jellyfin-media-player
 
+    pdftk
+
   ];
 
 }
