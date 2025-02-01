@@ -254,7 +254,6 @@
 
     # Yet another dotfile manager
     yadm
-    gnupg1orig
 
     # Password hash generator
     mkpasswd
