@@ -149,6 +149,7 @@
     tdesktop
     #linphone
     element-desktop
+    whatsapp-for-linux
 
     # Encryption
     openssl
@@ -166,6 +167,7 @@
     haskellPackages.hoogle
     cabal-install
     shellcheck
+    gh
 
     # Password manager
     pass
