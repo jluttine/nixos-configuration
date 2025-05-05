@@ -84,6 +84,7 @@
     # Source: https://nixos.wiki/wiki/Accelerated_Video_Playback
     graphics = {
       enable = true;
+      # VLC hardware decoding broken atm. See: https://github.com/NixOS/nixpkgs/pull/367290
       extraPackages = with pkgs; [
         intel-media-driver
         vaapiIntel
