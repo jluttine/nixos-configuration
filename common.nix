@@ -26,6 +26,22 @@
     keep-outputs = true;
     tarball-ttl = 0;
   };
+  nixpkgs.overlays = [
+     (
+       self: super: {
+         # See: https://github.com/NixOS/nixpkgs/pull/367290#issuecomment-2665002770
+         vlc = super.vlc.overrideAttrs (
+           oldAttrs: {
+             patches = oldAttrs.patches ++ [(super.fetchpatch {
+               name = "vlc-vaapi-with-latest-ffmpeg.patch";
+               url = "https://code.videolan.org/videolan/vlc/-/commit/ba5dc03aecc1d96f81b76838f845ebde7348cf62.patch";
+               sha256 = "sha256-s6AI9O0V3AKOyw9LbQ9CgjaCi5m5+nLacKNLl5ZLC6Q=";
+             })];
+           }
+         );
+       }
+     )
+  ];
 
   # Use the GRUB 2 boot loader.
   boot = {
@@ -87,9 +103,10 @@
       # VLC hardware decoding broken atm. See: https://github.com/NixOS/nixpkgs/pull/367290
       extraPackages = with pkgs; [
         intel-media-driver
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
+        intel-vaapi-driver
+        #vaapiIntel
+        #vaapiVdpau
+        #libvdpau-va-gl
       ];
     };
     pulseaudio = {
