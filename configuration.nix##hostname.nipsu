@@ -129,9 +129,9 @@
     };
 
     tuhlaajapojat = {
-      enable = true;
+      enable = false;
       mailserver = {
-        enable = true;
+        enable = false;
       };
     };
 
@@ -283,7 +283,7 @@
       extraConfig = let
         cfg = {
           "nipsu.fi" = [ "nipsu.fi" ];
-          "tuhlaajapojat.fi" = [ "tuhlaajapojat.fi" ];
+          #"tuhlaajapojat.fi" = [ "tuhlaajapojat.fi" ];
         };
       in lib.concatStrings (
         lib.mapAttrsToList (
