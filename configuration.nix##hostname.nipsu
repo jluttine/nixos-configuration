@@ -85,8 +85,38 @@
     syncthing = {
       enable = true;
       defaultVersioning = {
-        type = "trashcan";
-        params.cleanoutDays = "30";
+        type = "staggered";
+        params = {
+          # 365d * 24h/d * 3600s/h
+          maxAge = "31536000";
+        };
+      };
+      # For these folders we don't need to keep the backups that long
+      settings.folders = {
+        Kamera-Jaakko.versioning = {
+          type = "trashcan";
+          params.cleanoutDays = "3";
+        };
+        Kamera-Meri.versioning = {
+          type = "trashcan";
+          params.cleanoutDays = "3";
+        };
+        Kalenteri-Jaakko.versioning = {
+          type = "trashcan";
+          params.cleanoutDays = "3";
+        };
+        Kalenteri-Yhteinen.versioning = {
+          type = "trashcan";
+          params.cleanoutDays = "3";
+        };
+        Kontaktit-Jaakko.versioning = {
+          type = "trashcan";
+          params.cleanoutDays = "3";
+        };
+        Puhelut-Jaakko.versioning = {
+          type = "trashcan";
+          params.cleanoutDays = "3";
+        };
       };
     };
 
