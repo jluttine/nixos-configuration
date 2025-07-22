@@ -118,9 +118,6 @@
 
     w_scan
 
-    # Disk usage analysis
-    filelight
-
     # Audio editor
     audacity
 
@@ -171,7 +168,7 @@
 
     # Password manager
     pass
-    yubikey-manager-qt
+    #yubikey-manager-qt  # deprecated
     yubikey-manager
     yubikey-personalization-gui
     yubikey-personalization
@@ -210,24 +207,14 @@
     ]))
 
     # File manager
-    dolphin
+    kdePackages.dolphin
     fish  # SSH support for dolphin
-    libsForQt5.kio-extras
-
-    # Archives (e.g., tar.gz and zip)
-    ark
-
-    # Screenshots
-    spectacle
-
-    # Bluetooth
-    bluedevil
+    kdePackages.kio-extras
 
     # Printing and scanning
     simple-scan
 
     # Document readers
-    okular
     # Workaround for https://github.com/NixOS/nixpkgs/issues/226012
     (krop.overridePythonAttrs (old: rec {
       propagatedBuildInputs = with python3Packages; [
@@ -245,8 +232,6 @@
     # Email
     thunderbird
 
-    # Photo/image editor
-    gwenview
     # Gimp requires this, see: https://github.com/NixOS/nixpkgs/issues/60918
     #gnome3.gnome-themes-extra
 

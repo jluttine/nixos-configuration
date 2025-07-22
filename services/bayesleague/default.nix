@@ -65,9 +65,7 @@ let
 
   directory = "/var/lib/uwsgi/bayesleague";
 
-  settings = pkgs.substituteAll {
-    name = "bayesleague-settings";
-    src = ./settings.json;
+  settings = pkgs.replaceVars ./settings.json {
     inherit directory;
   };
 

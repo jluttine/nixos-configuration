@@ -109,16 +109,6 @@
         #libvdpau-va-gl
       ];
     };
-    pulseaudio = {
-      enable = true;
-    } // (
-      # NixOS allows either a lightweight build (default) or full build of
-      # PulseAudio to be installed. Only the full build has Bluetooth support,
-      # so it must be selected if bluetooth is enabled.
-      if config.hardware.bluetooth.enable
-      then { package = pkgs.pulseaudioFull; }
-      else { }
-    );
     sane.enable = true;
     firmware = [
       pkgs.libreelec-dvb-firmware
@@ -130,6 +120,16 @@
   };
 
   services = {
+    pulseaudio = {
+      enable = true;
+    } // (
+      # NixOS allows either a lightweight build (default) or full build of
+      # PulseAudio to be installed. Only the full build has Bluetooth support,
+      # so it must be selected if bluetooth is enabled.
+      if config.hardware.bluetooth.enable
+      then { package = pkgs.pulseaudioFull; }
+      else { }
+    );
     pipewire.enable = false;
     # Printing
     printing = {
@@ -226,7 +226,7 @@
     dnsutils
     whois
     coreutils
-    vbetool
+    #vbetool
     killall
     nethogs
     binutils
@@ -250,7 +250,7 @@
 
     # Text editors
     vim
-    kate
+    kdePackages.kate
     xclip  # system clipboard support for vim
 
     # VPN
@@ -305,7 +305,7 @@
     croc
 
     # Disk usage analysis
-    filelight
+    kdePackages.filelight
 
     # Browsers
     firefox
@@ -325,21 +325,21 @@
     simple-scan
 
     # Document readers
-    okular
+    kdePackages.okular
 
     # Photo/image editor
-    gwenview
+    kdePackages.gwenview
     digikam
     gimp-with-plugins
 
     # Archives (e.g., tar.gz and zip)
-    ark
+    kdePackages.ark
 
     # Screenshots
-    spectacle
+    kdePackages.spectacle
 
     # Bluetooth
-    bluedevil
+    kdePackages.bluedevil
 
     jellyfin-media-player
 
