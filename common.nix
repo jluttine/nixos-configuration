@@ -303,7 +303,9 @@
     mpv
 
     # Office suit
-    libreoffice
+    libreoffice-qt-fresh
+    hunspell  #hunspellDicts is missing Finnish..
+    libvoikko
 
     # Printing and scanning
     simple-scan
