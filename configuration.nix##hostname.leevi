@@ -124,12 +124,6 @@
     # Screen recorder
     simplescreenrecorder
 
-    # MPD client
-    cantata
-
-    # Conda for Leanheat stuff
-    python3Packages.conda
-
     # Panorama stitcher (with raw support)
     hugin
     #dcraw # marked as insecure
