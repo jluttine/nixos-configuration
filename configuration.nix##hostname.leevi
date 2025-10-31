@@ -134,6 +134,8 @@
     hugin
     #dcraw # marked as insecure
 
+    inkscape
+
     #kdenlive
     ffmpeg-full
     # mlt
