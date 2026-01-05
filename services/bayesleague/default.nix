@@ -41,12 +41,12 @@ let
   bayesleague = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "bayes-league";
-    version = "0.17.4";
+    version = "0.18.9";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
-      sha256 = "sha256-5/5IIC/+B308l0Ucx+ouwXCWra9uOSTJ9DNBWwKl8P4=";
+      sha256 = "sha256-jtugAmRcxE3Nas7CXdNo9JZjCx2wv9dSKtujUR/1m0I=";
     };
     format = "pyproject";
     # Couldn't get the tests working. "App's aren't loaded yet"
@@ -60,6 +60,8 @@ let
       scipy
       autograd
       django-ordered-model
+      django-silk
+      beautifulsoup4
     ];
   };
 
