@@ -68,6 +68,7 @@
                 "Nipsu"
                 "Taskuloinen"
                 "MerinOnePlus"
+                "MerinPixel"
               ];
             };
             Kamera-Jaakko = {
@@ -81,6 +82,7 @@
               devices = [
                 "Martta"
                 "MerinOnePlus"
+                "MerinPixel"
                 "Nipsu"
               ];
             };
@@ -114,6 +116,7 @@
               devices = [
                 "Martta"
                 "MerinOnePlus"
+                "MerinPixel"
                 "Nipsu"
               ];
             };
@@ -122,6 +125,7 @@
                 "Leevi"
                 "Martta"
                 "MerinOnePlus"
+                "MerinPixel"
                 "Nipsu"
                 "Taskuloinen"
               ];
@@ -138,6 +142,7 @@
                 "Leevi"
                 "Martta"
                 "MerinOnePlus"
+                "MerinPixel"
                 "Nipsu"
                 "Taskuloinen"
               ];
