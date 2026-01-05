@@ -26,22 +26,27 @@
     # NOTE: Don't open firewall, use Nginx as reverse proxy.
 
     # Kodi frontend. See: https://nixos.wiki/wiki/Kodi
-    environment.systemPackages = with pkgs; [
-      (kodi.passthru.withPackages (kodiPkgs: with kodiPkgs; [
-        pvr-hts
-      ]))
-    ];
+    #environment.systemPackages = with pkgs; [
+    #  (kodi.passthru.withPackages (kodiPkgs: with kodiPkgs; [
+    #    pvr-hts
+    #  ]))
+    #];
 
     # Reverse proxy so we can have domain name and SSL
     services.nginx = {
       enable = true;
-      recommendedProxySettings = true;
       virtualHosts."${cfg.domain}" = {
         forceSSL = cfg.ssl;
         enableACME = cfg.ssl;
         locations = {
           "/" = {
             proxyPass = "http://localhost:9981/"; # The / is important!
+            recommendedProxySettings = true;
+            # https://tvheadend.org/d/5034-only-epg-elements-in-ui/14
+            extraConfig = ''
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection "upgrade";
+            '';
           };
         };
       };
