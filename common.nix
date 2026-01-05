@@ -207,6 +207,7 @@
     yle-dl
     yt-dlp
     nix-index
+    nix-tree
     dnsutils
     whois
     coreutils
