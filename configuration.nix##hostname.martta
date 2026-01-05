@@ -48,7 +48,7 @@
       displayManager.sddm.settings = {
         X11.ServerArguments = "-nolisten tcp -dpi 128";
       };
-      desktopManager.plasma5.enable = true;
+      desktopManager.plasma6.enable = true;
     };
   };
   programs = {

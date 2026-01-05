@@ -312,7 +312,7 @@
       #   EnableHiDPI=false
       # '';
       displayManager.lightdm.enable = true;
-      desktopManager.plasma5.enable = true;
+      desktopManager.plasma6.enable = true;
     };
   };
 
@@ -336,7 +336,7 @@
     syncplay
 
     # VLC was failing on July 23, 2020. Dragon seemed to work fine.
-    dragon
+    kdePackages.dragon
 
     # Disk usage analysis on the command-line
     ncdu
