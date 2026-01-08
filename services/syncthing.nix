@@ -88,12 +88,14 @@
             };
             Kalenteri-Jaakko = {
               devices = [
+                "Leevi"
                 "Nipsu"
                 "Taskuloinen"
               ];
             };
             Kalenteri-Yhteinen = {
               devices = [
+                "Leevi"
                 "Nipsu"
                 "Taskuloinen"
                 "MerinOnePlus"
