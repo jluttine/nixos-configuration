@@ -40,6 +40,10 @@
 
   services = {
 
+    # Needed for trash:// to work in pcmanfm file manager
+    # https://unix.stackexchange.com/questions/8790/where-is-the-trash-directory-for-pcmanfm-and-xfe
+    gvfs.enable = true;
+
     displayManager.sddm.enable = true;
     xserver = {
       desktopManager.nide = {
