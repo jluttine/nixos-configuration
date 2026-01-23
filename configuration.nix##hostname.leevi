@@ -203,9 +203,7 @@
     ]))
 
     # File manager
-    kdePackages.dolphin
-    fish  # SSH support for dolphin
-    kdePackages.kio-extras
+    pcmanfm
 
     # Printing and scanning
     simple-scan
