@@ -116,7 +116,7 @@
     #feedreader
     rssguard
 
-    w_scan
+    w_scan2
 
     # Audio editor
     audacity
@@ -136,13 +136,13 @@
     # frei0r
 
     # HDR photography
-    luminanceHDR
+    #luminanceHDR
 
     # Instant messaging
-    tdesktop
+    telegram-desktop
     #linphone
     element-desktop
-    whatsapp-for-linux
+    wasistlos
 
     # Encryption
     openssl
@@ -152,8 +152,8 @@
 
     # Programming
     emacs
-    gitAndTools.gitflow
-    gitAndTools.hub
+    gitflow
+    hub
     ripgrep
     fd
     haskell-language-server
@@ -164,9 +164,7 @@
 
     # Password manager
     pass
-    #yubikey-manager-qt  # deprecated
     yubikey-manager
-    yubikey-personalization-gui
     yubikey-personalization
 
     # C64
@@ -241,7 +239,7 @@
     #   git config --global credential-helper /run/current-system/sw/bin/git-credential-libsecret
     #
     # That binary is included in gitFull.
-    gitAndTools.gitFull
+    gitFull
     git-extras
 
     # Choose some icon theme

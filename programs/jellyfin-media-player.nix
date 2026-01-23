@@ -29,7 +29,7 @@
                   )
                 );
               in (old.postInstall or "") + ''
-                wrapProgram "$out/bin/jellyfinmediaplayer" ${envvars}
+                wrapProgram "$out/bin/jellyfin-desktop" ${envvars}
               '';
             }
           );

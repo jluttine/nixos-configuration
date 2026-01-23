@@ -163,7 +163,7 @@
       liberation-sans-narrow
       ttf_bitstream_vera
       libertine
-      ubuntu_font_family
+      ubuntu-classic
       gentium
       # Good monospace fonts
       source-code-pro
@@ -277,7 +277,7 @@
     cryptsetup
 
     # GPG password entry from the terminal
-    pinentry
+    pinentry-qt
 
     # GUI for sound control
     pavucontrol
