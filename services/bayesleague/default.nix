@@ -41,12 +41,12 @@ let
   bayesleague = buildPythonPackage rec {
     name = "${pname}-${version}";
     pname = "bayes-league";
-    version = "0.18.9";
+    version = "0.18.10";
     src = pkgs.fetchFromGitHub {
       owner = "jluttine";
       repo = pname;
       rev = version;
-      sha256 = "sha256-jtugAmRcxE3Nas7CXdNo9JZjCx2wv9dSKtujUR/1m0I=";
+      sha256 = "sha256-uI6CPaLNLwsGRvaNxC40GTOO2atJcO5KIwz92VawYaA=";
     };
     format = "pyproject";
     # Couldn't get the tests working. "App's aren't loaded yet"
