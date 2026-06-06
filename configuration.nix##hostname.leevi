@@ -83,13 +83,15 @@
   };
 
   programs = {
-    adb.enable = true;
     kdeconnect.enable = true;
     cryptos.enable = true;
     direnv.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
+
+    # adb etc
+    android-tools
 
     tuxedo-touchpad-switch
 
