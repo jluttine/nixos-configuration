@@ -213,15 +213,7 @@
     simple-scan
 
     # Document readers
-    # Workaround for https://github.com/NixOS/nixpkgs/issues/226012
-    (krop.overridePythonAttrs (old: rec {
-      propagatedBuildInputs = with python3Packages; [
-        pyqt5
-        pypdf
-        poppler-qt5
-        ghostscript
-      ];
-    }))
+    #krop
 
     # Browsers
     firefox
