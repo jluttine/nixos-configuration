@@ -191,7 +191,7 @@
 
     nixpkgs-review
     nixpkgs-fmt
-    nixfmt-classic
+    nixfmt
     gdb
 
     # Break timer
@@ -229,7 +229,7 @@
     vlc
 
     jitsi-meet-electron
-    youtube-music
+    pear-desktop
     signal-desktop
 
     # For GNOME Keyring to work for git https protocol, use git-credential-libsecret:
@@ -242,7 +242,7 @@
 
     # Choose some icon theme
     adwaita-icon-theme
-    maia-icon-theme
+    #maia-icon-theme
     # Not sure if this is needed:
     hicolor-icon-theme
   ];
