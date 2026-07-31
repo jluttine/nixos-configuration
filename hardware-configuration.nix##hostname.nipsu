@@ -35,8 +35,8 @@
     "luks-nixos-var" = {
       device = "/dev/vg-nixos-var/lv-nixos-var";
       # luks-nixos-var is contained inside an LVM so it needs to be opened after
-      # LVM has been activated
-      preLVM = false;
+      # LVM has been activated. This isn't needed anymore with systemd boot.
+      #preLVM = false;
     };
   };
 
