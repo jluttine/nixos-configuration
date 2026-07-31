@@ -2,7 +2,7 @@
 let
   pythonPackages = pkgs.python3Packages.override {
     overrides = self: super: {
-       django = super.django_4;
+       django = super.django_5;
     };
   };
   buildPythonPackage = pythonPackages.buildPythonPackage;
@@ -60,7 +60,7 @@ let
       scipy
       autograd
       django-ordered-model
-      django-silk
+      #django-silk
       beautifulsoup4
     ];
   };
