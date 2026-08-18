@@ -149,6 +149,13 @@
                 "Taskuloinen"
               ];
             };
+            Taskuloinen-Varmuuskopiot = {
+              devices = [
+                "Leevi"
+                "Nipsu"
+                "Taskuloinen"
+              ];
+            };
             Lompakot = {
               devices = [
                 "Leevi"
