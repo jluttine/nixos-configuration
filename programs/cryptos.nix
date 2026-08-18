@@ -9,9 +9,7 @@
     environment.systemPackages = with pkgs; [
 
       # Wallets
-      # python.ecdsa dropped, electrum broken
-      # See: https://github.com/NixOS/nixpkgs/pull/456881
-      #electrum
+      electrum
       monero-cli
       monero-gui
       #electron-cash
