@@ -167,6 +167,9 @@
     cabal-install
     shellcheck
     gh
+    opencode
+    opencode-desktop
+    opencode-claude-auth
 
     # Password manager
     pass
