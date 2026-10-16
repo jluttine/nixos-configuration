@@ -49,7 +49,8 @@
 
   services = {
 
-    dex.enable = true;
+    # Wiki with real-time collaboration
+    outline.enable = true;
 
     matrix-synapse = {
       enable = false;
