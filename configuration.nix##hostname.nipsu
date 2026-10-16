@@ -49,6 +49,8 @@
 
   services = {
 
+    dex.enable = true;
+
     matrix-synapse = {
       enable = false;
       # NOTE: The configuration for Matrix Synapse is in services/matrix.nix file
