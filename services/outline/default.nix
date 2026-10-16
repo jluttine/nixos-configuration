@@ -3,10 +3,10 @@
 with lib;
 
 let
-  secretFile = "/var/lib/dex/secrets/outline";
+  secretFile = "/var/lib/outline/dex_secret";
   url = "outline.nipsu.fi";
 in {
-  config = mkIf services.outline.enable {
+  config = mkIf config.services.outline.enable {
 
     # Outline uses BSL license. It's open-source but doesn't allow commercial
     # use. Perhaps we're ok with that for now.
@@ -40,7 +40,7 @@ in {
         tokenUrl = "https://dex.nipsu.fi/token";
         userinfoUrl = "https://dex.nipsu.fi/userinfo";
         clientId = "outline";
-        secretFile = secretFile;
+        clientSecretFile = secretFile;
         scopes = [ "openid" "email" "profile" ];
         usernameClaim = "preferred_username";
         displayName = "Dex";
