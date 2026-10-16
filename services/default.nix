@@ -24,5 +24,6 @@
       ./bayesleague
       ./matrix.nix
       ./dex
+      ./outline
     ];
 }
