@@ -23,6 +23,6 @@
       ./syncthing.nix
       ./bayesleague
       ./matrix.nix
-      ./dex.nix
+      ./dex
     ];
 }

@@ -1,11 +1,14 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-{
+
+let
+  url = "dex.nipsu.fi";
+in {
   config = mkIf config.services.dex.enable {
 
     services.dex.settings = {
-      issuer = mkDefault "https://dex.nipsu.fi";
+      issuer = "https://${url}";
       storage.type = "sqlite3";
       web.http = "127.0.0.1:5556";
       enablePasswordDB = true;
