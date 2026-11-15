@@ -196,6 +196,29 @@
     };
   };
 
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    configure = {
+      # Neovim wrapper in NixOS doesn't read ~/.config/nvim/init.lua by default.
+      # Let's explicitly read it.
+      customLuaRC = ''
+        local config = vim.fn.stdpath("config") .. "/init.lua"
+        if vim.fn.filereadable(config) == 1 then
+            dofile(config)
+        end
+      '';
+      packages.myPlugins = with pkgs.vimPlugins; {
+        start = [
+          base16-nvim
+          vim-nix
+        ];
+        opt = []; 
+      };
+    };
+  };
+
   # Add a convenient yadm alias for working with NixOS configs
   environment.interactiveShellInit = ''
     alias yadm-nixos='yadm --yadm-dir /etc/nixos/.yadm/config --yadm-data /etc/nixos/.yadm/data'
@@ -243,7 +266,6 @@
     mupdf
 
     # Text editors
-    vim
     kdePackages.kate
     xclip  # system clipboard support for vim
 

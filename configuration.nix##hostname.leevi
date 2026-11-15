@@ -153,7 +153,11 @@
     };
     kdeconnect.enable = true;
     cryptos.enable = true;
-    direnv.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+  };
 
   systemd.user.services.umbriel = {
     environment = {
@@ -248,9 +252,13 @@
     cabal-install
     shellcheck
     gh
-    opencode
-    opencode-desktop
-    opencode-claude-auth
+
+    # Don't install these globally! Install them in project shells and sandbox
+    # with bubblewrap.
+    #
+    #opencode
+    #opencode-desktop
+    #opencode-claude-auth
 
     # Password manager
     pass
