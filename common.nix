@@ -7,13 +7,13 @@
 {
 
   imports = let
-    nide = builtins.fetchTarball "https://github.com/jluttine/NiDE/archive/master.tar.gz";
+    #nide = builtins.fetchTarball "https://github.com/jluttine/NiDE/archive/master.tar.gz";
   in [
     ./hardware-configuration.nix
     ./services
     ./programs
     ./users.nix
-    "${nide}/nix/configuration.nix"
+    #"${nide}/nix/configuration.nix"
   ];
 
   nix.settings = {
@@ -134,13 +134,13 @@
       };
     };
     # Graphical environment (X server)
-    xserver = {
-      enable = true;
-      synaptics = {
-        enable = false;
-        twoFingerScroll = true;
-      };
-    };
+    # xserver = {
+    #   enable = true;
+    #   synaptics = {
+    #     enable = false;
+    #     twoFingerScroll = true;
+    #   };
+    # };
     # Automatic device mounting daemon
     devmon.enable = true;
     # Bluetooth stuff

@@ -73,14 +73,48 @@
   # Touchpad on/off toggle
   services.actkbd = {
     enable = true;
-    bindings = [
+    bindings = let
+      light = "${pkgs.brightnessctl}/bin/brightnessctl";
+      step = "5";
+    in [
       {
         keys = [ 29 85 125 ];
         events = [ "key" ];
         command = "${pkgs.tuxedo-touchpad-switch}/bin/tuxedo-touchpad-toggle";
       }
+      # Keybindings for adjusting monitor brightness. Adjusting brightness with
+      # actkbd+brightnessctl is nice because it's independent of X and works in
+      # ttys.
+      {
+        keys = [ 224 ];
+        events = [ "key" ];
+        # Use minimum brightness 0.1 so the display won't go totally black.
+        command = "${light} --min-value=1 set ${step}%-";
+      }
+      {
+        keys = [ 225 ];
+        events = [ "key" ];
+        command = "${light} set +${step}%";
+      }
     ];
   };
+
+  # Set fonts
+  fonts.packages = with pkgs; [
+    noto-fonts
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
+  ];
+  fonts.fontconfig.defaultFonts = {
+    monospace = [ "JetBrainsMono NF" ];
+    sansSerif = [ "Noto Sans" ];
+    serif = [ "Noto Serif" ];
+  };
+
+  # Enable users to modify brightness. NOTE: User must belong to video group!
+  # (These modify udev rules, so if you just enabled this, probably best to
+  # reboot.)
+  hardware.acpilight.enable = true;
 
   programs = {
     kdeconnect.enable = true;
