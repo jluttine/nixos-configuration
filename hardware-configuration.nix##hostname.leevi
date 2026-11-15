@@ -40,5 +40,15 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+  # Tuxedo specific support. However, the fans might have become a bit louder
+  # after setting these.. So, maybe remove these if needed?
+  # hardware.tuxedo-rs = {
+  #   enable = true;
+  #   tailor-gui.enable = true;
+  # };
+  hardware.tuxedo-drivers = {
+    enable = true;
+  };
+
   #hardware.tuxedo-keyboard.enable = true;  # This isn't actually needed for anything
 }
