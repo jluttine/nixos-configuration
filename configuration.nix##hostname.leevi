@@ -40,17 +40,42 @@
 
   services = {
 
+    # Let's try TLP instead of power-profiles-daemon. (I suppose
+    # power-profiles-daemon is enabled by default by Noctalia?)
+    # tlp = {
+    #   enable = true;
+    #   # I suppose Noctalia Power Profile uses this?
+    #   pd.enable = true;
+    #   #settings = { ... };
+    # };
+    # power-profiles-daemon.enable = false;
+
     # Needed for trash:// to work in pcmanfm file manager
     # https://unix.stackexchange.com/questions/8790/where-is-the-trash-directory-for-pcmanfm-and-xfe
     gvfs.enable = true;
 
-    displayManager.sddm.enable = true;
-    xserver = {
-      desktopManager.nide = {
+    displayManager = {
+      noctalia-greeter = {
         enable = true;
-        installPackages = false;
+        settings = {
+          keyboard = {
+            layout = "fi";
+          };
+          idle.timeout = 300;
+        };
       };
     };
+    #displayManager.sddm.enable = true;
+    #programs.sway = {
+    #  enable = true;
+    #  xwayland.enable = false;
+    #};
+    #xserver = {
+    #  desktopManager.nide = {
+    #    enable = true;
+    #    installPackages = false;
+    #  };
+    #};
 
     syncthing = {
       enable = true;
@@ -58,10 +83,6 @@
       group = "users";
       dataDir = "/home/jluttine/.syncthing";
       configDir = "/home/jluttine/.syncthing/.config";
-    };
-
-    tlp = {
-      enable = false;  # not supported.. :(
     };
 
     autorandr.enable = true;
@@ -117,12 +138,38 @@
   hardware.acpilight.enable = true;
 
   programs = {
+    #hyprland = {
+    #  enable = true;
+    #  withUWSM = true;
+    #  xwayland.enable = false;
+    #};
+    noctalia = {
+      enable = true;
+      systemd.enable = true;
+      recommendedServices.enable = true;
+    };
+    umbriel = {
+      enable = true;
+    };
     kdeconnect.enable = true;
     cryptos.enable = true;
     direnv.enable = true;
+
+  systemd.user.services.umbriel = {
+    environment = {
+      XDG_CONFIG_HOME = "%h/.config";
+      XDG_DATA_HOME = "%h/.local/share";
+      XDG_CACHE_HOME = "%h/.cache";
+    };
   };
 
   environment.systemPackages = with pkgs; [
+
+    swayimg
+    alacritty
+    # Unfortunately, there aren't really other alternatives for adding
+    # secret service support to NetworkManager..
+    networkmanagerapplet
 
     # adb etc
     android-tools
@@ -207,6 +254,7 @@
 
     # Password manager
     pass
+    pass-secret-service
     yubikey-manager
     yubikey-personalization
 
