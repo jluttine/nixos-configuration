@@ -177,7 +177,7 @@
     tuxedo-touchpad-switch
 
     # LaTeX
-    texlive.combined.scheme-full
+    texliveFull
 
     # OpenStreetMap editor
     josm
@@ -188,7 +188,7 @@
     # Zotero client
     #qnotero
 
-    encfs
+    #encfs
 
     # Diff tools
     kdiff3
@@ -238,7 +238,7 @@
     nix-index
 
     # Programming
-    emacs
+    emacs-pgtk
     gitflow
     hub
     ripgrep
@@ -315,7 +315,7 @@
     # Media player
     vlc
 
-    jitsi-meet-electron
+    #jitsi-meet-electron
     pear-desktop
     signal-desktop
 

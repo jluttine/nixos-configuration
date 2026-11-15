@@ -170,7 +170,7 @@
       open-sans
       liberation_ttf
       liberation-sans-narrow
-      ttf_bitstream_vera
+      ttf-bitstream-vera
       libertine
       ubuntu-classic
       gentium
@@ -272,10 +272,10 @@
     openssl
 
     # Android
-    jmtpfs
-    gphoto2
-    libmtp
-    mtpfs
+    #jmtpfs
+    #gphoto2
+    #libmtp
+    #mtpfs
 
     nix-prefetch-git
 
@@ -313,7 +313,7 @@
     mpv
 
     # Office suit
-    libreoffice-qt-fresh
+    libreoffice-qt
     hunspell  #hunspellDicts is missing Finnish..
     libvoikko
 
