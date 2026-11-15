@@ -103,9 +103,11 @@
     };
   };
 
+  # For PipeWire performance
+  security.rtkit.enable = true;
   services = {
     pulseaudio = {
-      enable = true;
+      enable = false;
     } // (
       # NixOS allows either a lightweight build (default) or full build of
       # PulseAudio to be installed. Only the full build has Bluetooth support,
@@ -114,7 +116,14 @@
       then { package = pkgs.pulseaudioFull; }
       else { }
     );
-    pipewire.enable = false;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      # If you want to use JACK applications, uncomment the following
+      #jack.enable = true;
+    };
     # Printing
     printing = {
       enable = true;
