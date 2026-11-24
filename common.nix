@@ -18,6 +18,7 @@
 
   nix.settings = {
     sandbox = true;
+    experimental-features = [ "nix-command" "flakes" ];
     # See: https://github.com/nix-community/nix-direnv#usage
     #
     # Also, do not cache when fetching tarballs without sha256. Then, NiDE
